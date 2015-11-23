@@ -1,0 +1,116 @@
+@startuml
+
+box "Client side" #ffffff
+  actor User
+  database LocalStore
+  participant Client
+end box
+  box "Server side" #ffffff
+  participant Server
+  database Store
+end box
+
+== Initialization ==
+User --> Client: Connect
+activate Client
+Client -> Server: Establish socket
+activate Server
+Server -> Client: Send version info
+Client -> Server: Handshake
+Server -> Store: Dispatch action
+activate Store
+Store -> Store: Create User
+Store --> Server: Response
+deactivate Store
+Server -> Client: Send initial store
+deactivate Server
+Client -> LocalStore: Create store
+LocalStore -> User: Render view
+deactivate Client
+
+newpage
+
+== Requesting information ==
+
+User -> Client: Event
+activate Client
+Client -> Client: Create bare action
+Client -> LocalStore: Dispatch
+activate LocalStore
+LocalStore -> Client: Create request
+activate Client
+Client -> Server: Send request
+activate Server
+Store --> Server: Get data
+Server -> Server: Process data
+Server -> Client: Return data
+deactivate Server
+Client -> LocalStore: Pass response
+deactivate Client
+LocalStore -> LocalStore: Process action
+LocalStore -> User: Render view
+LocalStore --> Client: Callback
+deactivate Client
+deactivate LocalStore
+
+newpage
+
+== Requesting action ==
+
+...User requests an action...
+
+User -> Client: Event
+activate Client
+Client -> Client: Create action
+Client -> LocalStore: Dispatch
+activate LocalStore
+LocalStore -> Client: Create request
+activate Client
+Client -> Server: Send request
+activate Server
+alt Success
+  Server -> Store: Dispatch action
+  activate Store
+  Store -> Store: Process
+  Store --> Server: Response
+  deactivate Store
+  Server -> Client: Return action
+else Error
+  Server -> Store: Dispatch action
+  activate Store
+  Store -> Store: Process
+  Store --> Server: Throw error
+  deactivate Store
+  Server -> Client: Return error
+end alt
+deactivate Server
+Client -> LocalStore: Pass response
+deactivate Client
+LocalStore -> LocalStore: Process action
+LocalStore -> User: Render view
+LocalStore --> Client: Callback
+deactivate LocalStore
+deactivate Client
+
+newpage
+
+== Receiving action ==
+
+...Other user requests an action...
+
+Store --> Server: Notify action
+activate Server
+Server -> Server: Choose whom to send
+loop Per user
+Server -> Client: Dispatch action
+activate Client
+Client -> LocalStore: Dispatch action
+deactivate Client
+activate LocalStore
+LocalStore -> LocalStore: Process action
+LocalStore -> User: Render view
+deactivate LocalStore
+end loop
+deactivate Server
+
+@enduml
