@@ -1,0 +1,39 @@
+digraph g {
+  graph[label="Structure",labelloc=t, labeljust=l];
+  node[shape="box"];
+
+  Client[shape="oval"];
+  Server[shape="oval"];
+  Shared[shape="oval"];
+
+  Redux[shape="plaintext"];
+  React[shape="plaintext"];
+  WebSocket[shape="plaintext"];
+  HTTP[shape="plaintext"];
+
+  WebSocket -> HTTP;
+
+  Client -> Shared;
+  Server -> Shared;
+
+  Shared -> Action -> Reducer -> Store -> Redux;
+  Action -> Middleware -> Store;
+
+  Client -> NetClient -> Command -> WebSocket;
+  Command -> HTTP;
+  NetClient -> Poll -> WebSocket;
+
+  Client -> View -> Container -> Component -> React;
+  Container -> Redux;
+
+  Server -> NetServer -> ServeStatic -> HTTP;
+  NetServer -> Connector -> WebSocket;
+  Connector -> HTTP;
+
+  Server -> ServerAction -> ServerMiddleware;
+  Client -> ClientAction -> ClientMiddleware;
+
+  { rank=same; Client Server };
+  { rank=same; Redux React WebSocket HTTP };
+
+}
