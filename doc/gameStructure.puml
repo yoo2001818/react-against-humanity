@@ -1,0 +1,92 @@
+@startuml
+
+namespace objects {
+
+  Player o- User
+
+  class User {
+    int id
+    String name
+    Room room
+  }
+
+  Player *-- Deck
+
+  class Player {
+    Room room
+    User user
+    int score
+    Deck deck
+    bool czar
+    bool host
+  }
+
+  Room *-- Turn
+  Room *-- Player
+
+  class Room {
+    int id
+    String name
+    Player host
+    Player[] players
+    int playerCount
+    Turn[] turns
+    int turnCount
+    Turn currentTurn
+  }
+
+  Turn o- Player
+  Turn *-- AnswerDeck
+  Turn o-- QuestionCard
+
+  class Turn {
+    int id
+    Room room
+    Player czar
+    QuestionCard question
+    AnswerDeck[] answers
+  }
+
+  Deck <|-- AnswerDeck
+  AnswerDeck o- AnswerCard
+
+  class AnswerDeck {
+    Player owner
+  }
+
+  Deck o- Card
+
+  class Deck {
+    Card[] cards
+    int cardCount
+  }
+
+  class Card {
+    int id
+    String type
+    String description
+  }
+
+  Card <|-- QuestionCard
+  Card <|-- AnswerCard
+
+  class QuestionCard {
+    int answerCount
+  }
+
+  class AnswerCard {
+  }
+
+}
+
+namespace server {
+  class Server {
+  }
+}
+
+namespace client {
+  class Client {
+  }
+}
+
+@enduml
