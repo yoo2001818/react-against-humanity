@@ -1,0 +1,63 @@
+@startuml
+
+[*] --> Init: init
+
+state Init {
+  [*] --> Connecting: connect
+
+  Connecting -> ConnectionError: error
+  Connecting --> Lobby: success
+  ConnectionError --> Connecting: connect
+}
+
+state Lobby {
+  [*] -> Fetching: fetch
+
+  Fetching -> ShowList: success
+  ShowList -> Fetching: search
+  ShowList -> Fetching: fetch
+
+  Fetching --> LobbyError: error
+  LobbyError --> Fetching: fetch
+
+  --
+
+  [*] -> SignedFetching: fetch
+
+  SignedFetching --> SignedIn: success
+  SignedFetching --> SignedOut: success
+  SignedFetching --> SignedOut: error
+  SignedOut --> SignedFetching: signIn
+  SignedIn --> SignedFetching: signOut
+
+}
+
+state Room {
+  [*] -> Joining: join
+  Joining -> Waiting: success
+  Waiting --> PlayerSelect: next
+  Waiting --> PlayerSelect: start
+  Waiting --> CzarWait: next
+  Waiting --> CzarWait: start
+  PlayerSelect -> PlayerWait: submit
+  PlayerSelect -> PlayerWait: timeout
+  CzarWait -> CzarSelect: submit
+  PlayerWait --> TurnEnd: choose
+  CzarSelect --> TurnEnd: choose
+  CzarSelect --> TurnEnd: timeout
+  TurnEnd --> PlayerSelect: next
+  TurnEnd --> CzarWait: next
+  --
+
+  state "Wait" as RoomWait
+  [*] -> RoomWait: create
+  RoomWait -> Collect: start
+  Collect --> Choose: choose
+  Choose --> Collect: next
+}
+
+Lobby -right-> Room: join
+Lobby -right-> Room: create
+Room -left-> Lobby: leave
+
+@enduml

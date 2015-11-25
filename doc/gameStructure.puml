@@ -77,6 +77,13 @@ namespace objects {
   class AnswerCard {
   }
 
+  class ChatMessage {
+    String message
+    User user
+  }
+
+  ChatMessage o-- User
+
 }
 
 namespace server {
