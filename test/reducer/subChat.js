@@ -11,11 +11,11 @@ const testUser = {
 const testMessage = {
   type: 'normal',
   message: 'Hello, world!',
-  user: 2
+  connection: 2
 };
 
 describe('reducers', () => {
-  describe('#subChat', () => {
+  describe('subChat', () => {
     let store;
     beforeEach('configure store', () => {
       store = createStore(subChatReducer);

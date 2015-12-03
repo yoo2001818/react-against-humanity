@@ -96,9 +96,14 @@ Handshake is specially treated by both client and server.
 ```js
   {
     connection: {
-      id: 4,
-      name: 'Guest',
-      version: '1.0.25'
+      self: 4,
+      list: {
+        4: {
+          id: 4,
+          name: 'Guest',
+          version: '1.0.25'
+        }
+      }
     },
     // Any initial store information can come here
   }
@@ -192,7 +197,7 @@ server. Server should filter them out.
 ```js
   {
     id: 31,
-    name: 'Anonymous'
+    reason: 'Ping timed out'
     // Any data can come here
   }
 ```
