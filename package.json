@@ -15,6 +15,9 @@
   "bugs": {
     "url": "https://github.com/yoo2001818/react-against-humanity/issues"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/gulp test"
+  },
   "homepage": "https://github.com/yoo2001818/react-against-humanity#readme",
   "devDependencies": {
     "babel-core": "^6.2.1",
@@ -25,6 +28,7 @@
     "eslint": "^1.10.2",
     "eslint-plugin-react": "^3.10.0",
     "extract-text-webpack-plugin": "^0.9.1",
+    "expect": "^1.13.0",
     "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
@@ -46,7 +50,6 @@
     "webpack-hot-middleware": "^2.5.1"
   },
   "dependencies": {
-    "expect": "^1.13.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
