@@ -11,7 +11,7 @@ const testUser = {
 const testMessage = {
   type: 'normal',
   message: 'Hello, world!',
-  connection: 2
+  connection: 1 
 };
 
 describe('reducers', () => {
