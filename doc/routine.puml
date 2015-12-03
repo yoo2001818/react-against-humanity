@@ -15,14 +15,13 @@ User --> Client: Connect
 activate Client
 Client -> Server: Establish socket
 activate Server
-Server -> Client: Send version info
 Client -> Server: Handshake
-Server -> Store: Dispatch action
+Server -> Store: Dispatch connect
 activate Store
 Store -> Store: Create User
 Store --> Server: Response
 deactivate Store
-Server -> Client: Send initial store
+Server -> Client: Send handshake action back
 deactivate Server
 Client -> LocalStore: Create store
 LocalStore -> User: Render view
