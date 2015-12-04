@@ -1,4 +1,4 @@
-import * as ConnectionActions from '../action/connection.js';
+import * as ConnectionActions from '../action/connection';
 
 export default function connection(state = {
   self: null,

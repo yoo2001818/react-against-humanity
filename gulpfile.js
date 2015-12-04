@@ -10,7 +10,7 @@ require('babel-core/register');
 
 /*** Unit tests ***/
 gulp.task('lint', function () {
-  return gulp.src(['src/**/*.js'])
+  return gulp.src(['src/**/*.js', 'test/**/*.js'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failOnError());

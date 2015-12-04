@@ -1,4 +1,4 @@
-import * as ChatActions from '../action/chat.js';
+import * as ChatActions from '../action/chat';
 
 export default function subChat(state = {
   limit: 100,

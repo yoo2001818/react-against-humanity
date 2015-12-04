@@ -4,7 +4,7 @@
   "description": "Multiplayer game of Cards against Humanity made using React",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/gulp test"
   },
   "repository": {
     "type": "git",
@@ -14,9 +14,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yoo2001818/react-against-humanity/issues"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/gulp test"
   },
   "homepage": "https://github.com/yoo2001818/react-against-humanity#readme",
   "devDependencies": {
@@ -50,6 +47,9 @@
     "webpack-hot-middleware": "^2.5.1"
   },
   "dependencies": {
+    "array-flatten": "^2.0.0",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
