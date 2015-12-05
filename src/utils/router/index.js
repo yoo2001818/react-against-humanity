@@ -53,7 +53,7 @@ proto.handle = function handle(req, res, out) {
 };
 
 // Register custom methods.
-for (let method of ['read', 'write', 'after']) {
+for (let method of ['read', 'write', 'internal']) {
   proto[method] = function (path, ...args) {
     var route = this.route(path);
     route[method].apply(route, args);

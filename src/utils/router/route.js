@@ -14,7 +14,7 @@ Route.prototype.constructor = Route;
 
 // Register custom methods
 
-for (let method of ['read', 'write', 'after']) {
+for (let method of ['read', 'write', 'internal']) {
   Route.prototype[method] = function (...args) {
     var handles = flatten(args);
 

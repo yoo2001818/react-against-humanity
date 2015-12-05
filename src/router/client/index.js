@@ -1,6 +1,6 @@
 export default function client(req, res, next) {
   if (req.cause === 'middleware') {
-    req.connector.dispatch(req.action)
+    req.connector.dispatch(req.action, -1, true)
     .then(res.resolve, res.reject);
     return;
   }

@@ -103,9 +103,9 @@ describe('Connector', () => {
       connector.handler = () => done();
       connector.dispatch(testAction, 1);
     });
-    it('should return a Promise', done => {
+    it('should return a Promise if specified', done => {
       connector.handler = () => done();
-      expect(connector.dispatch(testAction, 1)).toBeA(Promise);
+      expect(connector.dispatch(testAction, 1, true)).toBeA(Promise);
     });
   });
 });
