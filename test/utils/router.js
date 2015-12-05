@@ -51,6 +51,17 @@ describe('Router', () => {
       router(testReq, testRes, () => done('should not reach here'));
     });
   });
+  describe('#all', () => {
+    it('should check action type', done => {
+      router.all('test/test', () => {
+        done();
+      });
+      router.all('toast/toast', () => {
+        done('should not reach here');
+      });
+      router(testReq, testRes, () => done('should not reach here'));
+    });
+  });
   describe('#METHOD', () => {
     it('should check action class', done => {
       router.write('test/test', () => {

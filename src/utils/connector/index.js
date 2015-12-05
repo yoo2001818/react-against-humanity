@@ -1,14 +1,15 @@
 export default class Connector {
-  constructor(router, store) {
+  constructor(router, store, middlewareRouter) {
     this.router = router;
     this.store = store;
+    this.middlewareRouter = middlewareRouter;
   }
 
-  callRouter(req) {
+  callRouter(req, router) {
     return new Promise((resolve, reject) => {
       let res = { resolve, reject };
       try {
-        this.router(req, res, () => {
+        router(req, res, () => {
           reject(new Error('Nothing handled the action'));
         });
       } catch (e) {
@@ -23,9 +24,10 @@ export default class Connector {
     let req = {
       connector: this,
       store: this.store,
+      cause: 'poll',
       action, connection
     };
-    return this.callRouter(req);
+    return this.callRouter(req, this.router);
   }
 
   // Middleware -> Router
@@ -34,10 +36,10 @@ export default class Connector {
     let req = {
       connector: this,
       store: this.store,
-      class: 'after',
+      cause: 'middleware',
       action
     };
-    return this.callRouter(req);
+    return this.callRouter(req, this.middlewareRouter || this.router);
   }
 
   // Router -> Protocol

@@ -9,7 +9,7 @@ const testAction = {
   }
 };
 
-describe('PassConnector', () => {
+describe('Connector', () => {
   let connector;
   beforeEach('initalize connector', () => {
     // Since this sets everything to dummy object, router and handler
@@ -30,6 +30,7 @@ describe('PassConnector', () => {
       connector.router = (req, res, next) => {
         expect(req).toEqual({
           action: testAction,
+          cause: 'poll',
           connection: 1,
           store: connector.store,
           connector
@@ -58,6 +59,15 @@ describe('PassConnector', () => {
       };
       connector.notify(testAction);
     });
+    it('should call the middlewareRouter if set', done => {
+      connector.router = () => {
+        done('Should not reach here');
+      };
+      connector.middlewareRouter = () => {
+        done();
+      };
+      connector.notify(testAction);
+    });
     it('should return a Promise', () => {
       expect(connector.notify(testAction)).toBeA(Promise);
     });
@@ -65,7 +75,7 @@ describe('PassConnector', () => {
       connector.router = (req, res, next) => {
         expect(req).toEqual({
           action: testAction,
-          class: 'after',
+          cause: 'middleware',
           store: connector.store,
           connector
         });
