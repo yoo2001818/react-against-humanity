@@ -21,10 +21,10 @@ describe('Connector', () => {
       connector.router = () => {
         done();
       };
-      connector.handle(1, testAction);
+      connector.handle(testAction, 1);
     });
     it('should return a Promise', () => {
-      expect(connector.handle(1, testAction)).toBeA(Promise);
+      expect(connector.handle(testAction, 1)).toBeA(Promise);
     });
     it('should call with req, res, next', () => {
       connector.router = (req, res, next) => {
@@ -42,11 +42,11 @@ describe('Connector', () => {
         // finish this test.
         res.resolve();
       };
-      return connector.handle(1, testAction);
+      return connector.handle(testAction, 1);
     });
     it('should reject if router didn\'t handle action', () => {
       connector.router = (req, res, next) => next();
-      return connector.handle(1, testAction)
+      return connector.handle(testAction, 1)
       .then(() => {
         throw new Error('Should throw an error');
       }, () => 'ok');
@@ -101,7 +101,11 @@ describe('Connector', () => {
     // meaningless.
     it('should call the handler', done => {
       connector.handler = () => done();
-      connector.dispatch(1, testAction);
+      connector.dispatch(testAction, 1);
+    });
+    it('should return a Promise', done => {
+      connector.handler = () => done();
+      expect(connector.dispatch(testAction, 1)).toBeA(Promise);
     });
   });
 });

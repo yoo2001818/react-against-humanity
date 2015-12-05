@@ -19,7 +19,7 @@ export default class Connector {
   }
 
   // Protocol -> Router
-  handle(connection, action) {
+  handle(action, connection) {
     // Notify action and connection to router.
     let req = {
       connector: this,
@@ -43,7 +43,7 @@ export default class Connector {
   }
 
   // Router -> Protocol
-  dispatch(connection, action) { // eslint-disable-line no-unused-vars
+  dispatch(action, connection) { // eslint-disable-line no-unused-vars
     // Send action to the connection.
     throw new Error('Not implemented by subclass');
   }

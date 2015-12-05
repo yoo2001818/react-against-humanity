@@ -20,11 +20,13 @@ export default function connectorMiddleware(connector) {
           payload: {
             message: error.message,
             stack: error.stack
-          }
+          },
+          error: true
         }));
       }
       return next(Object.assign({}, action, {
-        payload: error
+        payload: error,
+        error: true
       }));
     });
   };

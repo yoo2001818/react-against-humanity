@@ -10,7 +10,8 @@ export default class PassConnector extends Connector {
     this.handler = handler;
   }
 
-  dispatch(connection, action) {
-    this.handler(connection, action);
+  dispatch(action, connection) {
+    return Promise.resolve()
+    .then(() => this.handler(action, connection));
   }
 }

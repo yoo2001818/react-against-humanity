@@ -103,6 +103,7 @@ describe('connectorMiddleware', () => {
       throw new Error('Nope.');
     };
     reducer = (state = {}, action) => {
+      if (!action.error) return state;
       return {
         message: action.payload.message
       };
