@@ -4,7 +4,7 @@ import express from 'express';
 import serveStatic from 'serve-static';
 
 import WebSocketServerConnector from './utils/connector/webSocketServer';
-import logger from './router/middleware/logger';
+import serverRouter from './router/server';
 
 /* eslint-disable no-console */
 
@@ -35,4 +35,5 @@ httpServer.listen(8000, () => {
   console.log('Listening on ' + httpServer.address().port);
 });
 
-let connector = new WebSocketServerConnector(logger, {}, wss);
+/* eslint-disable no-unused-vars */
+let connector = new WebSocketServerConnector(serverRouter, {}, wss);

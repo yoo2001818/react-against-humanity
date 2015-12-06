@@ -9,8 +9,8 @@ export default class Connector {
     return new Promise((resolve, reject) => {
       let res = { resolve, reject };
       try {
-        router(req, res, () => {
-          reject(new Error('Nothing handled the action'));
+        router(req, res, error => {
+          reject(error || new Error('Nothing handled the action'));
         });
       } catch (e) {
         reject(e);

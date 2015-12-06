@@ -47,7 +47,8 @@ proto.handle = function handle(req, res, out) {
   // Inject URL and method if not available.
   if (req.url === undefined) req.url = '/' + req.action.type;
   if (req.method === undefined) {
-    req.method = req.class || req.action.meta.class;
+    req.method = req.class ||
+      (req.action && req.action.meta && req.action.meta.class);
   }
   ExpressRouter.handle.call(this, req, res, out);
 };

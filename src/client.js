@@ -1,5 +1,5 @@
 import WebSocketClientConnector from './utils/connector/webSocketClient';
-import logger from './router/middleware/logger';
+import clientRouter from './router/client';
 
 let connector = new WebSocketClientConnector( // eslint-disable-line
-  logger, {}, 'ws://localhost:8000/');
+  clientRouter, {}, 'ws://localhost:8000/');

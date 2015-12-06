@@ -17,14 +17,14 @@ var plugins = [
   })
 ];
 if (process.env.NODE_ENV !== 'production') {
-  entries.push('webpack-hot-middleware/client?overlay=true');
-  plugins.push(new webpack.HotModuleReplacementPlugin());
+  // entries.push('webpack-hot-middleware/client?overlay=true');
+  // plugins.push(new webpack.HotModuleReplacementPlugin());
 } else {
   plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
 module.exports = {
-  // devtool: 'eval',
+  // devtool: 'eval-source-map',
   context: __dirname,
   entry: entries,
   output: {
@@ -42,7 +42,8 @@ module.exports = {
       {
         test: /\.jsx?$/i,
         exclude: /(node_modules|bower_components)/,
-        loaders: ['react-hot', 'babel']
+        // Put 'react-hot' if needed
+        loaders: ['babel']
       },
       {
         test: /\.json$/i,

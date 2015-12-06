@@ -37,6 +37,7 @@ export default class WebSocketServerConnector extends Connector {
           // Close client if this happends.
           client.close();
           this.handle(TransportActions.close(event), clientId);
+          delete this.clients[clientId];
         } else {
           // Resolve action and finish if ticket is set.
           if (action && action.meta &&
