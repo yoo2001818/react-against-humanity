@@ -6,6 +6,8 @@ import serveStatic from 'serve-static';
 import WebSocketServerConnector from './utils/connector/webSocketServer';
 import serverRouter from './router/server';
 
+import createStore from './store';
+
 /* eslint-disable no-console */
 
 const httpServer = http.createServer();
@@ -35,5 +37,7 @@ httpServer.listen(8000, () => {
   console.log('Listening on ' + httpServer.address().port);
 });
 
-/* eslint-disable no-unused-vars */
 let connector = new WebSocketServerConnector(serverRouter, {}, wss);
+
+let store = createStore(undefined, connector);
+connector.store = store;

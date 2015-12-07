@@ -4,7 +4,7 @@ export default function connectorMiddleware(connector) {
   return () => next => action => {
     if (!isFSA(action)) return next(action);
     const { meta } = action;
-    if (meta.class !== 'read' && meta.class !== 'write') {
+    if (meta && meta.class !== 'read' && meta.class !== 'write') {
       return next(action);
     }
 
