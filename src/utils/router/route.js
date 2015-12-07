@@ -1,42 +1,40 @@
-import ExpressRoute from 'express/lib/router/route';
-import Layer from 'express/lib/router/layer';
-import flatten from 'array-flatten';
-import rawDebug from 'debug';
+export default class Route {
+  constructor(classType, cause, type, routes) {
+    this.classType = classType;
+    this.cause = cause;
+    this.type = type;
+    this.stack = routes;
+  }
 
-const debug = rawDebug('express:router:route');
-
-export default function Route(path) {
-  ExpressRoute.call(this, path);
-}
-
-Route.prototype = Object.create(ExpressRoute.prototype);
-Route.prototype.constructor = Route;
-
-// Register custom methods
-
-for (let method of ['read', 'write', 'internal']) {
-  Route.prototype[method] = function (...args) {
-    var handles = flatten(args);
-
-    for (var i = 0; i < handles.length; i++) {
-      var handle = handles[i];
-
-      if (typeof handle !== 'function') {
-        var type = String.prototype.toString.call(handle);
-        var msg = 'Route.' + method +
-          '() requires callback functions but got a ' + type;
-        throw new Error(msg);
-      }
-
-      debug('%s %s', method, this.path);
-
-      var layer = Layer('/', {}, handle);
-      layer.method = method;
-
-      this.methods[method] = true;
-      this.stack.push(layer);
+  handle(req, res, next) {
+    // Check request data first....
+    if (this.classType != null &&
+      this.classType !== (
+        req.class || req.action && req.action.meta && req.action.meta.class
+      )
+    ) {
+      return next();
     }
-
-    return this;
-  };
+    if (this.cause != null && this.cause !== req.cause) {
+      return next();
+    }
+    if (this.type != null) {
+      // Check regular expression.
+      let type = req.type || req.action && req.action.type;
+      if (this.type instanceof RegExp) {
+        if (!this.type.test(type)) return next();
+      } else if (this.type !== type) return next();
+    }
+    let i = -1;
+    const processNext = (err) => {
+      i++;
+      if (err) return next(err);
+      if (i >= this.stack.length) {
+        return next(err);
+      }
+      let current = this.stack[i];
+      return current(req, res, processNext);
+    };
+    processNext();
+  }
 }

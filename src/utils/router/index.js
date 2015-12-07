@@ -1,10 +1,4 @@
-import ExpressRouter from 'express/lib/router';
-import Layer from 'express/lib/router/layer';
 import Route from './route';
-
-// Since express router is pretty good, I'm just reusing it.
-// However, to workaround security leaks and overheads, I need to reimplement
-// router.
 
 const proto = function () {
 
@@ -12,54 +6,39 @@ const proto = function () {
     router.handle(req, res, next);
   }
 
-  // mixin Router class functions
-  router.__proto__ = proto;
-
-  router.params = {};
-  router._params = [];
-  router.caseSensitive = true;
-  router.mergeParams = false;
-  router.strict = true;
+  Object.setPrototypeOf(router, proto);
   router.stack = [];
-
   return router;
+
+  // Route: class, cause, type, route
 };
 
-proto.__proto__ = ExpressRouter;
-
-// Hook function to use new route object
-proto.route = function route(path) {
-  var route = new Route('/' + path);
-
-  var layer = new Layer('/' + path, {
-    sensitive: this.caseSensitive,
-    strict: this.strict,
-    end: true
-  }, route.dispatch.bind(route));
-
-  layer.route = route;
-
-  this.stack.push(layer);
-  return route;
+proto.use = function use(...routes) {
+  this.stack.push(new Route(null, null, null, routes));
 };
 
-proto.handle = function handle(req, res, out) {
-  // Inject URL and method if not available.
-  if (req.url === undefined) req.url = '/' + req.action.type;
-  if (req.method === undefined) {
-    req.method = req.class ||
-      (req.action && req.action.meta && req.action.meta.class);
-  }
-  ExpressRouter.handle.call(this, req, res, out);
+proto.all = function all(type, ...routes) {
+  this.stack.push(new Route(null, null, type, routes));
 };
 
-// Register custom methods.
-for (let method of ['read', 'write', 'internal']) {
-  proto[method] = function (path, ...args) {
-    var route = this.route(path);
-    route[method].apply(route, args);
-    return this;
+for (let classType of ['read', 'write', 'internal']) {
+  proto[classType] = function (type, ...routes) {
+    this.stack.push(new Route(classType, null, type, routes));
   };
 }
+
+proto.handle = function handle(req, res, next) {
+  let i = -1;
+  const processNext = (err) => {
+    i++;
+    if (err) return next(err);
+    if (i >= this.stack.length) {
+      return next(err);
+    }
+    let current = this.stack[i];
+    return current.handle(req, res, processNext);
+  };
+  processNext();
+};
 
 export default proto;

@@ -50,6 +50,17 @@ describe('Router', () => {
       });
       router(testReq, testRes, () => done('should not reach here'));
     });
+    it('should pass error to next', done => {
+      router.use((req, res, next) => {
+        next('Errrr');
+      });
+      router(testReq, testRes, err => {
+        if (err !== 'Errrr') {
+          return done(err + 'was returned instead');
+        }
+        return done();
+      });
+    });
   });
   describe('#all', () => {
     it('should check action type', done => {
@@ -77,6 +88,18 @@ describe('Router', () => {
         done();
       });
       router.read('toast/toast', () => {
+        done('should not reach here');
+      });
+      router(testReq, testRes, () => done('should not reach here'));
+    });
+    it('should check regular expression', done => {
+      router.read(/test\/toast/, () => {
+        done('should not reach here');
+      });
+      router.read(/te?st\/te+st/, () => {
+        done();
+      });
+      router.read(/toast\/toast/, () => {
         done('should not reach here');
       });
       router(testReq, testRes, () => done('should not reach here'));
