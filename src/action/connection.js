@@ -30,6 +30,7 @@ export const connect = createAction(CONNECT,
 export const disconnect = createAction(DISCONNECT,
   connection => connection,
   connection => ({
-    connection: connection.id
+    connection: connection.id,
+    class: 'write'
   })
 );

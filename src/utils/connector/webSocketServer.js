@@ -36,6 +36,10 @@ export default class WebSocketServerConnector extends Connector {
           debug('closing session for ' + clientId);
           // Close client if this happends.
           client.close();
+          this.handle(TransportActions.close({
+            code: 500,
+            reason: 'Protocol error'
+          }), clientId);
           this.handle(TransportActions.close(event), clientId);
           delete this.clients[clientId];
         } else {
@@ -50,7 +54,10 @@ export default class WebSocketServerConnector extends Connector {
               debug('closing session for ' + clientId);
               // Close client if malformed
               client.close();
-              this.handle(TransportActions.close(event), clientId);
+              this.handle(TransportActions.close({
+                code: 500,
+                reason: 'Protocol error'
+              }), clientId);
               return;
             }
             debug('resolving ticket ' + ticketId + ' from ' + clientId);
