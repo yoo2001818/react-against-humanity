@@ -23,12 +23,12 @@ export default class WebSocketClientConnector extends Connector {
     this.tickets = [];
     debug('instance created; connecting');
     let ws = new WebSocket(address, protocols, options);
-    ws.onopen = event => {
+    ws.onopen = () => {
       debug('connected to the endpoint');
-      this.handle(TransportActions.open(event), -1);
+      this.handle(TransportActions.open(-1), -1);
     };
     ws.onmessage = event => {
-      const { dataString } = event;
+      const { data: dataString } = event;
       // Try to parse the data string;
       const action = parseJSON(dataString);
       if (action instanceof Error) {
@@ -56,6 +56,7 @@ export default class WebSocketClientConnector extends Connector {
             action.meta.ticketResponse = ticketId;
             this.dispatch(action, -1);
           }, error => {
+            debug(error.stack);
             debug('replying ticket' + ticketId + ' with an error');
             return this.dispatch(Object.assign({}, action, {
               payload: error,
@@ -77,7 +78,9 @@ export default class WebSocketClientConnector extends Connector {
     };
     ws.onclose = event => {
       debug('connection closed, ' + event.code);
-      this.handle(TransportActions.close(event), -1);
+      this.handle(TransportActions.close({
+        code: event.code
+      }), -1);
     };
     this.socket = ws;
   }

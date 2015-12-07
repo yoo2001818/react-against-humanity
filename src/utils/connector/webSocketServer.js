@@ -28,7 +28,7 @@ export default class WebSocketServerConnector extends Connector {
       client.tickets = [];
       this.handle(TransportActions.open(clientId), clientId);
       client.onmessage = event => {
-        const { dataString } = event;
+        const { data: dataString } = event;
         // Try to parse the data string;
         const action = parseJSON(dataString);
         if (action instanceof Error) {
@@ -62,12 +62,13 @@ export default class WebSocketServerConnector extends Connector {
           ) {
             const ticketId = action.meta.ticketRequest;
             debug('handling ticketRequest ' + ticketId + ' from ' + clientId);
-            this.handle(action, -1)
+            this.handle(action, clientId)
             .then(action => {
               debug('replying ' + ticketId + ' to ' + clientId);
               action.meta.ticketResponse = ticketId;
-              this.dispatch(action, -1);
+              this.dispatch(action, clientId);
             }, error => {
+              debug(error.stack);
               debug('replying ' + ticketId + ' with error to ' + clientId);
               return this.dispatch(Object.assign({}, action, {
                 payload: error,
@@ -75,12 +76,12 @@ export default class WebSocketServerConnector extends Connector {
                   ticketResponse: ticketId
                 }),
                 error: true
-              }), -1);
+              }), clientId);
             });
             return;
           }
           debug('handling message from ' + clientId);
-          this.handle(action, -1);
+          this.handle(action, clientId);
         }
       };
       client.onerror = event => {
@@ -89,7 +90,10 @@ export default class WebSocketServerConnector extends Connector {
       };
       client.onclose = event => {
         debug('connection closed, ' + event.code + ' of ' + clientId);
-        this.handle(TransportActions.close(event), clientId);
+        this.handle(TransportActions.close({
+          code: event.code,
+          reason: event.reason
+        }), clientId);
       };
     });
     this.server = server;

@@ -16,7 +16,6 @@ const wss = new WebSocketServer({
 });
 
 const app = express();
-app.use(serveStatic('./dist'));
 app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -31,6 +30,23 @@ app.get('/', (req, res) => {
     </html>
   `);
 });
+
+if (__DEVELOPMENT__) {
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpack = require('webpack');
+  const webpackConfig = require('../webpack.config.js');
+  let compiler = webpack(webpackConfig);
+  app.use(webpackHotMiddleware(compiler, {
+    log: null, heartbeat: 10 * 1000
+  }));
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: '/'
+  }));
+} else {
+  app.use(serveStatic('./dist'));
+}
 
 httpServer.on('request', app);
 httpServer.listen(8000, () => {

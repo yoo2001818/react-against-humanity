@@ -1,20 +1,18 @@
 import Router from '../../utils/router';
 import logger from '../middleware/logger';
-import spliter from '../middleware/spliter';
+import transport from './transport';
 
 const router = new Router();
-const middlewareRouter = new Router();
-const pollRouter = new Router();
 
 router.use(logger);
-router.use(spliter(middlewareRouter, pollRouter));
+router.use(transport);
 
-middlewareRouter.use((req, res) => {
+router.middleware(null, (req, res) => {
   req.connector.dispatch(req.action, -1, true)
   .then(res.resolve, res.reject);
 });
 
-pollRouter.use((req, res) => {
+router.poll(null, (req, res) => {
   res.resolve(req.store.dispatch(req.action));
 });
 

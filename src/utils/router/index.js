@@ -17,6 +17,10 @@ proto.use = function use(...routes) {
   this.stack.push(new Route(null, null, null, routes));
 };
 
+proto.add = function add(classType, cause, type, ...routes) {
+  this.stack.push(new Route(classType, cause, type, routes));
+};
+
 proto.all = function all(type, ...routes) {
   this.stack.push(new Route(null, null, type, routes));
 };
@@ -24,6 +28,12 @@ proto.all = function all(type, ...routes) {
 for (let classType of ['read', 'write', 'internal']) {
   proto[classType] = function (type, ...routes) {
     this.stack.push(new Route(classType, null, type, routes));
+  };
+}
+
+for (let cause of ['poll', 'middleware']) {
+  proto[cause] = function (type, ...routes) {
+    this.stack.push(new Route(null, cause, type, routes));
   };
 }
 

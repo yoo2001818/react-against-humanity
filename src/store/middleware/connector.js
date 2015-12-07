@@ -1,7 +1,7 @@
 import { isFSA } from 'flux-standard-action';
 
 export default function connectorMiddleware(connector) {
-  return () => next => action => {
+  return store => next => action => {
     if (!isFSA(action)) return next(action);
     const { meta } = action;
     if (meta && meta.class !== 'read' && meta.class !== 'write') {
@@ -12,20 +12,30 @@ export default function connectorMiddleware(connector) {
     return connector.notify(action)
     .then(action => {
       if (isFSA(action)) {
-        return next(action);
+        return store.dispatch(Object.assign({}, action, {
+          meta: Object.assign({}, meta, {
+            class: 'internal'
+          })
+        }));
       }
     }, error => {
       if (error instanceof Error) {
-        return next(Object.assign({}, action, {
+        return store.dispatch(Object.assign({}, action, {
           payload: {
             message: error.message,
             stack: error.stack
           },
+          meta: Object.assign({}, meta, {
+            class: 'internal'
+          }),
           error: true
         }));
       }
-      return next(Object.assign({}, action, {
+      return store.dispatch(Object.assign({}, action, {
         payload: error,
+        meta: Object.assign({}, meta, {
+          class: 'internal'
+        }),
         error: true
       }));
     });
