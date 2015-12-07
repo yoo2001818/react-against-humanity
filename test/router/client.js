@@ -38,7 +38,11 @@ describe('clientRouter', () => {
     };
     return connector.handle(testAction)
     .then(() => {
-      expect(dispatched).toEqual(testAction);
+      expect(dispatched).toEqual(Object.assign({}, testAction, {
+        meta: Object.assign({}, testAction.meta, {
+          class: 'internal'
+        })
+      }));
     });
   });
 });
