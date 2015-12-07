@@ -13,7 +13,11 @@ router.middleware(null, (req, res) => {
 });
 
 router.poll(null, (req, res) => {
-  res.resolve(req.store.dispatch(req.action));
+  res.resolve(req.store.dispatch(Object.assign({}, req.action, {
+    meta: Object.assign({}, req.action.meta, {
+      class: 'internal'
+    })
+  })));
 });
 
 export default router;
