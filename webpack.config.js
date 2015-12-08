@@ -17,8 +17,8 @@ var plugins = [
   })
 ];
 if (process.env.NODE_ENV !== 'production') {
-  // entries.push('webpack-hot-middleware/client?overlay=true');
-  // plugins.push(new webpack.HotModuleReplacementPlugin());
+  entries.push('webpack-hot-middleware/client?overlay=true');
+  plugins.push(new webpack.HotModuleReplacementPlugin());
 } else {
   plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
@@ -29,7 +29,7 @@ module.exports = {
   entry: entries,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/assets/',
+    publicPath: '/',
     filename: 'bundle.js',
     chunkFilename: '[id].js'
   },
@@ -43,7 +43,7 @@ module.exports = {
         test: /\.jsx?$/i,
         exclude: /(node_modules|bower_components)/,
         // Put 'react-hot' if needed
-        loaders: ['babel']
+        loaders: ['react-hot', 'babel']
       },
       {
         test: /\.json$/i,
