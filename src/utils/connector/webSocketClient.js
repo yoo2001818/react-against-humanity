@@ -21,7 +21,14 @@ export default class WebSocketClientConnector extends Connector {
   constructor(router, store, address, protocols, options) {
     super(router, store);
     this.tickets = [];
-    this.reconnect(address, protocols, options);
+    this.address = address;
+    this.protocols = protocols;
+    this.options = options;
+  }
+
+  disconnect(code = 1000, reason) {
+    if (this.socket == null) return;
+    this.socket.close(code, reason);
   }
 
   reconnect(
@@ -38,7 +45,7 @@ export default class WebSocketClientConnector extends Connector {
     this.protocols = protocols;
     this.options = options;
     debug('connecting to the endpoint');
-    setTimeout(() => this.handle(TransportActions.create(-1), -1), 0);
+    this.handle(TransportActions.create(-1), -1);
     let ws = new WebSocket(address, protocols, options);
     ws.onopen = () => {
       debug('connected to the endpoint');
@@ -96,7 +103,9 @@ export default class WebSocketClientConnector extends Connector {
     ws.onclose = event => {
       debug('connection closed, ' + event.code);
       this.handle(TransportActions.close({
-        code: event.code
+        code: event.code,
+        reason: event.reason,
+        wasClean: event.wasClean
       }), -1);
     };
     this.socket = ws;

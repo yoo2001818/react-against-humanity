@@ -9,4 +9,10 @@ router.middleware(Transport.CREATE, (req, res) => {
   res.resolve();
 });
 
+router.middleware(Transport.CLOSE, (req, res) => {
+  // Disconnect...
+  req.connector.disconnect();
+  res.resolve();
+});
+
 export default router;

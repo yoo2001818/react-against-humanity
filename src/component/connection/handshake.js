@@ -11,6 +11,10 @@ export default class Handshake extends Component {
     if (nickname == '') return;
     this.props.onHandshake(nickname);
   }
+  handleDisconnect(event) {
+    event.preventDefault();
+    this.props.onDisconnect();
+  }
   render() {
     return (
       <FullOverlay>
@@ -24,6 +28,9 @@ export default class Handshake extends Component {
             </div>
             <Controls>
               <Button>OK</Button>
+              <Button onClick={this.handleDisconnect.bind(this)}>
+                Disconnect
+              </Button>
             </Controls>
           </form>
         </Dialog>
@@ -33,5 +40,6 @@ export default class Handshake extends Component {
 }
 
 Handshake.propTypes = {
-  onHandshake: PropTypes.func
+  onHandshake: PropTypes.func,
+  onDisconnect: PropTypes.func
 };

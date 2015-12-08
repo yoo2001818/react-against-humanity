@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
 import { connect } from 'react-redux';
 
-import { reconnect } from '../action/transport';
+import { reconnect, disconnect } from '../action/transport';
 import { handshake } from '../action/connection';
 
 import FullOverlay from '../component/fullOverlay';
@@ -31,7 +31,7 @@ class ConnectionKeeper extends Component {
       connected = (
         <Handshake />
       ),
-      children, transport, connectionId, reconnect, handshake
+      children, transport, connectionId, reconnect, disconnect, handshake
     } = this.props;
     if (transport.status === 'pending') {
       return pending;
@@ -46,7 +46,8 @@ class ConnectionKeeper extends Component {
       return cloneElement(connected, {
         onHandshake: name => handshake({
           name, version: '0.0.1'
-        })
+        }),
+        onDisconnect: disconnect
       });
     }
     return children;
@@ -64,6 +65,7 @@ ConnectionKeeper.propTypes = {
   }).isRequired,
   connectionId: PropTypes.number,
   reconnect: PropTypes.func.isRequired,
+  disconnect: PropTypes.func.isRequired,
   handshake: PropTypes.func.isRequired
 };
 
@@ -72,5 +74,5 @@ export default connect(
     transport: state.transport,
     connectionId: state.connection.self
   }),
-  { reconnect, handshake }
+  { reconnect, disconnect, handshake }
 )(ConnectionKeeper);

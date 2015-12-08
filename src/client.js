@@ -16,6 +16,7 @@ let connector = new WebSocketClientConnector(
 
 let store = createStore(undefined, connector);
 connector.store = store;
+connector.reconnect();
 
 window.store = store;
 window.connector = connector;

@@ -15,3 +15,7 @@ export const error = createAction(ERROR);
 export const reconnect = createAction(CREATE, () => ({}), () => ({
   class: 'read'
 }));
+
+export const disconnect = createAction(CLOSE, () => ({}), () => ({
+  class: 'read'
+}));
