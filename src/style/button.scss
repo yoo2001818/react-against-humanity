@@ -1,6 +1,8 @@
 .button-component {
+  $color: #2f88e6;
+
   font-size: 1em;
-  background-color: #b33119;
+  background-color: $color;
   color: #FFFFFF;
   position: relative;
   display: inline-block;
@@ -9,23 +11,23 @@
   margin: 0.1em 0.2em;
   border: none;
   transform: translateY(0);
-  box-shadow: 0em 0.2em 0 0 rgba(#79200f, 1);
+  box-shadow: 0em 0.2em 0 0 darken($color, 10%);
 
-  // transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+  transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
 
   &:hover, &:focus {
-    background-color: #cc381d;
-    // transform: translateY(-0.1em);
-    box-shadow: 0em 0.2em 0 0 rgba(#9c2913, 1);
+    background-color: lighten($color, 8%);
+    //transform: translateY(-0.1em);
+    box-shadow: 0em 0.2em 0 0 $color;
   }
   &:hover:active {
-    background-color: #982914;
+    background-color: darken($color, 10%);
     transform: translateY(0.2em);
-    box-shadow: 0em -0.1em 0 0 rgba(#61190b, 1);
+    box-shadow: 0em -0.1em 0 0 darken($color, 20%);
   }
   &:active {
-    background-color: #cc381d;
+    background-color: $color;
     transform: translateY(0.2em);
-    box-shadow: 0em -0.1em 0 0 rgba(#9c2913, 1);
+    box-shadow: 0em -0.1em 0 0 darken($color, 10%);
   }
 }

@@ -3,6 +3,7 @@ import Connector from './index';
 import WebSocket from 'ws';
 import * as TransportActions from '../../action/transport';
 import rawDebug from 'debug';
+import omit from 'lodash.omit';
 
 const debug = rawDebug('app:connector:websocket');
 
@@ -13,6 +14,14 @@ function parseJSON(string) {
   } catch (e) {
     return e;
   }
+}
+
+function sanitizeTickets(action) {
+  return Object.assign({}, action, {
+    meta: omit(action.meta || {}, [
+      'ticketResponse', 'ticketRequest'
+    ])
+  });
 }
 
 // Client's connection ID is always '-1' by the connector.
@@ -68,17 +77,20 @@ export default class WebSocketClientConnector extends Connector {
             return;
           }
           debug('resolving ticket ' + ticketId);
-          this.tickets[ticketId].resolve(action);
+          this.tickets[ticketId].resolve(sanitizeTickets(action));
           return;
         }
         if (action && action.meta && action.meta.ticketRequest !== undefined) {
           const ticketId = action.meta.ticketRequest;
           debug('handling ticketRequest ' + ticketId);
-          this.handle(action, -1)
+          this.handle(sanitizeTickets(action), -1)
           .then(action => {
             debug('replying ticket ' + ticketId);
-            action.meta.ticketResponse = ticketId;
-            this.dispatch(action, -1);
+            return this.dispatch(Object.assign({}, action, {
+              meta: Object.assign({}, action.meta, {
+                ticketResponse: ticketId
+              })
+            }), -1);
           }, error => {
             debug(error.stack);
             debug('replying ticket' + ticketId + ' with an error');

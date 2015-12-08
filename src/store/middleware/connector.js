@@ -14,7 +14,7 @@ export default function connectorMiddleware(connector) {
     .then(action => {
       if (isFSA(action)) {
         return store.dispatch(Object.assign({}, action, {
-          meta: Object.assign({}, meta, {
+          meta: Object.assign({}, action.meta, {
             class: 'internal'
           })
         }));

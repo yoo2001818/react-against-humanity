@@ -3,6 +3,7 @@ import blockNonAction from '../middleware/blockNonAction';
 import logger from '../middleware/logger';
 import connection from './connection';
 import transport from './transport';
+import chat from './chat';
 
 const router = new Router();
 
@@ -20,5 +21,6 @@ router.middleware(null, (req, res) => {
 });
 router.use(connection);
 router.use(transport);
+router.use(chat);
 
 export default router;

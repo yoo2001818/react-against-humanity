@@ -1,11 +1,12 @@
 .dialog-component {
   & > .title {
-    color: #DB2D00;
+    color: #E65100;
     margin: 0.5em 0;
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
   & > .content {
     margin: 1em 0;
+    color: #212121;
   }
   .dialog-controls-component {
     margin-top: 1em;

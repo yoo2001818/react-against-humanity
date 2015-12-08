@@ -2,6 +2,7 @@
 import Connector from './index';
 import * as TransportActions from '../../action/transport';
 import rawDebug from 'debug';
+import omit from 'lodash.omit';
 
 const debug = rawDebug('app:connector:websocket');
 
@@ -12,6 +13,14 @@ function parseJSON(string) {
   } catch (e) {
     return e;
   }
+}
+
+function sanitizeTickets(action) {
+  return Object.assign({}, action, {
+    meta: omit(action.meta || {}, [
+      'ticketResponse', 'ticketRequest'
+    ])
+  });
 }
 
 export default class WebSocketServerConnector extends Connector {
@@ -61,7 +70,7 @@ export default class WebSocketServerConnector extends Connector {
               return;
             }
             debug('resolving ticket ' + ticketId + ' from ' + clientId);
-            client.tickets[ticketId].resolve(action);
+            client.tickets[ticketId].resolve(sanitizeTickets(action));
             return;
           }
           if (action && action.meta &&
@@ -69,11 +78,15 @@ export default class WebSocketServerConnector extends Connector {
           ) {
             const ticketId = action.meta.ticketRequest;
             debug('handling ticketRequest ' + ticketId + ' from ' + clientId);
-            this.handle(action, clientId)
+            this.handle(sanitizeTickets(action), clientId)
             .then(action => {
               debug('replying ' + ticketId + ' to ' + clientId);
               action.meta.ticketResponse = ticketId;
-              this.dispatch(action, clientId);
+              return this.dispatch(Object.assign({}, action, {
+                meta: Object.assign({}, action.meta, {
+                  ticketResponse: ticketId
+                })
+              }), clientId);
             }, error => {
               debug(error.stack);
               debug('replying ' + ticketId + ' with error to ' + clientId);

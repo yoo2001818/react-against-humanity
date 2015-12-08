@@ -6,7 +6,10 @@ export const SET_LIMIT = 'chat/setLimit';
 
 export const chat = createAction(CHAT,
   (_, _2, message) => ({ message }),
-  (scope, connection) => ({ scope, connection: connection.id })
+  (scope, connection) => ({
+    connection: connection.id,
+    scope, class: 'write'
+  })
 );
 export const clearHistory = createAction(CLEAR_HISTORY,
   () => ({}),
