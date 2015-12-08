@@ -1,6 +1,5 @@
 import '../style/dialog.scss';
 
-import Button from './button';
 import React, { Component, PropTypes } from 'react';
 
 export default class Dialog extends Component {
