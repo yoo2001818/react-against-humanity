@@ -1,0 +1,26 @@
+.text-input-component {
+  font-size: 1em;
+  background-color: #EEE;
+  color: #333;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.5em 0.6em;
+  margin: 0.1em 0.2em;
+  border: none;
+  transform: translateY(0);
+  box-shadow: 0em 0.1em 0 0 #BBB;
+
+  transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+
+  &:hover {
+    background-color: #F2F2F2;
+    transform: translateY(-0.1em);
+    box-shadow: 0em 0.2em 0 0 #C7C7C7;
+  }
+  &:active, &:focus {
+    background-color: #EEE;
+    transform: translateY(0.1em);
+    box-shadow: 0em -0.1em 0 0 #BBB;
+  }
+}

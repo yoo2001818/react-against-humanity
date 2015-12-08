@@ -21,7 +21,24 @@ export default class WebSocketClientConnector extends Connector {
   constructor(router, store, address, protocols, options) {
     super(router, store);
     this.tickets = [];
-    debug('instance created; connecting');
+    this.reconnect(address, protocols, options);
+  }
+
+  reconnect(
+    address = this.address,
+    protocols = this.protocols,
+    options = this.options
+  ) {
+    if (this.socket &&
+      (this.socket.readyState === 0 || this.socket.readyState === 1)
+    ) {
+      return;
+    }
+    this.address = address;
+    this.protocols = protocols;
+    this.options = options;
+    debug('connecting to the endpoint');
+    setTimeout(() => this.handle(TransportActions.create(-1), -1), 0);
     let ws = new WebSocket(address, protocols, options);
     ws.onopen = () => {
       debug('connected to the endpoint');
@@ -73,7 +90,7 @@ export default class WebSocketClientConnector extends Connector {
       }
     };
     ws.onerror = event => {
-      debug('error, ' + event.message);
+      debug('error, ' + event);
       this.handle(TransportActions.error(event), -1);
     };
     ws.onclose = event => {

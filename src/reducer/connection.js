@@ -1,3 +1,4 @@
+import * as TransportActions from '../action/transport';
 import * as ConnectionActions from '../action/connection';
 
 export default function connection(state = {
@@ -39,6 +40,10 @@ export default function connection(state = {
     });
   case ConnectionActions.HANDSHAKE:
     return payload.connection;
+  case TransportActions.CREATE:
+    return Object.assign({}, state, {
+      self: null
+    });
   }
   return state;
 }

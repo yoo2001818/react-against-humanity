@@ -28,11 +28,12 @@ export class Controls extends Component {
   render() {
     return (
       <div className='dialog-controls-component'>
-        <Button>OK</Button>
+        {this.props.children}
       </div>
     );
   }
 }
 
-Dialog.propTypes = {
+Controls.propTypes = {
+  children: PropTypes.node
 };

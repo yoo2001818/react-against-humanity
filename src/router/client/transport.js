@@ -16,4 +16,10 @@ router.poll(Transport.OPEN, (req, res) => {
   // .then(res.resolve, res.reject);
 });
 
+router.middleware(Transport.CREATE, (req, res) => {
+  // Reconnect request..
+  req.connector.reconnect();
+  res.resolve();
+});
+
 export default router;
