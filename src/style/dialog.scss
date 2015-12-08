@@ -1,0 +1,16 @@
+.dialog-component {
+  & > .title {
+    color: #DB2D00;
+    margin: 0.5em 0;
+    font-size: 1.6em;
+  }
+  & > .content {
+    margin: 1em 0;
+  }
+  .dialog-controls-component {
+    margin-top: 1em;
+  }
+  background-color: #fff;
+  padding: 0.5em 2.5em;
+  box-shadow: 0.2em 0.4em 0 0 rgba(0, 0, 0, 0.4);
+}

@@ -1,9 +1,11 @@
 import Router from '../../utils/router';
+import blockNonAction from '../middleware/blockNonAction';
 import logger from '../middleware/logger';
 import transport from './transport';
 
 const router = new Router();
 
+router.use(blockNonAction);
 router.use(logger);
 router.use(transport);
 
