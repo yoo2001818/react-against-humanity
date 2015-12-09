@@ -1,0 +1,7 @@
+.chat-form {
+  & > form {
+    & > .message, & > .send {
+      display: inline-block;
+    }
+  }
+}

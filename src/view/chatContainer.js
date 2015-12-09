@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { chat } from '../action/chat';
 
-import Button from '../component/button';
+import ChatForm from '../component/chatForm';
 
 class ChatContainer extends Component {
   render() {
@@ -14,12 +14,12 @@ class ChatContainer extends Component {
           { messages.map((message, id) => (
             <div key={id} className='message'>
               {message.connection && message.connection.name}
-              says:
+              {': '}
               {message.message}
             </div>
           )) }
         </div>
-        <Button onClick={() => chat('global', {}, '글쿤;;')}>얍</Button>
+        <ChatForm onChat={message => chat('global', {}, message)} />
       </div>
     );
   }
