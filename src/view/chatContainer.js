@@ -4,21 +4,14 @@ import { connect } from 'react-redux';
 import { chat } from '../action/chat';
 
 import ChatForm from '../component/chatForm';
+import MessageList from '../component/messageList';
 
 class ChatContainer extends Component {
   render() {
     const { messages, chat } = this.props;
     return (
       <div className='chat-container'>
-        <div className='message-list'>
-          { messages.map((message, id) => (
-            <div key={id} className='message'>
-              {message.connection && message.connection.name}
-              {': '}
-              {message.message}
-            </div>
-          )) }
-        </div>
+        <MessageList messages={messages} />
         <ChatForm onChat={message => chat('global', {}, message)} />
       </div>
     );
