@@ -7,6 +7,7 @@ import { handshake } from '../action/connection';
 import FullOverlay from '../component/fullOverlay';
 import Dialog from '../component/dialog';
 
+import Failed from '../component/connection/failed';
 import Disconnected from '../component/connection/disconnected';
 import Handshake from '../component/connection/handshake';
 
@@ -25,6 +26,9 @@ class ConnectionKeeper extends Component {
           </Dialog>
         </FullOverlay>
       ),
+      failed = (
+        <Failed />
+      ),
       disconnected = (
         <Disconnected />
       ),
@@ -38,6 +42,12 @@ class ConnectionKeeper extends Component {
     }
     if (transport.status === 'disconnected') {
       return cloneElement(disconnected, {
+        error: transport.error,
+        onReconnect: reconnect
+      });
+    }
+    if (transport.status === 'failed') {
+      return cloneElement(failed, {
         error: transport.error,
         onReconnect: reconnect
       });
@@ -56,6 +66,7 @@ class ConnectionKeeper extends Component {
 
 ConnectionKeeper.propTypes = {
   pending: PropTypes.node,
+  failed: PropTypes.node,
   disconnected: PropTypes.node,
   connected: PropTypes.node,
   children: PropTypes.node,

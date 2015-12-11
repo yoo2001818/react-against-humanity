@@ -4,6 +4,7 @@ import * as TransportActions from '../action/transport';
 export default function transport(state = {
   status: 'disconnected'
 }, action) {
+  const { status } = state;
   const { type, payload, meta, error } = action;
   if (error) return state;
   // If connection is not -1, the action should be ignored.
@@ -14,6 +15,14 @@ export default function transport(state = {
       status: 'connected'
     });
   case TransportActions.CLOSE:
+    if (status === 'pending') {
+      // If connection was closed while connecting, it should considered as
+      // a failure.
+      return Object.assign({}, state, {
+        status: 'failed',
+        error: payload.code
+      });
+    }
     return Object.assign({}, state, {
       status: 'disconnected',
       error: payload.code
