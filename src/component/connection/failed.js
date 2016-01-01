@@ -3,15 +3,17 @@ import FullOverlay from '../fullOverlay';
 import Dialog, { Controls } from '../dialog';
 import Button from '../button';
 
+import __ from '../../lang';
+
 export default class Failed extends Component {
   render() {
     const { onReconnect } = this.props;
     return (
       <FullOverlay>
-        <Dialog title='Connection failed'>
-          Unable to connect to the server.
+        <Dialog title={__('ConnFailedTitle')}>
+          {__('ConnFailedDesc')}
           <Controls>
-            <Button onClick={onReconnect}>Reconnect</Button>
+            <Button onClick={onReconnect}>{__('Reconnect')}</Button>
           </Controls>
         </Dialog>
       </FullOverlay>

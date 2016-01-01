@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import __ from '../lang';
 
 export default class MessageItem extends Component {
   render() {
@@ -6,14 +7,14 @@ export default class MessageItem extends Component {
     if (type === 'join') {
       return (
         <div className='message'>
-          {connection.name} has joined the server
+          {__('UserJoin', connection.name)}
         </div>
       );
     }
     if (type === 'leave') {
       return (
         <div className='message'>
-          {connection.name} has left the server
+          {__('UserLeave', connection.name)}
         </div>
       );
     }

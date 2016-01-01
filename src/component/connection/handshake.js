@@ -3,6 +3,7 @@ import FullOverlay from '../fullOverlay';
 import Dialog, { Controls } from '../dialog';
 import Button from '../button';
 import TextInput from '../textInput';
+import __ from '../../lang';
 
 export default class Handshake extends Component {
   handleSubmit(event) {
@@ -18,16 +19,16 @@ export default class Handshake extends Component {
   render() {
     return (
       <FullOverlay>
-        <Dialog title='Log in'>
+        <Dialog title={__('SignInTitle')}>
           <form onSubmit={this.handleSubmit.bind(this)} ref='form'>
             <div>
               <TextInput
-                placeholder='Nickname'
+                placeholder={__('Nickname')}
                 name='nickname'
               />
             </div>
             <Controls>
-              <Button>OK</Button>
+              <Button>{__('OK')}</Button>
             </Controls>
           </form>
         </Dialog>

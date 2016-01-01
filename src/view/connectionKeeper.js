@@ -11,6 +11,8 @@ import Failed from '../component/connection/failed';
 import Disconnected from '../component/connection/disconnected';
 import Handshake from '../component/connection/handshake';
 
+import __ from '../lang';
+
 // Shows a loading message while connecting.
 // Shows an error message when disconnected.
 // Shows a nickname form when connected but not handshaked yet.
@@ -21,8 +23,8 @@ class ConnectionKeeper extends Component {
     const {
       pending = (
         <FullOverlay>
-          <Dialog title='Loading'>
-            Connecting to the server...
+          <Dialog title={__('ConnectingTitle')}>
+            {__('ConnectingDesc')}
           </Dialog>
         </FullOverlay>
       ),

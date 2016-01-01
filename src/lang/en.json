@@ -1,0 +1,15 @@
+{
+  "ConnClosedTitle": "Connection Closed",
+  "ConnClosedDesc": "Connection to the server closed.",
+  "Reconnect": "Reconnect",
+  "ConnFailedTitle": "Connection Failed",
+  "ConnFailedDesc": "Unable to connect to the server.",
+  "SignInTitle": "Sign in",
+  "Nickname": "Nickname",
+  "OK": "OK",
+  "ChatPlaceholder": "Type message...",
+  "UserJoin": "$1 has joined",
+  "UserLeave": "$1 has left",
+  "ConnectingTitle": "Loading",
+  "ConnectingDesc": "Connecting to the server..."
+}

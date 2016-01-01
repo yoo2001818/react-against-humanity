@@ -4,6 +4,8 @@ import React, { Component, PropTypes } from 'react';
 
 import TextInput from './textInput';
 
+import __ from '../lang';
+
 export default class ChatForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
@@ -18,7 +20,7 @@ export default class ChatForm extends Component {
         <form onSubmit={this.handleSubmit.bind(this)} ref='form'>
           <div className='message'>
             <TextInput
-              placeholder='Type message...'
+              placeholder={__('ChatPlaceholder')}
               name='message'
             />
           </div>

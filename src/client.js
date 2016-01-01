@@ -11,8 +11,12 @@ import clientRouter from './router/client';
 
 import createStore from './store';
 
+import { autoDetectLocale } from './lang';
+
+autoDetectLocale();
+
 let connector = new WebSocketClientConnector(
-  clientRouter, {}, 'ws://localhost:8000/');
+  clientRouter, {}, 'ws://' + window.location.host + '/');
 
 let store = createStore(undefined, connector);
 connector.store = store;
