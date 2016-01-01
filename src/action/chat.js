@@ -8,7 +8,7 @@ export const chat = createAction(CHAT,
   (_, _2, message) => ({ message }),
   (scope, connection) => ({
     connection: connection,
-    scope, class: 'write'
+    scope, class: 'write', noWait: true
   })
 );
 export const clearHistory = createAction(CLEAR_HISTORY,

@@ -3,7 +3,7 @@
   "ConnClosedDesc": "서버와의 접속이 종료되었습니다.",
   "Reconnect": "재접속",
   "ConnFailedTitle": "접속 실패",
-  "ConnFailedDesc": "서버에 접속할 수 없습니다.",
+  "ConnFailedDesc": "서버에 접속하는데 문제가 발생했습니다.",
   "SignInTitle": "로그인",
   "Nickname": "닉네임",
   "OK": "확인",

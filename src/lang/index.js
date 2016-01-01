@@ -15,7 +15,9 @@ function encodeText(text, param) {
 let CURRENT_LOCALE = languages['en'];
 
 export function autoDetectLocale() {
-  let browserLang = navigator.language || navigator.userLanguage;
+  // Availability to use custom configuations.
+  let browserLang = (window.localStorage && window.localStorage.language) ||
+    navigator.language || navigator.userLanguage;
   for (let key in languages) {
     if (browserLang.slice(0, key.length) === key) {
       setLocale(key);

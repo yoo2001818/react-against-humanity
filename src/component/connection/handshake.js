@@ -10,6 +10,12 @@ export default class Handshake extends Component {
     event.preventDefault();
     const nickname = this.refs.form.nickname.value;
     if (nickname == '') return;
+    // Flush nickname to localStorage
+    try {
+      window.localStorage.nickname = nickname;
+    } catch (e) {
+      // Do nothing;
+    }
     this.props.onHandshake(nickname);
   }
   handleDisconnect(event) {
@@ -25,6 +31,8 @@ export default class Handshake extends Component {
               <TextInput
                 placeholder={__('Nickname')}
                 name='nickname'
+                defaultValue=
+                  {window.localStorage && window.localStorage.nickname}
               />
             </div>
             <Controls>
