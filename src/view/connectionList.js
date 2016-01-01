@@ -9,7 +9,7 @@ class ConnectionList extends Component {
         {
           this.props.connections.map(connection => (
             <div key={connection.id}>
-              #{connection.id} {connection.name}
+              {connection.name}
             </div>
           ))
         }

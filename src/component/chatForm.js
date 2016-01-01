@@ -3,7 +3,6 @@ import '../style/chatForm.scss';
 import React, { Component, PropTypes } from 'react';
 
 import TextInput from './textInput';
-import Button from './button';
 
 export default class ChatForm extends Component {
   handleSubmit(event) {
@@ -22,9 +21,6 @@ export default class ChatForm extends Component {
               placeholder='Type message...'
               name='message'
             />
-          </div>
-          <div className='send'>
-            <Button>Send</Button>
           </div>
         </form>
       </div>

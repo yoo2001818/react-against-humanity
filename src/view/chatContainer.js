@@ -35,7 +35,7 @@ export default connect(
     const { chat: { messages }, connection: { list: connections } } = state;
     return {
       messages: messages.map(message => Object.assign({}, message, {
-        connection: connections[message.connection]
+        connection: connections[message.connection.id] || message.connection
       }))
     };
   },

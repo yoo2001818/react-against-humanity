@@ -13,9 +13,10 @@ router.poll(Connection.HANDSHAKE, (req, res) => {
     const state = req.store.getState();
     res.resolve(Connection.handshake({
       connection: {
-        self: action.meta.connection,
+        self: action.meta.connection.id,
         list: state.connection.list
-      }
+      },
+      chat: state.chat
     }));
   }, res.reject);
   // .then(res.resolve, res.reject);

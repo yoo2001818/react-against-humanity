@@ -1,0 +1,45 @@
+.side-pane-right {
+  display: block;
+  position: fixed;
+  background-color: #eee;
+  border-left: 1px solid #bbb;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 17.5em;
+  & > .top, & > .bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  & > .top {
+    height: 10em;
+  }
+  & > .bottom {
+    top: 10em;
+    bottom: 0;
+  }
+  & > .connection {
+    .user-list {
+      overflow-y: scroll;
+      padding: 0.5em;
+      color: #333;
+      font-size: 0.95em;
+      height: 100%;
+    }
+  }
+  & > .chat {
+    border-top: 1px solid #bbb;
+    .message-list {
+      overflow-y: scroll;
+      color: #333;
+      font-size: 0.95em;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 2.2rem;
+      padding: 0.5em;
+    }
+  }
+}

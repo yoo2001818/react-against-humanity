@@ -9,11 +9,12 @@ router.poll(Transport.CLOSE, (req, res) => {
   // Ignore if connection is not created yet
   if (list[req.connection] == null) return res.resolve();
   // Dispatch disconnect event
-  req.store.dispatch(Connection.disconnect({
-    id: req.connection,
-    code: req.action.payload.code,
-    reason: req.action.payload.reason
-  }))
+  req.store.dispatch(Connection.disconnect(
+    Object.assign({}, list[req.connection], {
+      code: req.action.payload.code,
+      reason: req.action.payload.reason
+    })
+  ))
   .then(res.resolve, res.reject);
   // .then(res.resolve, res.reject);
 });

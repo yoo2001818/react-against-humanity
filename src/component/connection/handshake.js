@@ -28,9 +28,6 @@ export default class Handshake extends Component {
             </div>
             <Controls>
               <Button>OK</Button>
-              <Button onClick={this.handleDisconnect.bind(this)}>
-                Disconnect
-              </Button>
             </Controls>
           </form>
         </Dialog>

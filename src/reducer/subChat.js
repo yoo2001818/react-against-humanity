@@ -1,4 +1,5 @@
 import * as ChatActions from '../action/chat';
+import * as ConnectionActions from '../action/connection';
 
 export default function subChat(state = {
   limit: 100,
@@ -22,6 +23,22 @@ export default function subChat(state = {
   case ChatActions.SET_LIMIT:
     return Object.assign({}, state, {
       limit: payload.limit
+    });
+  case ConnectionActions.HANDSHAKE:
+    return payload.chat;
+  case ConnectionActions.CONNECT:
+    return Object.assign({}, state, {
+      messages: messages.concat([{
+        connection: meta.connection,
+        type: 'join'
+      }]).slice(-limit)
+    });
+  case ConnectionActions.DISCONNECT:
+    return Object.assign({}, state, {
+      messages: messages.concat([{
+        connection: meta.connection,
+        type: 'leave'
+      }]).slice(-limit)
     });
   }
   return state;

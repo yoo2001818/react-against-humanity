@@ -7,7 +7,7 @@ export const SET_LIMIT = 'chat/setLimit';
 export const chat = createAction(CHAT,
   (_, _2, message) => ({ message }),
   (scope, connection) => ({
-    connection: connection.id,
+    connection: connection,
     scope, class: 'write'
   })
 );
