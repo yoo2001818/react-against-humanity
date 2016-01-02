@@ -28,6 +28,7 @@ window.connector = connector;
 // Create wrapper element...
 
 let wrapper = document.createElement('div');
+wrapper.className = 'appContainer';
 document.body.appendChild(wrapper);
 
 render(

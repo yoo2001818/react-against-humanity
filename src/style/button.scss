@@ -10,24 +10,26 @@
   padding: 0.5em 1.9em;
   margin: 0.1em 0.2em;
   border: none;
-  transform: translateY(0);
-  box-shadow: 0em 0.2em 0 0 darken($color, 10%);
+  border-radius: 3px;
+  box-shadow: 0em 0.1em 3px darken($color, 10%);
+  border: 1px solid darken($color, 10%);
 
-  transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s;
+  transition: background-color 0.1s, transform 0.1s, box-shadow 0.1s,
+    border-color 0.1s;
 
   &:hover, &:focus {
     background-color: lighten($color, 8%);
-    //transform: translateY(-0.1em);
-    box-shadow: 0em 0.2em 0 0 $color;
+    box-shadow: 0em 0.1em 3px  $color;
+    border-color: $color;
   }
   &:hover:active {
     background-color: darken($color, 10%);
-    transform: translateY(0.2em);
-    box-shadow: 0em -0.1em 0 0 darken($color, 20%);
+    box-shadow: 0em 0 3px darken($color, 20%);
+    border-color: darken($color, 20%);
   }
   &:active {
     background-color: $color;
-    transform: translateY(0.2em);
-    box-shadow: 0em -0.1em 0 0 darken($color, 10%);
+    box-shadow: 0em 0 3px darken($color, 10%);
+    border-color: darken($color, 10%);
   }
 }

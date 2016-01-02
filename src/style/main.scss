@@ -1,4 +1,4 @@
-html, body {
+html, body, .appContainer {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -13,9 +13,143 @@ button, input, textarea {
 }
 
 html {
+  background-color: #e2e4e6;
   // 10pt on mobile
   font-size: 10pt;
   @media screen and (min-width: 400pt) {
     font-size: 12pt;
+  }
+}
+
+#app {
+  box-sizing: padding-box;
+  height: 100%;
+  padding: 0 0.6em;
+  padding-top: 3.2em;
+  & > #header {
+    $headerColor: #ff6c1c;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.2rem;
+    z-index: 1000;
+    background-color: $headerColor;
+    box-shadow: 0 0.2rem 4px -1px darken($headerColor, 20%);
+    color: #fff;
+    font-size: 1.2rem;
+    line-height: 3.2rem;
+    vertical-align: middle;
+    & > .content {
+      max-width: 62rem;
+      box-sizing: border-box;
+      padding: 0 1rem;
+      margin: 0 auto;
+      text-align: center;
+      & > .left {
+        display: inline-block;
+        float: left;
+        font-size: 1.1em;
+      }
+      & > .center {
+        display: inline-block;
+        text-align: center;
+        img {
+          margin-top: 0.25em;
+        }
+      }
+      & > .right {
+        display: inline-block;
+        float: right;
+      }
+    }
+  }
+  & > #container {
+    max-width: 62em;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 1em;
+    padding-left: 15em;
+    padding-right: 0.5em;
+    box-sizing: border-box;
+    min-height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 4px -1px #000;
+    & > #sidebar {
+      position: fixed;
+      margin-left: -14.5em;
+      width: 14em;
+      top: 3.2em;
+      bottom: 0em;
+      padding: 0.5em;
+      padding-top: 1.5em;
+      box-sizing: border-box;
+      color: #222;
+      border-right: 1px solid #ccc;
+      &:hover {
+        overflow-y: scroll;
+      }
+    }
+    & > #content {
+      padding: 0.5em;
+    }
+  }
+  & > #conversation-list {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    padding: 0 0.4em;
+    box-sizing: border-box;
+    text-align: right;
+    & > .conversation {
+      display: inline-block;
+      vertical-align: bottom;
+      text-align: left;
+      margin: 0 0.4em;
+      box-sizing: border-box;
+      border-radius: 3px 3px 0 0;
+      width: 13em;
+      background-color: #4f5258;
+      color: #fff;
+      box-shadow: 0 0 4px -1px #000;
+      & > .title {
+        padding: 0.5em 1em;
+      }
+      & > .content {
+        display: none;
+      }
+      &.open {
+        width: 19em;
+        & > .content {
+          box-sizing: border-box;
+          color: #222;
+          display: block;
+          background-color: #fff;
+          height: 16em;
+          & > .chat-container {
+            position: relative;
+            height: 100%;
+            font-size: 0.89em;
+            .message-list {
+              position: absolute;
+              overflow: auto;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 2.2em;
+              padding: 0.5em;
+            }
+            .chat-form {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+            }
+          }
+        }
+      }
+    }
   }
 }

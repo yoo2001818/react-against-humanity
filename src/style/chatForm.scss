@@ -1,16 +1,19 @@
 .chat-form {
-  position: absolute;
+  /* position: absolute;
   display: block;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
   & > form {
     & > .message {
       & > .text-input-component {
+        border: none;
         border-top: 1px solid #ccc;
+        box-shadow: none;
         background-color: #fff;
         width: 100%;
         margin: 0;
+        border-radius: 0;
       }
     }
   }
