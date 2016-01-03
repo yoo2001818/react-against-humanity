@@ -11,7 +11,7 @@ const testUser = {
 const testMessage = {
   type: 'normal',
   message: 'Hello, world!',
-  connection: 1
+  connection: testUser
 };
 
 describe('subChatReducer', () => {
