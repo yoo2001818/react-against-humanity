@@ -55,11 +55,11 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        loader: ExtractTextPlugin.extract('style', 'css')
+        loader: ExtractTextPlugin.extract('style', 'css!import-glob')
       },
       {
         test: /\.s[ca]ss$/i,
-        loader: ExtractTextPlugin.extract('style', 'css!sass')
+        loader: ExtractTextPlugin.extract('style', 'css!sass!import-glob')
       },
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)(\?.+)?$/,

@@ -12,5 +12,6 @@
   "UserLeave": "$1 has left",
   "ConnectingTitle": "Loading",
   "ConnectingDesc": "Connecting to the server...",
-  "GameLobbyChatTitle": "Game Lobby"
+  "GameLobbyChatTitle": "Game Lobby",
+  "GameLobbyTitle": "Lobby"
 }

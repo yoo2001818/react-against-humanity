@@ -1,5 +1,3 @@
-import '../style/conversation.scss';
-
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 

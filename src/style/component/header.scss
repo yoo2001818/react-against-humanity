@@ -21,7 +21,27 @@
     & > .left {
       display: inline-block;
       float: left;
-      font-size: 1.1em;
+      & > .hamburger {
+        cursor: pointer;
+        padding-right: 1em;
+        @include fa-icon();
+        &:before {
+          content: $fa-var-bars;
+        }
+        &.open:before {
+          content: $fa-var-times;
+        }
+        @media screen and (min-width: $tablet-size) {
+          // Hide in desktop mode
+          display: none;
+        }
+      }
+      & > .title {
+        display: inline-block;
+        font-size: 1.1em;
+        margin: 0;
+        padding: 0;
+      }
     }
     & > .center {
       display: inline-block;

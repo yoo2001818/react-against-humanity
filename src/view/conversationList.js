@@ -1,5 +1,3 @@
-import '../style/conversationList.scss';
-
 import React, { Component } from 'react';
 import Conversation from '../component/conversation';
 import ChatContainer from './chatContainer';

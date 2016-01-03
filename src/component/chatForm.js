@@ -1,5 +1,3 @@
-import '../style/chatForm.scss';
-
 import React, { Component, PropTypes } from 'react';
 
 import TextInput from './textInput';

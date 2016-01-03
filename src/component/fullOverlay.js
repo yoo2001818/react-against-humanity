@@ -1,5 +1,3 @@
-import '../style/fullOverlay.scss';
-
 import React, { Component, PropTypes } from 'react';
 
 // Full-sized loading page.

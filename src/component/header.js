@@ -1,14 +1,22 @@
-import '../style/header.scss';
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
-import React, { Component } from 'react';
+import __ from '../lang';
 
 export default class Header extends Component {
   render() {
+    const { onSideBar = () => {}, showSideBar } = this.props;
     return (
       <div id='header'>
         <div className='content'>
           <div className='left'>
-            Title
+            <i
+              className={classNames('hamburger', { open: showSideBar })}
+              onClick={onSideBar}
+            />
+            <h1 className='title'>
+              {__('GameLobbyTitle')}
+            </h1>
           </div>
           <div className='center'>
             Center
@@ -21,3 +29,8 @@ export default class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  onSideBar: PropTypes.function,
+  showSideBar: PropTypes.bool
+};

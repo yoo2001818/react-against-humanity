@@ -1,5 +1,3 @@
-import '../style/dialog.scss';
-
 import React, { Component, PropTypes } from 'react';
 
 export default class Dialog extends Component {

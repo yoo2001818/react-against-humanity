@@ -43,7 +43,6 @@ if (__DEVELOPMENT__) {
     log: null, heartbeat: 10 * 1000
   }));
   app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
     publicPath: '/'
   }));
 } else {

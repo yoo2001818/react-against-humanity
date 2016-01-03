@@ -1,5 +1,3 @@
-import '../style/button.scss';
-
 import React, { Component, PropTypes } from 'react';
 
 export default class Button extends Component {

@@ -15,7 +15,8 @@
   box-shadow: 0 0 4px -1px #000;
   height: 2.4em;
   flex: 0 1 content;
-  // transition: width 0.1s;
+  transition: width 0.2s, height 0.2s;
+  overflow: hidden;
   & > .title {
     position: relative;
     z-index: 1;
@@ -32,7 +33,7 @@
     color: #222;
     display: block;
     background-color: #fff;
-    height: 0;
+    height: 16em;
     // transition: height 0.2s;
     & > .chat-container {
       display: none;
@@ -59,11 +60,9 @@
   &.open {
     width: 19em;
     height: 18.4em;
-    flex: 1 0 20em;
+    // flex: 1 0 20em;
     // transition: width 0.2s;
     & > .content {
-      height: 16em;
-      // transition: height 0.1s;
       & > .chat-container {
         display: block;
       }
