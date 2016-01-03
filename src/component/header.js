@@ -31,6 +31,6 @@ export default class Header extends Component {
 }
 
 Header.propTypes = {
-  onSideBar: PropTypes.function,
+  onSideBar: PropTypes.func,
   showSideBar: PropTypes.bool
 };

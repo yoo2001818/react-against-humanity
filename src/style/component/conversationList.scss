@@ -18,22 +18,23 @@
   &:before {
     content: '';
     display: inline-block;
-    flex: 1 0 1em;
+    flex: 1 0 0em;
   }
   .conversation-wrapper {
     position: relative;
     display: inline-block;
-    flex: 0 1 auto;
+    flex: 0 4 auto;
     width: 14em;
     height: 2.4em;
-    transition: width 0.2s, height 0.2s;
+    transition: height 0s linear 0.2s;
     &:first-child {
       flex-shrink: 0;
     }
     &.open {
-      flex: 0 1 auto;
+      flex: 0 3 auto;
       width: 20em;
       height: 18.4em;
+      transition: height 0s linear 0s;
       &:first-child {
         flex-shrink: 0;
       }
