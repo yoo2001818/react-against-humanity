@@ -1,0 +1,52 @@
+#app {
+  box-sizing: padding-box;
+  height: 100%;
+  padding: 0 0.6em;
+  padding-top: 3.2em;
+  & > #container {
+    max-width: 75em;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 1em;
+    padding-left: 19em;
+    padding-right: 0.5em;
+    box-sizing: border-box;
+    min-height: 100%;
+    &.sidebar-hidden {
+      padding-left: 0.5em;
+      & > #sidebar {
+        margin-left: -0.5em;
+        visibility: hidden;
+      }
+    }
+    & > #sidebar {
+      position: fixed;
+      margin-left: -18.5em;
+      width: 18em;
+      top: 3.2em;
+      bottom: 0em;
+      padding: 0.5em;
+      padding-top: 1.5em;
+      box-sizing: border-box;
+      color: #222;
+      &:hover {
+        overflow-y: scroll;
+      }
+    }
+    & > #content {
+      padding: 0.5em;
+      height: 200vh;
+    }
+    @media screen and (max-width: 55em) {
+      padding-left: 0.5em;
+      & > #sidebar {
+        padding-left: 1.5em;
+        background-color: #46484b;
+        color: #fff;
+        box-shadow: 0 0 4px -1px #000;
+        left: 0;
+        margin-left: 0;
+      }
+    }
+  }
+}

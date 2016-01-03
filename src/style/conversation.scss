@@ -1,0 +1,75 @@
+.conversation-wrapper {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.conversation {
+  display: inline-block;
+  vertical-align: bottom;
+  text-align: left;
+  margin: 0 0.4em;
+  box-sizing: border-box;
+  width: 13em;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+  background-color: #4f5258;
+  box-shadow: 0 0 4px -1px #000;
+  height: 2.4em;
+  flex: 0 1 content;
+  // transition: width 0.1s;
+  & > .title {
+    position: relative;
+    z-index: 1;
+    padding: 0.6em 1em;
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+    background-color: #4f5258;
+    &:hover {
+      background-color: lighten(#4f5258, 6%);
+    }
+  }
+  & > .content {
+    box-sizing: border-box;
+    color: #222;
+    display: block;
+    background-color: #fff;
+    height: 0;
+    // transition: height 0.2s;
+    & > .chat-container {
+      display: none;
+      position: relative;
+      height: 100%;
+      font-size: 0.89em;
+      .message-list {
+        position: absolute;
+        overflow: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 2.2em;
+        padding: 0.5em;
+      }
+      .chat-form {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+  &.open {
+    width: 19em;
+    height: 18.4em;
+    flex: 1 0 20em;
+    // transition: width 0.2s;
+    & > .content {
+      height: 16em;
+      // transition: height 0.1s;
+      & > .chat-container {
+        display: block;
+      }
+    }
+  }
+  /*@media screen and (max-width: 55em) {
+    width: 8em;
+  }*/
+}

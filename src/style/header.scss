@@ -1,0 +1,35 @@
+#header {
+  $headerColor: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.2rem;
+  z-index: 1000;
+  background-color: $headerColor;
+  box-shadow: 0 0.2rem 4px -1px darken($headerColor, 20%);
+  color: #E65100;
+  font-size: 1.2rem;
+  line-height: 3.2rem;
+  vertical-align: middle;
+  & > .content {
+    max-width: 90rem;
+    box-sizing: border-box;
+    padding: 0 2rem;
+    margin: 0 auto;
+    text-align: center;
+    & > .left {
+      display: inline-block;
+      float: left;
+      font-size: 1.1em;
+    }
+    & > .center {
+      display: inline-block;
+      text-align: center;
+    }
+    & > .right {
+      display: inline-block;
+      float: right;
+    }
+  }
+}

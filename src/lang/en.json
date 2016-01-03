@@ -11,5 +11,6 @@
   "UserJoin": "$1 has joined",
   "UserLeave": "$1 has left",
   "ConnectingTitle": "Loading",
-  "ConnectingDesc": "Connecting to the server..."
+  "ConnectingDesc": "Connecting to the server...",
+  "GameLobbyChatTitle": "Game Lobby"
 }
