@@ -1,5 +1,8 @@
 import './style/index.scss';
 
+import 'es5-shim';
+import 'es6-shim';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

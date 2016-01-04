@@ -51,6 +51,8 @@
     "array-flatten": "^2.0.0",
     "classnames": "^2.2.1",
     "debug": "^2.2.0",
+    "es5-shim": "^4.4.1",
+    "es6-shim": "^0.34.0",
     "express": "^4.13.3",
     "flux-standard-action": "^0.6.0",
     "font-awesome": "^4.5.0",
