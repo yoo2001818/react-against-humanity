@@ -13,7 +13,7 @@ router.poll(Connection.HANDSHAKE, (req, res) => {
     const state = req.store.getState();
     res.resolve(Connection.handshake({
       connection: {
-        self: action.meta.connection.id,
+        self: action.meta.target.connection,
         list: state.connection.list
       },
       chat: state.chat

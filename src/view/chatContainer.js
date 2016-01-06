@@ -12,7 +12,7 @@ class ChatContainer extends Component {
     return (
       <div className='chat-container'>
         <MessageList messages={messages} />
-        <ChatForm onChat={message => chat('global', {}, message)} />
+        <ChatForm onChat={message => chat('global', message)} />
       </div>
     );
   }

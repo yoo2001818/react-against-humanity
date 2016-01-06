@@ -1,12 +1,24 @@
 import * as TransportActions from '../action/transport';
+import * as RoomActions from '../action/room';
 import * as ConnectionActions from '../action/connection';
+
+function updateList(state, id, data) {
+  if (state.list[id] === undefined) {
+    throw new Error(`Connection ${id} is not available`);
+  }
+  return Object.assign({}, state, {
+    list: Object.assign({}, state.list, {
+      [id]: Object.assign({}, state.list[id], data)
+    })
+  });
+}
 
 export default function connection(state = {
   self: null,
   list: {}
 }, action) {
   const { list } = state;
-  const { type, payload, error } = action;
+  const { type, payload, meta, error } = action;
   if (error) return state;
   switch (type) {
   case ConnectionActions.CONNECT:
@@ -30,13 +42,21 @@ export default function connection(state = {
       })()
     });
   case ConnectionActions.UPDATE:
-    if (list[payload.id] === undefined) {
-      throw new Error(`Connection ${payload.id} is not available`);
-    }
-    return Object.assign({}, state, {
-      list: Object.assign({}, list, {
-        [payload.id]: Object.assign({}, list[payload.id], payload)
-      })
+    return updateList(state, payload.id, payload);
+  case RoomActions.CREATE:
+    // Create MUST have 'meta.room' variable, it should be injected by
+    // the server.
+    if (meta.room == null) throw new Error('meta.room is missing');
+    return updateList(state, payload.id, {
+      room: meta.room
+    });
+  case RoomActions.JOIN:
+    return updateList(state, payload.id, {
+      room: meta.room
+    });
+  case RoomActions.LEAVE:
+    return updateList(state, payload.id, {
+      room: null
     });
   case ConnectionActions.HANDSHAKE:
     return payload.connection;

@@ -11,7 +11,7 @@ export default function subChat(state = {
   case ChatActions.CHAT:
     return Object.assign({}, state, {
       messages: messages.concat([{
-        connection: meta.connection,
+        connection: meta.target.connection,
         type: 'normal',
         message: payload.message
       }]).slice(-limit)
@@ -29,14 +29,14 @@ export default function subChat(state = {
   case ConnectionActions.CONNECT:
     return Object.assign({}, state, {
       messages: messages.concat([{
-        connection: meta.connection,
+        connection: meta.target.connection,
         type: 'join'
       }]).slice(-limit)
     });
   case ConnectionActions.DISCONNECT:
     return Object.assign({}, state, {
       messages: messages.concat([{
-        connection: meta.connection,
+        connection: meta.target.connection,
         type: 'leave'
       }]).slice(-limit)
     });

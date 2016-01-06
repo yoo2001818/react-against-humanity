@@ -10,27 +10,32 @@ export const DISCONNECT = 'connection/disconnect';
 export const update = createAction(UPDATE,
   connection => connection,
   connection => ({
-    connection: connection
+    target: {
+      connection: connection.id
+    }
   })
 );
 export const handshake = createAction(HANDSHAKE,
   data => data,
-  (_, connection) => ({
-    connection: connection,
+  () => ({
     class: 'write'
   })
 );
 export const connect = createAction(CONNECT,
   connection => connection,
   connection => ({
-    connection: connection,
+    target: {
+      connection: connection.id
+    },
     class: 'write'
   })
 );
 export const disconnect = createAction(DISCONNECT,
   connection => connection,
   connection => ({
-    connection: connection,
+    target: {
+      connection: connection.id
+    },
     class: 'write'
   })
 );
