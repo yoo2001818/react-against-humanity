@@ -21,16 +21,19 @@ export default function room(state = {
   const { list } = state;
   const { type, payload, meta, error } = action;
   if (error) return state;
-  const room = state.list[meta.room];
+  let room;
+  if (meta && meta.target && meta.target.room) {
+    room = state.list[meta.target.room];
+  }
   switch (type) {
   case RoomActions.CREATE:
-    if (list[meta.room] !== undefined) {
-      throw new Error(`Room ${meta.room} is already occupied`);
+    if (list[meta.target.room] !== undefined) {
+      throw new Error(`Room ${meta.target.room} is already occupied`);
     }
     return Object.assign({}, state, {
       list: Object.assign({}, list, {
-        [meta.room]: Object.assign({}, payload, {
-          users: [meta.connection.id]
+        [meta.target.room]: Object.assign({}, payload, {
+          users: [meta.target.connection]
         })
       }),
       last: Math.max(state, meta.room) + 1

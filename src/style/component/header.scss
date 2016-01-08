@@ -23,7 +23,10 @@
       float: left;
       & > .hamburger {
         cursor: pointer;
-        padding-right: 1em;
+        margin-left: -0.8em;
+        margin-right: 0.5em;
+        padding: 0.5em;
+        width: 1.2em;
         @include fa-icon();
         &:before {
           content: $fa-var-bars;

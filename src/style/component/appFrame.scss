@@ -8,7 +8,7 @@
     margin: 0 auto;
     position: relative;
     padding-top: 1em;
-    padding-left: 19em;
+    padding-left: 17em;
     padding-right: 0.5em;
     box-sizing: border-box;
     min-height: 100%;
@@ -17,8 +17,8 @@
     }
     & > #sidebar {
       position: fixed;
-      margin-left: -18.5em;
-      width: 18em;
+      margin-left: -16.5em;
+      width: 16em;
       top: 3.2em;
       bottom: 0em;
       padding: 0.5em;
@@ -31,15 +31,14 @@
     }
     & > #content {
       padding: 0.5em;
-      height: 200vh;
     }
     @media screen and (max-width: $tablet-size) {
-      padding-left: 18.5em;
+      padding-left: 16.5em;
       transition: padding-left 0.2s;
       &.sidebar-hidden {
         padding-left: 0.5em;
         & > #sidebar {
-          left: -18.5em;
+          left: -16.5em;
           visibility: hidden;
           transition: left 0.2s, visibility 0s linear 0.2s;
         }

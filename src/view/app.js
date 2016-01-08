@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import ConnectionKeeper from './connectionKeeper';
 import ConnectionList from './connectionList';
+import RoomList from './roomList';
 import AppFrame from './appFrame';
 
 export default class App extends Component {
@@ -12,7 +13,7 @@ export default class App extends Component {
         <AppFrame sideBar={(
           <ConnectionList />
         )}>
-          Content.
+          <RoomList />
         </AppFrame>
       </ConnectionKeeper>
     );

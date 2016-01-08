@@ -20,6 +20,7 @@ export default class ChatForm extends Component {
             <TextInput
               placeholder={__('ChatPlaceholder')}
               name='message'
+              autoComplete='off'
             />
           </div>
         </form>

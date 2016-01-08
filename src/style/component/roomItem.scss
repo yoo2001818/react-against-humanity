@@ -1,0 +1,65 @@
+.room-item {
+  & > .id {
+    width: 3.5em;
+    text-align: right;
+  }
+  & > .lock {
+    padding: 0 0.2em;
+    width: 0.7rem;
+    &.enabled {
+      @include fa-icon();
+      display: table-cell;
+      color: #E4961E;
+      &:before {
+        content: $fa-var-lock;
+      }
+    }
+  }
+  & > .state {
+    padding: 0 0.2rem;
+    width: 0.7rem;
+    text-align: center;
+    &.playing {
+      @include fa-icon();
+      font-size: 0.6em;
+      vertical-align: middle;
+      display: table-cell;
+      color: #46B120;
+      &:before {
+        content: $fa-var-circle;
+      }
+    }
+  }
+  & > .name {
+    padding-left: 0.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & > .host {
+    width: 15%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media screen and (max-width: $mobile-size) {
+      display: none;
+    }
+  }
+  & > .users {
+    width: 4em;
+    text-align: center;
+    .current {
+      &:after {
+        content: '/';
+        padding: 0 0.3em;
+        color: #666;
+      }
+    }
+  }
+
+  &.head {
+    & > * {
+      text-align: center;
+    }
+  }
+}
