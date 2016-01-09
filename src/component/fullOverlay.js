@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
+import classNames from 'classnames';
+
 // Full-sized loading page.
 
 export default class FullOverlay extends Component {
   render() {
-    const { children } = this.props;
+    const { children, filter } = this.props;
     return (
-      <div className='full-overlay'>
+      <div className={classNames('full-overlay', { filter })}>
         <div className='container'>
           <div className='message'>
             <div className='children'>
@@ -20,5 +22,6 @@ export default class FullOverlay extends Component {
 }
 
 FullOverlay.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  filter: PropTypes.bool
 };

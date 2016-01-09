@@ -13,5 +13,7 @@
   "ConnectingTitle": "접속 중",
   "ConnectingDesc": "서버에 접속하는 중입니다..",
   "GameLobbyChatTitle": "대기실",
-  "GameLobbyTitle": "대기실"
+  "GameLobbyTitle": "대기실",
+  "ErrorTitle": "오류",
+  "Dismiss": "닫기"
 }

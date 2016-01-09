@@ -22,7 +22,7 @@ export default class AppFrame extends Component {
       children, sideBar
     } = this.props;
     return (
-      <div id='app'>
+      <div id='app-frame'>
         <Header
           onSideBar={this.handleSideBar.bind(this)}
           showSideBar={showSideBar}

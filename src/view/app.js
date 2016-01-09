@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import ErrorOverlay from './errorOverlay';
 import ConnectionKeeper from './connectionKeeper';
 import ConnectionList from './connectionList';
 import RoomList from './roomList';
@@ -17,14 +18,17 @@ class App extends Component {
   render() {
     // Just a mockup..
     return (
-      <ConnectionKeeper>
-        <AppFrame sideBar={(
-          <ConnectionList />
-        )}>
-          <RoomList />
-          <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
-        </AppFrame>
-      </ConnectionKeeper>
+      <div id='app'>
+        <ConnectionKeeper>
+          <AppFrame sideBar={(
+            <ConnectionList />
+          )}>
+            <RoomList />
+            <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
+          </AppFrame>
+        </ConnectionKeeper>
+        <ErrorOverlay />
+      </div>
     );
   }
 }

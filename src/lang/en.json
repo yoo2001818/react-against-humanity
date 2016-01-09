@@ -13,5 +13,7 @@
   "ConnectingTitle": "Loading",
   "ConnectingDesc": "Connecting to the server...",
   "GameLobbyChatTitle": "Game Lobby",
-  "GameLobbyTitle": "Lobby"
+  "GameLobbyTitle": "Lobby",
+  "ErrorTitle": "Error",
+  "Dismiss": "Dismiss"
 }

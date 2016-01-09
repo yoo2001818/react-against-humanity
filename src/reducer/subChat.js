@@ -6,7 +6,8 @@ export default function subChat(state = {
   messages: []
 }, action) {
   const { limit, messages } = state;
-  const { type, payload, meta } = action;
+  const { type, payload, meta, error } = action;
+  if (error) return state;
   switch (type) {
   case ChatActions.CHAT:
     return Object.assign({}, state, {
