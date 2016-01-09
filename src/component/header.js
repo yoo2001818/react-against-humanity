@@ -19,10 +19,10 @@ export default class Header extends Component {
             </h1>
           </div>
           <div className='center'>
-            Center
+
           </div>
           <div className='right'>
-            Sign Out
+            나가기
           </div>
         </div>
       </div>

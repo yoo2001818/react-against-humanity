@@ -11,7 +11,7 @@ class App extends Component {
   dispatchTest() {
     // Hmm.
     this.props.dispatch(RoomActions.create({
-      name: 'Gorani is best'
+      name: '괴상한 방'
     }));
   }
   render() {

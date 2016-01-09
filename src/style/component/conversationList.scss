@@ -5,7 +5,7 @@
   right: 0;
   white-space: nowrap;
   text-align: right;
-  overflow-x: auto;
+  //overflow-x: auto;
   //height: 20em;
   //z-index: -1;
   margin: 0 auto;
@@ -25,7 +25,7 @@
     display: inline-block;
     flex: 0 4 auto;
     width: 14em;
-    height: 2.4em;
+    //height: 2.4em;
     transition: height 0s linear 0.2s;
     &:first-child {
       flex-shrink: 0;
@@ -33,7 +33,7 @@
     &.open {
       flex: 0 3 auto;
       width: 20em;
-      height: 18.4em;
+      //height: 18.4em;
       transition: height 0s linear 0s;
       &:first-child {
         flex-shrink: 0;
