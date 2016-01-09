@@ -5,6 +5,7 @@ import packTarget from '../middleware/packTarget';
 import connection from './connection';
 import transport from './transport';
 import chat from './chat';
+import room from './room';
 
 const router = new Router();
 
@@ -23,5 +24,6 @@ router.middleware(null, packTarget, (req, res) => {
 router.use(connection);
 router.use(transport);
 router.use(chat);
+router.use(room);
 
 export default router;

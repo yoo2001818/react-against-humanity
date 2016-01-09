@@ -16,7 +16,8 @@ router.poll(Connection.HANDSHAKE, (req, res) => {
         self: action.meta.target.connection,
         list: state.connection.list
       },
-      chat: state.chat
+      chat: state.chat,
+      room: state.room
     }));
   }, res.reject);
   // .then(res.resolve, res.reject);

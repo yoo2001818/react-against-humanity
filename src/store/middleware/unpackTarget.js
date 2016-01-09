@@ -11,6 +11,10 @@ export const unpackTarget = store => next => action => {
       id: target.connection
     };
   }
+  if (target.room != null) {
+    // Room remains the same
+    newTarget.room = target.room;
+  }
   return next(Object.assign({}, action, {
     meta: Object.assign({}, action.meta, {
       target: newTarget

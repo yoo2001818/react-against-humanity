@@ -7,8 +7,8 @@ export default class RoomItem extends Component {
         <td className='id'>
           0
         </td>
-        <td className='lock enabled' />
-        <td className='state playing' />
+        <td className='lock' />
+        <td className='state waiting' />
         <td className='name'>
           뭔지 정체를 알 수 없는 방
         </td>

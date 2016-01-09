@@ -34,7 +34,9 @@ export const disconnect = createAction(DISCONNECT,
   connection => connection,
   connection => ({
     target: {
-      connection: connection.id
+      // Do we really need handle this in here?
+      connection: connection.id,
+      room: connection.room
     },
     class: 'write'
   })

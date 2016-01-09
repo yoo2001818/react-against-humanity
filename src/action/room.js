@@ -10,19 +10,25 @@ export const JOIN = 'room/join';
 export const LEAVE = 'room/leave';
 
 // room.id must be provided by the server later.
-export const create = createAction(CREATE, template => template, () => ({
-  class: 'write'
-}));
+export const create = createAction(CREATE,
+  template => template,
+  (template, room) => ({
+    class: 'write', target: { room }
+  })
+);
 // Destroying room by the user is not possible unless the user is admin
-export const destroy = createAction(DESTROY, () => ({}), room => ({
-  class: 'write', room: room
-}));
+export const destroy = createAction(DESTROY,
+  () => ({}),
+  room => ({
+    class: 'write', target: { room }
+  })
+);
 
 // This is only possible by a host.
 export const update = createAction(UPDATE,
-  (room, template) => template,
-  room => ({
-    class: 'write', room: room
+  template => template,
+  (template, room) => ({
+    class: 'write', target: { room }
   })
 );
 // Huh. Typically this will be provided by the server when the
@@ -30,9 +36,15 @@ export const update = createAction(UPDATE,
 export const fetchList = createAction(FETCH_LIST);
 
 // User joins the room.
-export const join = createAction(JOIN, () => ({}), room => ({
-  class: 'write', room: room
-}));
-export const leave = createAction(LEAVE, () => ({}), () => ({
-  class: 'write'
-}));
+export const join = createAction(JOIN,
+  room => ({ room }),
+  room => ({
+    class: 'write', target: { room }
+  })
+);
+export const leave = createAction(LEAVE,
+  () => ({}),
+  room => ({
+    class: 'write', target: { room }
+  })
+);

@@ -44,18 +44,29 @@ export default function connection(state = {
   case ConnectionActions.UPDATE:
     return updateList(state, payload.id, payload);
   case RoomActions.CREATE:
+    if (list[meta.target.connection.id].room != null) {
+      throw new Error('User has already connected to the room');
+    }
     // Create MUST have 'meta.room' variable, it should be injected by
     // the server.
-    if (meta.room == null) throw new Error('meta.room is missing');
-    return updateList(state, payload.id, {
-      room: meta.room
+    if (meta.target.room == null) {
+      throw new Error('meta.target.room is missing');
+    }
+    return updateList(state, meta.target.connection.id, {
+      room: meta.target.room
     });
   case RoomActions.JOIN:
-    return updateList(state, payload.id, {
-      room: meta.room
+    if (list[meta.target.connection.id].room != null) {
+      throw new Error('User has already connected to the room');
+    }
+    return updateList(state, meta.target.connection.id, {
+      room: meta.target.room
     });
   case RoomActions.LEAVE:
-    return updateList(state, payload.id, {
+    if (list[meta.target.connection.id].room == null) {
+      throw new Error('User doesn\'t belong to any room');
+    }
+    return updateList(state, meta.target.connection.id, {
       room: null
     });
   case ConnectionActions.HANDSHAKE:

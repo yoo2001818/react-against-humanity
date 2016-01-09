@@ -21,51 +21,67 @@ export default function room(state = {
   const { list } = state;
   const { type, payload, meta, error } = action;
   if (error) return state;
-  let room;
-  if (meta && meta.target && meta.target.room) {
-    room = state.list[meta.target.room];
-  }
+  let roomId = meta && meta.target && meta.target.room;
+  let room = state.list[roomId];
   switch (type) {
   case RoomActions.CREATE:
-    if (list[meta.target.room] !== undefined) {
-      throw new Error(`Room ${meta.target.room} is already occupied`);
+    if (roomId == null) roomId = state.last;
+    if (list[roomId] !== undefined) {
+      throw new Error(`Room ${roomId} is already occupied`);
     }
     return Object.assign({}, state, {
       list: Object.assign({}, list, {
-        [meta.target.room]: Object.assign({}, payload, {
-          users: [meta.target.connection]
+        [roomId]: Object.assign({}, payload, {
+          id: roomId,
+          users: [meta.target.connection.id]
         })
       }),
-      last: Math.max(state, meta.room) + 1
+      last: Math.max(state.last, roomId) + 1
     });
   case RoomActions.DESTROY:
-    if (list[meta.room] === undefined) {
-      throw new Error(`Room ${meta.room} is not available`);
+    if (list[roomId] === undefined) {
+      throw new Error(`Room ${roomId} is not available`);
     }
     return Object.assign({}, state, {
       list: (() => {
         let newList = Object.assign({}, list);
-        delete newList[meta.room];
+        delete newList[roomId];
         return newList;
       })()
     });
   case RoomActions.UPDATE:
-    return updateList(state, meta.room, payload);
+    return updateList(state, roomId, payload);
   case RoomActions.JOIN:
-    if (meta.connection.room != null) {
+    roomId = payload.room;
+    room = list[roomId];
+    if (room.users.indexOf(meta.target.connection.id) !== -1) {
       throw new Error('User has already connected to the room');
     }
-    if (room.users.indexOf(meta.connection.id) !== -1) {
-      throw new Error('User has already connected to the room');
-    }
-    return updateList(state, meta.room,
+    return updateList(state, roomId,
       Object.assign({}, room, {
-        users: room.users.concat([meta.connection.id])
+        users: room.users.concat([meta.target.connection.id])
       })
     );
   case RoomActions.LEAVE:
   case ConnectionActions.DISCONNECT:
-    break;
+    if (type == ConnectionActions.DISCONNECT && room == null) return state;
+    if (room.users.indexOf(meta.target.connection.id) === -1) {
+      throw new Error('User did not connect to the room');
+    }
+    if (room.users.length === 1) {
+      return Object.assign({}, state, {
+        list: (() => {
+          let newList = Object.assign({}, list);
+          delete newList[roomId];
+          return newList;
+        })()
+      });
+    }
+    return updateList(state, roomId,
+      Object.assign({}, room, {
+        users: room.users.filter(id => id !== meta.target.connection.id)
+      })
+    );
   case ConnectionActions.HANDSHAKE:
     return payload.room;
   }

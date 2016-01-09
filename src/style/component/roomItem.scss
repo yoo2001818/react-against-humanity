@@ -9,7 +9,7 @@
     &.enabled {
       @include fa-icon();
       display: table-cell;
-      color: #E4961E;
+      color: #b16b0f;
       &:before {
         content: $fa-var-lock;
       }
@@ -19,12 +19,22 @@
     padding: 0 0.2rem;
     width: 0.7rem;
     text-align: center;
-    &.playing {
+    &.waiting {
       @include fa-icon();
       font-size: 0.6em;
       vertical-align: middle;
       display: table-cell;
       color: #46B120;
+      &:before {
+        content: $fa-var-circle;
+      }
+    }
+    &.playing {
+      @include fa-icon();
+      font-size: 0.6em;
+      vertical-align: middle;
+      display: table-cell;
+      color: #c92727;
       &:before {
         content: $fa-var-circle;
       }

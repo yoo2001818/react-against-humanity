@@ -96,7 +96,10 @@ export default class WebSocketClientConnector extends Connector {
             debug(error.stack);
             debug('replying ticket' + ticketId + ' with an error');
             return this.dispatch(Object.assign({}, action, {
-              payload: error,
+              payload: (error instanceof Error) ? {
+                stack: error.stack,
+                message: error.message
+              } : error,
               meta: Object.assign({}, action.meta, {
                 ticketResponse: ticketId
               }),
