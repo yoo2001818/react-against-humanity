@@ -24,23 +24,30 @@
       padding-top: 1.5em;
       box-sizing: border-box;
       color: #222;
+      z-index: 2;
       &:hover {
         overflow-y: scroll;
       }
     }
     & > #content {
       padding: 0.5em;
+      height: 200vh;
+    }
+    & > .sidebar-overlay {
+      display: none;
     }
     @media screen and (max-width: $tablet-size) {
       padding-left: 0.5em;
-      transform: translateX(15.5em);
-      transition: transform 0.2s;
       &.sidebar-hidden {
-        transform: translateX(0);
         & > #sidebar {
-          // left: -16.5em;
+          left: -16.5em;
           visibility: hidden;
-          transition: visibility 0s linear 0.2s;
+          transition: left 0.2s, visibility 0s linear 0.2s;
+        }
+        & > .sidebar-overlay {
+          visibility: hidden;
+          transition: opacity 0.2s, visibility 0s linear 0.2s;
+          opacity: 0;
         }
       }
       & > #sidebar {
@@ -48,9 +55,23 @@
         background-color: #46484b;
         color: #fff;
         box-shadow: 0 0 4px -1px #000;
-        left: -16.5em;
+        left: 0;
         margin-left: 0;
         visibility: visible;
+        transition: left 0.2s;
+      }
+      & > .sidebar-overlay {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.2s;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background-color: rgba(#000, 0.5);
       }
     }
   }

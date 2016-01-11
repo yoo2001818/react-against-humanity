@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import Header from '../component/header';
 import ConversationList from './conversationList';
+import SideBar from './sideBar';
 
 export default class AppFrame extends Component {
   constructor(props) {
@@ -11,6 +12,13 @@ export default class AppFrame extends Component {
       showSideBar: false
     };
   }
+  hideSideBar() {
+    if (this.state.showSideBar) {
+      this.setState({
+        showSideBar: false
+      });
+    }
+  }
   handleSideBar() {
     this.setState({
       showSideBar: !this.state.showSideBar
@@ -18,9 +26,7 @@ export default class AppFrame extends Component {
   }
   render() {
     const { showSideBar } = this.state;
-    const {
-      children, sideBar
-    } = this.props;
+    const { children } = this.props;
     return (
       <div id='app-frame'>
         <Header
@@ -30,9 +36,12 @@ export default class AppFrame extends Component {
         <div id='container' className={classNames({
           'sidebar-hidden': !showSideBar
         })}>
-          <div id='sidebar'>
-            { sideBar }
-          </div>
+          <div
+            className='sidebar-overlay'
+            onMouseDown={this.hideSideBar.bind(this)}
+            onTouchStart={this.hideSideBar.bind(this)}
+          />
+          <SideBar />
           <div id='content'>
             { children }
           </div>

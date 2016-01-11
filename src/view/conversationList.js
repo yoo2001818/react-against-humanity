@@ -27,9 +27,9 @@ export default class ConversationList extends Component {
             title={__('GameLobbyChatTitle')}
             key={id}
             onFocus={this.handleFocus.bind(this, id)}
-            zIndex={id == focused ? size :
+            zIndex={(id == focused ? size :
               (id > focused ? (size - id) : (id + 1))
-            }
+            ) + 100}
           >
             <ChatContainer />
           </Conversation>

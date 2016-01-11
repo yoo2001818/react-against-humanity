@@ -20,9 +20,7 @@ class App extends Component {
     return (
       <div id='app'>
         <ConnectionKeeper>
-          <AppFrame sideBar={(
-            <ConnectionList />
-          )}>
+          <AppFrame>
             <RoomList />
             <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
           </AppFrame>
