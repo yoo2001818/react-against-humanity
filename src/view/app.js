@@ -3,26 +3,23 @@ import { connect } from 'react-redux';
 
 import ErrorOverlay from './errorOverlay';
 import ConnectionKeeper from './connectionKeeper';
-import ConnectionList from './connectionList';
-import RoomList from './roomList';
 import AppFrame from './appFrame';
-import * as RoomActions from '../action/room';
+import Lobby from './lobby';
+import Room from './room';
 
 class App extends Component {
-  dispatchTest() {
-    // Hmm.
-    this.props.dispatch(RoomActions.create({
-      name: '괴상한 방'
-    }));
-  }
   render() {
+    const { room } = this.props;
     // Just a mockup..
     return (
       <div id='app'>
         <ConnectionKeeper>
           <AppFrame>
-            <RoomList />
-            <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
+            { (room != null) ? (
+              <Room id={room} />
+            ) : (
+              <Lobby />
+            )}
           </AppFrame>
         </ConnectionKeeper>
         <ErrorOverlay />
@@ -32,7 +29,14 @@ class App extends Component {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  room: PropTypes.number
 };
 
-export default connect(() => ({}))(App);
+export default connect(state => {
+  const { connection: { list, self } } = state;
+  // For now this is just a room object, however, we may inject actual
+  // room object in here, if that's okay.
+  let room = list && list[self] && list[self].room;
+  // if (room != null) room = state.room.list[room];
+  return { room };
+})(App);
