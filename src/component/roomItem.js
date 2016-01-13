@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class RoomItem extends Component {
   render() {
+    const { room } = this.props;
     return (
       <tr className='room-item'>
         <td className='id'>
-          0
+          {room.id}
         </td>
         <td className='lock' />
         <td className='state waiting' />
         <td className='name'>
-          뭔지 정체를 알 수 없는 방
+          {room.name}
         </td>
         <td className='host'>
           끼로
@@ -27,3 +28,10 @@ export default class RoomItem extends Component {
     );
   }
 }
+
+RoomItem.propTypes = {
+  room: PropTypes.shape({
+    id: React.PropTypes.number,
+    name: React.PropTypes.string
+  })
+};

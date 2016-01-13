@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import values from 'lodash.values';
 
 import RoomItem from '../component/roomItem';
 
-export default class RoomList extends Component {
+class RoomList extends Component {
   render() {
+    const { rooms } = this.props;
     return (
       <div className='room-list-container'>
         <table className='room-list'>
@@ -18,15 +21,25 @@ export default class RoomList extends Component {
             </tr>
           </thead>
           <tbody>
-            <RoomItem />
-            <RoomItem />
-            <RoomItem />
-            <RoomItem />
-            <RoomItem />
-            <RoomItem />
+            {rooms.map(room => (
+              <RoomItem key={room.id} room={room} />
+            ))}
           </tbody>
         </table>
       </div>
     );
   }
 }
+
+RoomList.propTypes = {
+  rooms: PropTypes.arrayOf(PropTypes.shape({
+    id: React.PropTypes.number,
+    name: React.PropTypes.string
+  })).isRequired
+};
+
+export default connect(
+  state => ({
+    rooms: values(state.room.list)
+  })
+)(RoomList);
