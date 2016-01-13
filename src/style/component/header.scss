@@ -4,16 +4,16 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 3.2rem;
+  height: $header-height;
   z-index: 1000;
   background-color: $headerColor;
   box-shadow: 0 0.2rem 4px -1px darken($headerColor, 20%);
   color: #E65100;
-  font-size: 1.2rem;
-  line-height: 3.2rem;
+  font-size: $header-font-size;
+  line-height: $header-height;
   vertical-align: middle;
   & > .content {
-    max-width: 90rem;
+    max-width: $header-max-width;
     box-sizing: border-box;
     padding: 0 2rem;
     margin: 0 auto;

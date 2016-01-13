@@ -4,7 +4,6 @@ $fa-font-path: "~font-awesome/fonts/";
 @import '~font-awesome/scss/_mixins.scss';
 @import '~font-awesome/scss/_path.scss';
 
-$tablet-size: 55em;
-$mobile-size: 30em;
-
+@import 'color.scss';
+@import 'constant.scss';
 @import 'component/**/*.scss';

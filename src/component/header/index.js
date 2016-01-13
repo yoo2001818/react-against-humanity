@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import __ from '../lang';
+import __ from '../../lang';
 
 export default class Header extends Component {
   render() {
-    const { onSideBar = () => {}, showSideBar } = this.props;
+    const { onSidebar = () => {}, showSidebar } = this.props;
     return (
       <div id='header'>
         <div className='content'>
           <div className='left'>
             <i
-              className={classNames('hamburger', { open: showSideBar })}
-              onClick={onSideBar}
+              className={classNames('hamburger', { open: showSidebar })}
+              onClick={onSidebar}
             />
             <h1 className='title'>
               {__('GameLobbyTitle')}
@@ -31,6 +31,6 @@ export default class Header extends Component {
 }
 
 Header.propTypes = {
-  onSideBar: PropTypes.func,
-  showSideBar: PropTypes.bool
+  onSidebar: PropTypes.func,
+  showSidebar: PropTypes.bool
 };

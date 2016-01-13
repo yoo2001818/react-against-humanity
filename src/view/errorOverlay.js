@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import FullOverlay from '../component/fullOverlay';
-import Dialog from '../component/dialog';
-import Button from '../component/button';
+import FullOverlay from '../component/ui/fullOverlay';
+import Dialog from '../component/ui/dialog';
+import Button from '../component/ui/button';
 
 import { dismiss } from '../action/error';
 import __ from '../lang';

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import FullOverlay from '../fullOverlay';
-import Dialog, { Controls } from '../dialog';
-import Button from '../button';
-import TextInput from '../textInput';
+import FullOverlay from '../ui/fullOverlay';
+import Dialog, { Controls } from '../ui/dialog';
+import Button from '../ui/button';
+import TextInput from '../ui/textInput';
 import __ from '../../lang';
 
 export default class Handshake extends Component {

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import TextInput from './textInput';
+import TextInput from './ui/textInput';
 
 import __ from '../lang';
 

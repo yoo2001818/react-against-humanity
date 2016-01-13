@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { reconnect, disconnect } from '../action/transport';
 import { handshake } from '../action/connection';
 
-import FullOverlay from '../component/fullOverlay';
-import Dialog from '../component/dialog';
+import FullOverlay from '../component/ui/fullOverlay';
+import Dialog from '../component/ui/dialog';
 
 import Failed from '../component/connection/failed';
 import Disconnected from '../component/connection/disconnected';

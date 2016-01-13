@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ErrorOverlay from './errorOverlay';
 import ConnectionKeeper from './connectionKeeper';
-import AppFrame from './appFrame';
+import Container from '../component/container';
 import Lobby from './lobby';
 import Room from './room';
 
@@ -14,13 +14,13 @@ class App extends Component {
     return (
       <div id='app'>
         <ConnectionKeeper>
-          <AppFrame>
+          <Container>
             { (room != null) ? (
               <Room id={room} />
             ) : (
               <Lobby />
             )}
-          </AppFrame>
+          </Container>
         </ConnectionKeeper>
         <ErrorOverlay />
       </div>
