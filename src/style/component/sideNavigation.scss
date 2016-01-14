@@ -1,0 +1,14 @@
+.side-navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  & > li > a {
+    display: block;
+    padding: 0.5em 0.6em;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+  }
+  & > li:last-child > a {
+    border-bottom: none;
+  }
+}

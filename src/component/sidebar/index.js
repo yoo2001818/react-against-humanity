@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import Entry from './entry';
 import ConnectionList from '../../view/connectionList';
 
+import __ from '../../lang';
+
 export default class Sidebar extends Component {
   render() {
     const { visible, onClose = () => {} } = this.props;
@@ -17,10 +19,13 @@ export default class Sidebar extends Component {
           onTouchStart={onClose}
         />
         <div className='sidebar-root'>
-          <Entry hideHeader>
-            <div>갸아악</div>
+          <Entry hideHeader noPadding>
+            <ul className='side-navigation'>
+              <li><a>{__('GameLobbyTitle')}</a></li>
+              <li><a>{__('ProfileTitle')}</a></li>
+            </ul>
           </Entry>
-          <Entry name='접속자'>
+          <Entry name={__('ConnectedUserListTitle')}>
             <ConnectionList />
           </Entry>
         </div>

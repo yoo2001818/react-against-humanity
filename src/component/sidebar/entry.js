@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 export default class SidebarEntry extends Component {
   render() {
-    const { name, hideHeader, children } = this.props;
+    const { name, hideHeader, noPadding, children } = this.props;
     return (
-      <section className='sidebar-entry'>
+      <section
+        className={classNames('sidebar-entry', {'no-padding': noPadding})}
+      >
         { hideHeader || (
           <div className='header'>
             <h1>{name}</h1>
@@ -21,5 +24,6 @@ export default class SidebarEntry extends Component {
 SidebarEntry.propTypes = {
   name: PropTypes.string,
   hideHeader: PropTypes.bool,
+  noPadding: PropTypes.bool,
   children: PropTypes.node
 };

@@ -13,7 +13,9 @@
   "ConnectingTitle": "Loading",
   "ConnectingDesc": "Connecting to the server...",
   "GameLobbyChatTitle": "Game Lobby",
-  "GameLobbyTitle": "Lobby",
+  "GameLobbyTitle": "Room List",
+  "ProfileTitle": "Profile",
+  "ConnectedUserListTitle": "Connected Users",
   "ErrorTitle": "Error",
   "Dismiss": "Dismiss"
 }
