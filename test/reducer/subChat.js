@@ -14,7 +14,17 @@ const testMessage = {
   connection: testUser
 };
 
-describe.skip('subChatReducer', () => {
+function injectUser(action) {
+  return Object.assign({}, action, {
+    meta: Object.assign({}, action.meta, {
+      target: Object.assign({}, action.meta && action.meta.target, {
+        connection: testUser
+      })
+    })
+  });
+}
+
+describe('subChatReducer', () => {
   let store;
   beforeEach('configure store', () => {
     store = createStore(subChatReducer);
@@ -34,7 +44,7 @@ describe.skip('subChatReducer', () => {
     it('should append incoming message', () => {
       // in subChat router, the scope, 'lobby' isn't checked actually.
       // However, this is used to route the action by chat router.
-      store.dispatch(chat('lobby', testUser, 'Hello, world!'));
+      store.dispatch(injectUser(chat('lobby', 'Hello, world!')));
       expect(store.getState()).toEqual({
         limit: 100,
         messages: [
@@ -47,7 +57,7 @@ describe.skip('subChatReducer', () => {
       // Put 100 messages at once.
       let messages = [];
       for (let i = 0; i < 100; ++i) {
-        store.dispatch(chat('lobby', testUser, 'Hello, world!'));
+        store.dispatch(injectUser(chat('lobby', 'Hello, world!')));
         messages.push(testMessage);
         expect(store.getState()).toEqual({
           limit: 100,
@@ -59,7 +69,7 @@ describe.skip('subChatReducer', () => {
       messages.push(Object.assign({}, testMessage, {
         message: 'Stop spamming!'
       }));
-      store.dispatch(chat('lobby', testUser, 'Stop spamming!'));
+      store.dispatch(injectUser(chat('lobby', 'Stop spamming!')));
       expect(store.getState()).toEqual({
         limit: 100,
         messages
@@ -70,7 +80,7 @@ describe.skip('subChatReducer', () => {
   describe('CLEAR_HISTORY', () => {
     it('should clear history', () => {
       // We need to put dummy data into the store before testing this.
-      store.dispatch(chat('lobby', 'Hello, world!'));
+      store.dispatch(injectUser(chat('lobby', 'Hello, world!')));
       expect(store.getState()).toEqual({
         limit: 100,
         messages: [

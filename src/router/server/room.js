@@ -13,7 +13,6 @@ router.poll(Room.CREATE, setConnection, (req, res, next) => {
   if (!req.action.meta) req.action.meta = {};
   if (!req.action.meta.target) req.action.meta.target = {};
   req.action.meta.target.room = state.room.last;
-  console.log('Overrided, ' + req.action.meta.target.room);
   next();
 }, passThrough);
 router.poll(Room.DESTROY, setConnection, passThrough);
