@@ -4,9 +4,10 @@
   padding: 0;
   & > li > a {
     display: block;
-    padding: 0.5em 0.6em;
+    padding: 0.5rem 0.6rem;
     color: #000;
     border-bottom: 1px solid #ccc;
+    font-size: 1.1em;
   }
   & > li:last-child > a {
     border-bottom: none;

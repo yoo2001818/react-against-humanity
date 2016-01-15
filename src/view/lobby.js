@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import * as RoomActions from '../action/room';
 import RoomList from './roomList';
+import RightSidebarContainer from '../component/rightSidebarContainer';
+import Entry from '../component/sidebar/entry';
 // import __ from '../lang';
 
 export default class Lobby extends Component {
@@ -14,10 +16,14 @@ export default class Lobby extends Component {
   }
   render() {
     return (
-      <div>
+      <RightSidebarContainer sidebar={(
+        <Entry name='Lorem ipsum'>
+          A quick brown fox jumps over the lazy dog.
+        </Entry>
+      )}>
         <RoomList />
         <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
-      </div>
+      </RightSidebarContainer>
     );
   }
 }

@@ -12,10 +12,15 @@
   margin-left: 0;
 
   padding: 0.5em;
-  padding-top: $header-height + $content-padding-top; 
+  padding-top: $header-height + $content-padding-top;
 
   background-color: #e2e4e6;
   box-shadow: 0 0 4px -1px #000;
+
+  overflow: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
 
   .hidden > & {
     left: -$sidebar-width - $sidebar-margin;

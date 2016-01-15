@@ -1,0 +1,34 @@
+.right-sidebar-container {
+  $sidebar-space: $sidebar-width + $sidebar-margin * 2;
+  margin: 0 auto;
+  position: relative;
+  padding: 0em;
+  box-sizing: border-box;
+  min-height: 100%;
+  & > .content {
+    float: left;
+  }
+  & > .right-sidebar-wrapper {
+    float: right;
+    margin-right: -$sidebar-space;
+    width: $sidebar-width + $sidebar-margin;
+    & > .right-sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0em;
+      width: $sidebar-width;
+
+      padding: 0.5em;
+      padding-top: $header-height + $content-padding-top;
+
+      background-color: #e2e4e6;
+      overflow: hidden;
+      &:hover {
+        overflow-y: auto;
+      }
+    }
+  }
+  @media screen and (min-width: $mobile-size) {
+    padding-right: $sidebar-space;
+  }
+}
