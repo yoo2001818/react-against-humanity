@@ -6,30 +6,31 @@ export default class RoomItem extends Component {
   render() {
     const { room } = this.props;
     return (
-      <tr className='room-item'>
-        <td className='id'>
-          {room.id}
-        </td>
-        <td className={classNames('lock', {enabled: room.locked})} />
-        <td className={classNames('state', {
-          playing: room.playing,
-          waiting: !room.playing
-        })} />
-        <td className='name'>
-          {room.name}
-        </td>
-        <td className='host'>
-          {room.host || '끼로'}
-        </td>
-        <td className='users'>
-          <span className='current'>
-            {room.playerCount || 1}
-          </span>
-          <span className='max'>
-            {room.maxPlayerCount || 1}
-          </span>
-        </td>
-      </tr>
+      <li className='room-item'>
+        <div className='header'>
+          <div className='name'>
+            <div className={classNames('state', {
+              playing: room.playing,
+              waiting: !room.playing
+            })} />
+            {room.name}
+            <div className={classNames('lock', {enabled: room.locked})} />
+          </div>
+          <div className='status'>
+            <div className='host'>
+              {room.host || '끼로'}
+            </div>
+            <div className='users'>
+              <span className='current'>
+                {room.playerCount || 1}
+              </span>
+              <span className='max'>
+                {room.maxPlayerCount || 1}
+              </span>
+            </div>
+          </div>
+        </div>
+      </li>
     );
   }
 }

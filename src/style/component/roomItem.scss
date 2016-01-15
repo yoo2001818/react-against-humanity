@@ -1,29 +1,74 @@
 .room-item {
-  & > .id {
-    width: 3.5em;
-    text-align: right;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  padding: 0.7em 1em;
+  &:first-child {
+    border-radius: 3px 3px 0 0;
+    border-top: 1px solid #ccc;
   }
-  & > .lock {
+  &:last-child {
+    border-radius: 0 0 3px 3px;
+  }
+  & > .header {
+    & > .name {
+      float: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    & > .status {
+      float: right;
+      text-align: right;
+      & > .host {
+        display: inline-block;
+        color: #666;
+        vertical-align: middle;
+        padding-right: 0.2rem;
+        font-size: 0.9em;
+      }
+      & > .users {
+        display: inline-block;
+        width: 2.9em;
+        text-align: center;
+        .current {
+          &:after {
+            content: '/';
+            padding: 0 0.3em;
+            color: #666;
+          }
+        }
+      }
+    }
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+  .lock {
+    display: inline-block;
     padding: 0 0.2em;
-    width: 0.7rem;
+    width: 0.9rem;
+    text-align: right;
     &.enabled {
       @include fa-icon();
-      display: table-cell;
       color: #cd8628;
       &:before {
         content: $fa-var-lock;
       }
     }
   }
-  & > .state {
+  .state {
+    display: inline-block;
     padding: 0 0.2rem;
-    width: 0.7rem;
-    text-align: center;
+    width: 0.9rem;
+    text-align: left;
     &.waiting {
       @include fa-icon();
       font-size: 0.6em;
       vertical-align: middle;
-      display: table-cell;
       color: #46B120;
       &:before {
         content: $fa-var-circle;
@@ -33,44 +78,10 @@
       @include fa-icon();
       font-size: 0.6em;
       vertical-align: middle;
-      display: table-cell;
       color: #c92727;
       &:before {
         content: $fa-var-circle;
       }
-    }
-  }
-  & > .name {
-    padding-left: 0.2em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  & > .host {
-    width: 15%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    @media screen and (max-width: $mobile-size) {
-      display: none;
-    }
-  }
-  & > .users {
-    width: 4em;
-    text-align: center;
-    .current {
-      &:after {
-        content: '/';
-        padding: 0 0.3em;
-        color: #666;
-      }
-    }
-  }
-
-  &.head {
-    color: #333;
-    & > * {
-      text-align: center;
     }
   }
 }
