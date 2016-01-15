@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import classNames from 'classnames';
+
 export default class RoomItem extends Component {
   render() {
     const { room } = this.props;
@@ -8,20 +10,23 @@ export default class RoomItem extends Component {
         <td className='id'>
           {room.id}
         </td>
-        <td className='lock' />
-        <td className='state waiting' />
+        <td className={classNames('lock', {enabled: room.locked})} />
+        <td className={classNames('state', {
+          playing: room.playing,
+          waiting: !room.playing
+        })} />
         <td className='name'>
           {room.name}
         </td>
         <td className='host'>
-          끼로
+          {room.host || '끼로'}
         </td>
         <td className='users'>
           <span className='current'>
-            1
+            {room.playerCount || 1}
           </span>
           <span className='max'>
-            6
+            {room.maxPlayerCount || 1}
           </span>
         </td>
       </tr>
