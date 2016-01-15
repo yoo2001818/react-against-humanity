@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import values from 'lodash.values';
 
 import RoomItem from '../component/roomItem';
+import __ from '../lang';
 
 class RoomList extends Component {
   render() {
@@ -12,6 +13,14 @@ class RoomList extends Component {
         {rooms.map(room => (
           <RoomItem key={room.id} room={room} />
         ))}
+        {rooms.length === 0 && (
+          <div className='no-room-msg'>
+            <div className='icon' />
+            <p className='message'>
+              {__('RoomListEmptyMsg')}
+            </p>
+          </div>
+        )}
       </ul>
     );
   }
@@ -26,40 +35,6 @@ RoomList.propTypes = {
 
 export default connect(
   state => ({
-    // Some 'fake' data to see how it looks.
-    rooms: values(state.room.list).concat([{
-      id: 1,
-      name: '신비한 방',
-      host: '인클',
-      playerCount: 2,
-      maxPlayerCount: 8
-    }, {
-      id: 2,
-      name: '초보만 오세요',
-      host: '포풍초보',
-      playing: true,
-      playerCount: 3,
-      maxPlayerCount: 6
-    }, {
-      id: 3,
-      name: '고라니 먹고싶다',
-      host: '눉송이',
-      playing: true,
-      playerCount: 4,
-      maxPlayerCount: 8
-    }, {
-      id: 4,
-      name: '매너플레이합시다',
-      host: '쪼리핑',
-      playerCount: 2,
-      maxPlayerCount: 8
-    }, {
-      id: 5,
-      name: 'sdbx',
-      locked: true,
-      host: '탄라로',
-      playerCount: 3,
-      maxPlayerCount: 3
-    }])
+    rooms: values(state.room.list)
   })
 )(RoomList);

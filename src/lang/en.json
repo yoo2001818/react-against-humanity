@@ -17,5 +17,6 @@
   "ProfileTitle": "Profile",
   "ConnectedUserListTitle": "Connected Users",
   "ErrorTitle": "Error",
-  "Dismiss": "Dismiss"
+  "Dismiss": "Dismiss",
+  "RoomListEmptyMsg": "Room list is empty. Why don't create one?"
 }

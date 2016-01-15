@@ -17,5 +17,6 @@
   "ProfileTitle": "프로필",
   "ConnectedUserListTitle": "접속한 사용자",
   "ErrorTitle": "오류",
-  "Dismiss": "닫기"
+  "Dismiss": "닫기",
+  "RoomListEmptyMsg": "방 목록이 비어있습니다. 직접 만들어보세요."
 }

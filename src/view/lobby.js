@@ -8,6 +8,12 @@ import Entry from '../component/sidebar/entry';
 // import __ from '../lang';
 
 export default class Lobby extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
   dispatchTest() {
     // Hmm.
     this.props.dispatch(RoomActions.create({
