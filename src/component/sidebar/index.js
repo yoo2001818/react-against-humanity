@@ -25,7 +25,7 @@ export default class Sidebar extends Component {
               <li><a>{__('ProfileTitle')}</a></li>
             </ul>
           </Entry>
-          <Entry name={__('ConnectedUserListTitle')}>
+          <Entry title={__('ConnectedUserListTitle')}>
             <ConnectionList />
           </Entry>
         </div>

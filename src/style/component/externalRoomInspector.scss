@@ -1,0 +1,29 @@
+.external-room-inspector {
+  .keyvalue {
+    font-size: 0.945em;
+    & > .header {
+      float: left;
+      font-weight: bold;
+      color: #555;
+    }
+    & > .content {
+      float: right;
+    }
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+  .room-action-bar {
+    padding: 0;
+    display: flex;
+    .action {
+      flex: 1 0 auto;
+      text-align: center;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

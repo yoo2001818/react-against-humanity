@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export default class RoomActionBar extends Component {
   render() {
-    const { showDetails, onDetails = () => {} } = this.props;
+    const { showDetails, noDetails, onDetails = () => {} } = this.props;
     return (
       <div className='room-action-bar'>
         <a className='action join'>
@@ -14,13 +14,15 @@ export default class RoomActionBar extends Component {
           <span className='icon' />
           관전하기
         </a>
-        <a
-          className={classNames('action details', {open: showDetails})}
-          onClick={onDetails}
-        >
-          자세히
-          <span className='icon' />
-        </a>
+        { noDetails || (
+          <a
+            className={classNames('action details', {open: showDetails})}
+            onClick={onDetails}
+          >
+            자세히
+            <span className='icon' />
+          </a>
+        )}
       </div>
     );
   }
@@ -28,5 +30,6 @@ export default class RoomActionBar extends Component {
 
 RoomActionBar.propTypes = {
   showDetails: PropTypes.bool,
+  noDetails: PropTypes.bool,
   onDetails: PropTypes.func
 };

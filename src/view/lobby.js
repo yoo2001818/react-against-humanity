@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as RoomActions from '../action/room';
 import RoomList from './roomList';
 import RightSidebarContainer from '../component/rightSidebarContainer';
-import Entry from '../component/sidebar/entry';
+import ExternalRoomInspector from './externalRoomInspector';
 // import __ from '../lang';
 
 export default class Lobby extends Component {
@@ -29,9 +29,7 @@ export default class Lobby extends Component {
     const { selected } = this.state;
     return (
       <RightSidebarContainer sidebar={(
-        <Entry name='Lorem ipsum'>
-          A quick brown fox jumps over the lazy dog.
-        </Entry>
+        <ExternalRoomInspector id={selected} />
       )}>
         <RoomList
           onSelect={this.handleSelect.bind(this)}

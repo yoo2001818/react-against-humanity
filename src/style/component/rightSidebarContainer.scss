@@ -10,6 +10,7 @@
     width: 100%;
   }
   & > .right-sidebar-wrapper {
+    display: none;
     float: right;
     margin-right: -$sidebar-space;
     width: $sidebar-width + $sidebar-margin;
@@ -31,5 +32,8 @@
   }
   @media screen and (min-width: $mobile-size) {
     padding-right: $sidebar-space;
+    & > .right-sidebar-wrapper {
+      display: block;
+    }
   }
 }

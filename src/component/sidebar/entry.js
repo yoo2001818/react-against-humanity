@@ -3,14 +3,16 @@ import classNames from 'classnames';
 
 export default class SidebarEntry extends Component {
   render() {
-    const { name, hideHeader, noPadding, children } = this.props;
+    const { title, hideHeader, noPadding, children, className } = this.props;
     return (
       <section
-        className={classNames('sidebar-entry', {'no-padding': noPadding})}
+        className={classNames('sidebar-entry', className, {
+          'no-padding': noPadding
+        })}
       >
         { hideHeader || (
           <div className='header'>
-            <h1>{name}</h1>
+            <h1>{title}</h1>
           </div>
         )}
         <div className='content'>
@@ -22,7 +24,8 @@ export default class SidebarEntry extends Component {
 }
 
 SidebarEntry.propTypes = {
-  name: PropTypes.string,
+  title: PropTypes.string,
+  className: PropTypes.string,
   hideHeader: PropTypes.bool,
   noPadding: PropTypes.bool,
   children: PropTypes.node

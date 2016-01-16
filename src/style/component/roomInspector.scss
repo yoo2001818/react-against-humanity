@@ -20,6 +20,28 @@
       padding-bottom: 0.1em;
       margin-bottom: 0.4em;
       border-bottom: 1px solid #ccc;
+      & .float:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      & .name {
+        float: left;
+      }
+      & .count {
+        color: #000;
+        font-weight: normal;
+        display: inline-block;
+        text-align: center;
+        float: right;
+        .current {
+          &:after {
+            content: '/';
+            padding: 0 0.3em;
+            color: #666;
+          }
+        }
+      }
     }
     & > .content {
       max-height: 10em;
@@ -27,8 +49,15 @@
       overflow: auto;
       ul {
         padding: 0;
+        margin: 0;
         list-style-type: none;
       }
+    }
+  }
+  .sidebar-entry & {
+    margin-top: 0;
+    & > .pane {
+      padding: 0.4em 0;
     }
   }
 }

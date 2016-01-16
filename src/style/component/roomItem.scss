@@ -18,6 +18,12 @@
   &.selected {
     background-color: #f3f3f3;
   }
+  @media screen and (min-width: $mobile-size) {
+    // Hide action and inspector in tablets or desktops
+    .room-inspector, .room-action-bar {
+      display: none;
+    }
+  }
   & > .header {
     & > .name {
       float: left;

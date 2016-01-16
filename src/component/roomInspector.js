@@ -15,16 +15,30 @@ class Pane extends Component {
 }
 
 Pane.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.node,
   children: PropTypes.node
 };
 
 export default class RoomInspector extends Component {
   render() {
-    const { room } = this.props;
+    const { room, showCount } = this.props;
     return (
       <div className='room-inspector'>
-        <Pane title='접속자'>
+        <Pane title={(
+          <div className='float'>
+            <div className='name'>접속자</div>
+            {showCount && (
+              <div className='count'>
+                <span className='current'>
+                  {room.playerCount || 1}
+                </span>
+                <span className='max'>
+                  {room.maxPlayerCount || 1}
+                </span>
+              </div>
+            )}
+          </div>
+        )}>
           <ul>
             {Array(room.playerCount).fill(0).map(() => (
               <li>A player</li>
@@ -46,5 +60,6 @@ RoomInspector.propTypes = {
   room: PropTypes.shape({
     id: React.PropTypes.number,
     name: React.PropTypes.string
-  })
+  }),
+  showCount: PropTypes.bool
 };
