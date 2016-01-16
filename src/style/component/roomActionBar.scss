@@ -5,17 +5,21 @@
   .action {
     display: inline-block;
     color: #555;
-    padding: 0.4em 0.5em;
+    padding: 0.5em 0.6em;
     margin-right: 0.4em;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: #fff;
     vertical-align: middle;
+    cursor: default;
+    &:hover {
+      background-color: #fafafa;
+    }
     & > .icon {
       @include fa-icon();
       font-size: 0.8em;
       vertical-align: middle;
-      margin-right: 0.3em;
+      margin-right: 0.5em;
     }
     &.join {
       color: #308113;
@@ -27,6 +31,18 @@
       color: #815f13;
       & > .icon:before {
         content: $fa-var-search;
+      }
+    }
+    &.details {
+      & > .icon {
+        margin-left: 0.5em;
+        margin-right: 0;
+        &:before {
+          content: $fa-var-caret-down;
+        }
+      }
+      &.open > .icon:before {
+        content: $fa-var-caret-up;
       }
     }
   }

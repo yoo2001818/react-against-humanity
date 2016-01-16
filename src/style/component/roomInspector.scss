@@ -1,0 +1,34 @@
+.room-inspector {
+  text-align: left;
+  // Use flexbox if possible
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.3em;
+  & > .pane {
+    display: inline-block;
+    flex: 1 0 12em;
+    text-align: left;
+    font-size: 0.9em;
+    width: 33%;
+    min-width: 12em;
+    padding: 0.4em;
+    box-sizing: border-box;
+    & > .header {
+      font-size: 1.05em;
+      font-weight: bold;
+      color: #555;
+      padding-bottom: 0.1em;
+      margin-bottom: 0.4em;
+      border-bottom: 1px solid #ccc;
+    }
+    & > .content {
+      max-height: 10em;
+      font-size: 0.95em;
+      overflow: auto;
+      ul {
+        padding: 0;
+        list-style-type: none;
+      }
+    }
+  }
+}

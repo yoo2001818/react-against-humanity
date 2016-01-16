@@ -2,10 +2,30 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
 import RoomActionBar from './roomActionBar';
+import RoomInspector from './roomInspector';
 
 export default class RoomItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDetails: false
+    };
+  }
+  componentWillReceiveProps(props) {
+    if (!props.selected && this.state.showDetails) {
+      this.setState({
+        showDetails: false
+      });
+    }
+  }
+  toggleDetails() {
+    this.setState({
+      showDetails: !this.state.showDetails
+    });
+  }
   render() {
     const { room, selected, onSelect = () => {} } = this.props;
+    const { showDetails } = this.state;
     return (
       <li
         className={classNames('room-item', { selected })}
@@ -36,7 +56,15 @@ export default class RoomItem extends Component {
             </div>
           </div>
         </div>
-        { selected && <RoomActionBar /> }
+        { showDetails && (
+          <RoomInspector room={room} />
+        )}
+        { selected && (
+          <RoomActionBar
+            showDetails={showDetails}
+            onDetails={this.toggleDetails.bind(this)}
+          />
+        )}
       </li>
     );
   }
