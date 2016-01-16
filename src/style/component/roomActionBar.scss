@@ -1,0 +1,33 @@
+.room-action-bar {
+  margin-top: 0.6rem;
+  padding: 0 0.2em;
+  font-size: 0.9em;
+  .action {
+    display: inline-block;
+    color: #555;
+    padding: 0.4em 0.5em;
+    margin-right: 0.4em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    vertical-align: middle;
+    & > .icon {
+      @include fa-icon();
+      font-size: 0.8em;
+      vertical-align: middle;
+      margin-right: 0.3em;
+    }
+    &.join {
+      color: #308113;
+      & > .icon:before {
+        content: $fa-var-sign-in;
+      }
+    }
+    &.spectate {
+      color: #815f13;
+      & > .icon:before {
+        content: $fa-var-search;
+      }
+    }
+  }
+}

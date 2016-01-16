@@ -4,6 +4,7 @@
   border-top: none;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.4);
   padding: 0.7em 1em;
+  padding-left: 0.7em + 0.9em;
   &:first-child {
     border-radius: 3px 3px 0 0;
     border-top: 1px solid #ccc;
@@ -11,9 +12,16 @@
   &:last-child {
     border-radius: 0 0 3px 3px;
   }
+  &:hover {
+    background-color: #f3f3f3;
+  }
+  &.selected {
+    background-color: #f3f3f3;
+  }
   & > .header {
     & > .name {
       float: left;
+      padding-left: 0.1em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -25,12 +33,13 @@
         display: inline-block;
         color: #666;
         vertical-align: middle;
-        padding-right: 0.2rem;
+        padding-right: 0.3rem;
         font-size: 0.9em;
       }
       & > .users {
         display: inline-block;
-        width: 2.9em;
+        font-size: 0.9em;
+        width: 2.9rem;
         text-align: center;
         .current {
           &:after {
@@ -52,6 +61,7 @@
     padding: 0 0.2em;
     width: 0.9rem;
     text-align: right;
+    vertical-align: middle;
     &.enabled {
       @include fa-icon();
       color: #cd8628;
@@ -61,23 +71,23 @@
     }
   }
   .state {
+    @include fa-icon();
     display: inline-block;
     padding: 0 0.2rem;
-    width: 0.9rem;
+    width: 0.7rem;
     text-align: left;
+    vertical-align: middle;
+    margin-left: -0.9rem;
+    float: left;
+    line-height: 1.05rem;
+    font-size: 0.6em;
     &.waiting {
-      @include fa-icon();
-      font-size: 0.6em;
-      vertical-align: middle;
       color: #46B120;
       &:before {
         content: $fa-var-circle;
       }
     }
     &.playing {
-      @include fa-icon();
-      font-size: 0.6em;
-      vertical-align: middle;
       color: #c92727;
       &:before {
         content: $fa-var-circle;

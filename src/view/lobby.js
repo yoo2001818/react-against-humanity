@@ -11,8 +11,13 @@ export default class Lobby extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      selected: null
     };
+  }
+  handleSelect(id) {
+    this.setState({
+      selected: id
+    });
   }
   dispatchTest() {
     // Hmm.
@@ -21,13 +26,17 @@ export default class Lobby extends Component {
     }));
   }
   render() {
+    const { selected } = this.state;
     return (
       <RightSidebarContainer sidebar={(
         <Entry name='Lorem ipsum'>
           A quick brown fox jumps over the lazy dog.
         </Entry>
       )}>
-        <RoomList />
+        <RoomList
+          onSelect={this.handleSelect.bind(this)}
+          selected={selected}
+        />
         <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
       </RightSidebarContainer>
     );
