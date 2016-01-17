@@ -12,54 +12,11 @@ function updateList(state, id, data) {
   });
 }
 
-// This is a test data, used for creating the view.
-// Of course this shouldn't be present in production.
-const testData = {
-  1: {
-    id: 1,
-    name: '신비한 방',
-    host: '인클',
-    playerCount: 2,
-    maxPlayerCount: 8
-  },
-  2: {
-    id: 2,
-    name: '초보만 오세요',
-    host: '포풍초보',
-    playing: true,
-    playerCount: 3,
-    maxPlayerCount: 6
-  },
-  3: {
-    id: 3,
-    name: '고라니 먹고싶다',
-    host: '눉송이',
-    playing: true,
-    playerCount: 4,
-    maxPlayerCount: 8
-  },
-  4: {
-    id: 4,
-    name: '매너플레이합시다',
-    host: '쪼리핑',
-    playerCount: 53,
-    maxPlayerCount: 53
-  },
-  5: {
-    id: 5,
-    name: 'sdbx',
-    locked: true,
-    host: '탄라로',
-    playerCount: 3,
-    maxPlayerCount: 3
-  }
-};
-
 export default function room(state = {
   // This is used for auto-incrementing. This automatically gets up though,
   // However, create action should explicitly set the room id.
-  last: 6,
-  list: testData
+  last: 1,
+  list: {}
 }, action) {
   const { list } = state;
   const { type, payload, meta, error } = action;
