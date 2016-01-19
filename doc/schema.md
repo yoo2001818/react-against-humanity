@@ -39,27 +39,37 @@ game session, editing game etc.
 
 - id
 - name
+- hosts
+- users
 - userCount
 - maxUserCount
-- userList
-- users
-- decks
-- rules
-- host
-- chat
+- configuration
+  - decks
+  - rules
+- state
+  - playing
+  - locked
 - password
-- locked
-- playing
-- playSession
+- chat
+- session
 
 ### PlaySession
 Represents playing session, contains information about the game.
 
-- state
-- players
-- cards
+- phase
+- turns
+- answerDrawCards
+- questionDrawCards
 - czar
-- submittedCards
+- selectedAnswer
+- users
+  - id
+  - points
+  - cards
+- questionCards
+- answerCards
+  - userId
+  - cards
 
 ## ChatMessage
 Represents each chat message sent by a user.
@@ -81,3 +91,18 @@ A user is different from a connection, although they are 1:1 matched.
 - TBD
 
 ## Deck
+
+- id
+- name
+- description
+- language
+- author
+- license
+- cards
+
+## Card
+
+- id
+- type
+- description
+- fields
