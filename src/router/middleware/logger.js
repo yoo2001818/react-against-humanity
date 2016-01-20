@@ -10,7 +10,7 @@ export default function logger(req, res, next) {
   let targetColor = target === 'dispatch' ? 'magenta' : 'yellow';
   // Ignore dispatch actions, as it is not really necessary to process in here.
   if (target === 'dispatch') return next();
-  if (__SERVER__) {
+  if (typeof window === 'undefined') {
     const colors = require('colors/safe');
     console.log(colors[targetColor](target) + ' @ ' +
       colors.blue(type) + ' ' + time);
