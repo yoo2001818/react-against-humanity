@@ -155,19 +155,35 @@ using reducers). This means the router should handle everything about it.
 User represents identifiable single user entity stored in the database.
 A user is different from a connection, although they are 1:1 matched.
 
-- TBD
+- id
+- username
+- isAdmin
+- enabled
+- signedUp
+- email
+- name
+- bio
+- photo
 
 ## Deck
 - id
 - name
 - description
 - language
-- author
+- authors
 - license
 - cards
+- comments
+
+## Comment
+- id
+- deckId
+- author
+- description
 
 ## Card
 - id
+- deckId
 - type
 - description
 - fields
