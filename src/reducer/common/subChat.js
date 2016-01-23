@@ -1,5 +1,5 @@
-import * as ChatActions from '../action/chat';
-import * as ConnectionActions from '../action/connection';
+import * as ChatActions from '../../action/chat';
+import * as ConnectionActions from '../../action/connection';
 
 export default function subChat(state = {
   limit: 100,

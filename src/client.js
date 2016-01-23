@@ -6,12 +6,16 @@ import 'es6-shim';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
+import { syncHistory } from 'redux-simple-router';
 
-import App from './view/app';
+import routes from './view/routes';
 
 import WebSocketClientConnector from './utils/connector/webSocketClient';
 import clientRouter from './router/client';
 
+import connectorMiddleware from './store/middleware/connector';
+import reducer from './reducer/client';
 import createStore from './store';
 
 import { autoDetectLocale } from './lang';
@@ -21,12 +25,16 @@ autoDetectLocale();
 let connector = new WebSocketClientConnector(
   clientRouter, {}, 'ws://' + window.location.host + '/');
 
-let store = createStore(undefined, connector);
+let reduxRouterMiddleware = syncHistory(browserHistory);
+
+let store = createStore(undefined, [
+  connectorMiddleware(connector),
+  reduxRouterMiddleware
+], reducer);
 connector.store = store;
 connector.reconnect();
 
-window.store = store;
-window.connector = connector;
+reduxRouterMiddleware.listenForReplays(store);
 
 // Create wrapper element...
 
@@ -36,7 +44,9 @@ document.body.appendChild(wrapper);
 
 render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      { routes }
+    </Router>
   </Provider>,
   wrapper
 );

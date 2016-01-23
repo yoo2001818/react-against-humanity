@@ -1,4 +1,4 @@
-import { DISMISS } from '../action/error';
+import { DISMISS } from '../../action/error';
 
 export default function error(state = {
   enabled: false,

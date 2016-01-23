@@ -1,6 +1,6 @@
-import * as TransportActions from '../action/transport';
-import * as RoomActions from '../action/room';
-import * as ConnectionActions from '../action/connection';
+import * as TransportActions from '../../action/transport';
+import * as RoomActions from '../../action/room';
+import * as ConnectionActions from '../../action/connection';
 
 function updateList(state, id, data) {
   if (state.list[id] === undefined) {

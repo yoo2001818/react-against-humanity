@@ -1,4 +1,4 @@
-import * as TransportActions from '../action/transport';
+import * as TransportActions from '../../action/transport';
 
 // This should be ignored by the server.
 export default function transport(state = {

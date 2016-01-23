@@ -6,6 +6,8 @@ import serveStatic from 'serve-static';
 import WebSocketServerConnector from './utils/connector/webSocketServer';
 import serverRouter from './router/server';
 
+import connectorMiddleware from './store/middleware/connector';
+import reducer from './reducer/server';
 import createStore from './store';
 
 /* eslint-disable no-console */
@@ -56,5 +58,7 @@ httpServer.listen(8000, () => {
 
 let connector = new WebSocketServerConnector(serverRouter, {}, wss);
 
-let store = createStore(undefined, connector);
+let store = createStore(undefined, [
+  connectorMiddleware(connector)
+], reducer);
 connector.store = store;
