@@ -1,6 +1,6 @@
 import expect from 'expect';
-import subChatReducer from '../../src/reducer/subChat';
-import { chat, clearHistory, setLimit } from '../../src/action/chat';
+import subChatReducer from '../../../src/reducer/common/subChat';
+import { chat, clearHistory, setLimit } from '../../../src/action/chat';
 import { createStore } from 'redux';
 
 const testUser = {

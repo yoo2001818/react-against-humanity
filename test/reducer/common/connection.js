@@ -1,8 +1,8 @@
 import expect from 'expect';
-import connectionReducer from '../../src/reducer/connection';
+import connectionReducer from '../../../src/reducer/common/connection';
 import {
   update, handshake, connect, disconnect
-} from '../../src/action/connection';
+} from '../../../src/action/connection';
 import { createStore } from 'redux';
 
 const testConnection = {
