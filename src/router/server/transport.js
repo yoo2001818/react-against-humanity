@@ -10,10 +10,10 @@ router.poll(Transport.CLOSE, (req, res) => {
   if (list[req.connection] == null) return res.resolve();
   // Dispatch disconnect event
   req.store.dispatch(Connection.disconnect(
-    Object.assign({}, list[req.connection], {
+    {
       code: req.action.payload.code,
       reason: req.action.payload.reason
-    })
+    }, list[req.connection]
   ))
   .then(res.resolve, res.reject);
   // .then(res.resolve, res.reject);

@@ -3,22 +3,17 @@ import subChatReducer from '../../../src/reducer/common/subChat';
 import { chat, clearHistory, setLimit } from '../../../src/action/chat';
 import { createStore } from 'redux';
 
-const testUser = {
-  id: 1,
-  name: 'Anonymous'
-};
-
 const testMessage = {
   type: 'normal',
   message: 'Hello, world!',
-  connection: testUser
+  connection: 1
 };
 
 function injectUser(action) {
   return Object.assign({}, action, {
     meta: Object.assign({}, action.meta, {
       target: Object.assign({}, action.meta && action.meta.target, {
-        connection: testUser
+        connection: 1
       })
     })
   });

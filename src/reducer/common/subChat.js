@@ -30,7 +30,7 @@ export default function subChat(state = {
   case ConnectionActions.CONNECT:
     return Object.assign({}, state, {
       messages: messages.concat([{
-        connection: payload,
+        connection: meta.target.connection,
         type: 'join'
       }]).slice(-limit)
     });

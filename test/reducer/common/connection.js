@@ -7,12 +7,18 @@ import { createStore } from 'redux';
 
 const testConnection = {
   id: 1,
-  name: 'Anonymous'
+  name: 'Anonymous',
+  level: 'anonymous',
+  lastCreated: undefined,
+  lastUpdated: undefined
 };
 
 const testConnection2 = {
   id: 2,
-  name: 'Guest'
+  name: 'Guest',
+  level: 'guest',
+  lastCreated: undefined,
+  lastUpdated: undefined
 };
 
 describe('connectionReducer', () => {
@@ -80,44 +86,55 @@ describe('connectionReducer', () => {
       store.dispatch(connect(testConnection));
     });
 
-    // Alternatively, connection 'removed' flag can be set.
-    // However, I'll change this if it is required.
-    // Until then, this is default behavior.
     it('should remove connection from the list', () => {
-      store.dispatch(disconnect(testConnection));
+      store.dispatch(disconnect(null, testConnection));
       expect(store.getState()).toEqual({
         self: null,
-        list: {}
+        list: {
+          1: Object.assign({}, testConnection, {
+            exited: true
+          })
+        }
       });
     });
 
     it('should handle multiple connections', () => {
       store.dispatch(connect(testConnection2));
 
-      store.dispatch(disconnect(testConnection));
+      store.dispatch(disconnect(null, testConnection));
       expect(store.getState()).toEqual({
         self: null,
         list: {
+          1: Object.assign({}, testConnection, {
+            exited: true
+          }),
           2: testConnection2
         }
       });
 
-      store.dispatch(disconnect(testConnection2));
+      store.dispatch(disconnect(null, testConnection2));
       expect(store.getState()).toEqual({
         self: null,
-        list: {}
+        list: {
+          1: Object.assign({}, testConnection, {
+            exited: true
+          }),
+          2: Object.assign({}, testConnection2, {
+            exited: true
+          })
+        }
       });
     });
 
     it('should throw an error if not exists', () => {
-      store.dispatch(disconnect(testConnection));
+      store.dispatch(disconnect(null, testConnection));
       expect(() => {
-        store.dispatch(disconnect(testConnection));
+        store.dispatch(disconnect(null, testConnection));
       }).toThrow();
     });
 
     it('should ignore errored actions', () => {
-      store.dispatch(Object.assign({}, disconnect(testConnection), {
+      store.dispatch(Object.assign({}, disconnect(null, testConnection), {
         error: true
       }));
       expect(store.getState()).toEqual({
@@ -147,14 +164,17 @@ describe('connectionReducer', () => {
           1: {
             id: 1,
             name: 'So Awesome',
-            coolnessModifier: 0.2
+            level: 'anonymous',
+            coolnessModifier: 0.2,
+            lastUpdated: undefined,
+            lastCreated: undefined
           }
         }
       });
     });
 
     it('should throw an error if not exists', () => {
-      store.dispatch(disconnect(testConnection));
+      store.dispatch(disconnect(null, testConnection));
       expect(() => {
         store.dispatch(update(testConnection));
       }).toThrow();
