@@ -15,6 +15,7 @@ router.middleware(null, (req, res) => {
   const { connection: { list } } = req.store.getState();
   for (let id in list) {
     const connection = list[id];
+    if (connection.exited) continue;
     if (req.action.meta.target.connection === connection.id) continue;
     req.connector.dispatch(req.action, connection.id);
   }

@@ -29,7 +29,7 @@ module.exports = {
   entry: entries,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/assets/',
     filename: 'bundle.js',
     chunkFilename: '[id].js'
   },

@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import * as RoomActions from '../action/room';
-import RoomList from './roomList';
-import RightSidebarContainer from '../component/rightSidebarContainer';
-import ExternalRoomInspector from './externalRoomInspector';
+import { routeActions } from 'redux-simple-router';
+import * as roomActions from '../../action/room';
+
+import RoomList from '../roomList';
+import RightSidebarContainer from '../../component/rightSidebarContainer';
+import ExternalRoomInspector from '../externalRoomInspector';
 // import __ from '../lang';
 
 export default class Lobby extends Component {
@@ -20,10 +22,13 @@ export default class Lobby extends Component {
     });
   }
   dispatchTest() {
-    // Hmm.
-    this.props.dispatch(RoomActions.create({
+    this.props.dispatch(roomActions.create({
       name: '괴상한 방'
-    }));
+    })).then(action => {
+      // Navigate to the room.
+      let roomId = action.meta.target.room;
+      this.props.dispatch(routeActions.push(`/room/${roomId}`));
+    });
   }
   render() {
     const { selected } = this.state;

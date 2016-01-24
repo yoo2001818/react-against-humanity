@@ -18,22 +18,6 @@ const wss = new WebSocketServer({
 });
 
 const app = express();
-app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="UTF-8">
-        <title>React against Humanity</title>
-      </head>
-      <body>
-        <script src="bundle.js"></script>
-      </body>
-    </html>
-  `);
-});
 
 if (__DEVELOPMENT__) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -45,11 +29,32 @@ if (__DEVELOPMENT__) {
     log: null, heartbeat: 10 * 1000
   }));
   app.use(webpackDevMiddleware(compiler, {
-    publicPath: '/'
+    publicPath: '/assets'
   }));
 } else {
-  app.use(serveStatic('./dist'));
+  app.use('assets', serveStatic('./dist'));
 }
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendStatus(404);
+});
+
+app.use((req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="UTF-8">
+        <title>React against Humanity</title>
+      </head>
+      <body>
+        <script src="/assets/bundle.js"></script>
+      </body>
+    </html>
+  `);
+});
 
 httpServer.on('request', app);
 httpServer.listen(8000, () => {

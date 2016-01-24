@@ -7,7 +7,7 @@ export default function setConnection(req, res, next) {
     req.action.meta.target.connection = req.connection;
     const state = req.store.getState();
     let connection = state.connection.list[req.connection];
-    if (connection) req.action.meta.target.room = connection.room;
+    if (connection) req.action.meta.target.room = connection.roomId;
   }
   next();
 }

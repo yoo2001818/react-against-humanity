@@ -1,25 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
 import ErrorOverlay from './errorOverlay';
 import ConnectionKeeper from './connectionKeeper';
 import Container from '../component/container';
-import Lobby from './lobby';
-import Room from './room';
 
-class App extends Component {
+export default class App extends Component {
   render() {
-    const { room } = this.props;
     // Just a mockup..
     return (
       <div id='app'>
         <ConnectionKeeper>
           <Container>
-            { (room != null) ? (
-              <Room id={room} />
-            ) : (
-              <Lobby />
-            )}
+            {this.props.children}
           </Container>
         </ConnectionKeeper>
         <ErrorOverlay />
@@ -29,14 +21,5 @@ class App extends Component {
 }
 
 App.propTypes = {
-  room: PropTypes.number
+  children: PropTypes.node
 };
-
-export default connect(state => {
-  const { connection: { list, self } } = state;
-  // For now this is just a room object, however, we may inject actual
-  // room object in here, if that's okay.
-  let room = list && list[self] && list[self].room;
-  // if (room != null) room = state.room.list[room];
-  return { room };
-})(App);

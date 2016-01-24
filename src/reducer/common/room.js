@@ -33,7 +33,7 @@ export default function room(state = {
       list: Object.assign({}, list, {
         [roomId]: Object.assign({}, payload, {
           id: roomId,
-          users: [meta.target.connection.id]
+          users: [meta.target.connection]
         })
       }),
       last: Math.max(state.last, roomId) + 1
@@ -54,18 +54,18 @@ export default function room(state = {
   case RoomActions.JOIN:
     roomId = payload.room;
     room = list[roomId];
-    if (room.users.indexOf(meta.target.connection.id) !== -1) {
+    if (room.users.indexOf(meta.target.connection) !== -1) {
       throw new Error('User has already connected to the room');
     }
     return updateList(state, roomId,
       Object.assign({}, room, {
-        users: room.users.concat([meta.target.connection.id])
+        users: room.users.concat([meta.target.connection])
       })
     );
   case RoomActions.LEAVE:
   case ConnectionActions.DISCONNECT:
     if (type == ConnectionActions.DISCONNECT && room == null) return state;
-    if (room.users.indexOf(meta.target.connection.id) === -1) {
+    if (room.users.indexOf(meta.target.connection) === -1) {
       throw new Error('User did not connect to the room');
     }
     if (room.users.length === 1) {
@@ -79,7 +79,7 @@ export default function room(state = {
     }
     return updateList(state, roomId,
       Object.assign({}, room, {
-        users: room.users.filter(id => id !== meta.target.connection.id)
+        users: room.users.filter(id => id !== meta.target.connection)
       })
     );
   case ConnectionActions.HANDSHAKE:
