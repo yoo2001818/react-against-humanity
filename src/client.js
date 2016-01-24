@@ -16,7 +16,9 @@ import clientRouter from './router/client';
 
 import connectorMiddleware from './store/middleware/connector';
 import reducer from './reducer/client';
-import createStore from './store';
+
+let createStore = require('./store/configureStore').default;
+if (__DEVTOOLS__) createStore = require('./store/configureStore.dev').default;
 
 import { autoDetectLocale } from './lang';
 
@@ -35,6 +37,9 @@ connector.store = store;
 connector.reconnect();
 
 reduxRouterMiddleware.listenForReplays(store);
+
+// If devTools is enabled, show popup.
+if (__DEVTOOLS__) require('./utils/showDevTools').default(store);
 
 // Create wrapper element...
 

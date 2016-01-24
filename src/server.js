@@ -8,7 +8,7 @@ import serverRouter from './router/server';
 
 import connectorMiddleware from './store/middleware/connector';
 import reducer from './reducer/server';
-import createStore from './store';
+import createStore from './store/configureStore';
 
 /* eslint-disable no-console */
 
