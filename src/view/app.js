@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-import ErrorOverlay from './errorOverlay';
-import ConnectionKeeper from './connectionKeeper';
+import ErrorOverlay from '../container/errorOverlay';
+import ConnectionKeeper from '../container/connectionKeeper';
 import Container from '../component/container';
 
 export default class App extends Component {

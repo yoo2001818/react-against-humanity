@@ -18,5 +18,9 @@
   "ConnectedUserListTitle": "접속한 사용자",
   "ErrorTitle": "오류",
   "Dismiss": "닫기",
-  "RoomListEmptyMsg": "방 목록이 비어있습니다. 직접 만들어보세요."
+  "RoomListEmptyMsg": "방 목록이 비어있습니다. 직접 만들어보세요.",
+  "JoinedRoomTitle": "현재 들어간 방",
+  "NoRoomSelectedMsg": "선택한 방이 없습니다.",
+  "RoomHost": "방장",
+  "AlreadyJoinedRoom": "이미 들어가 있는 방입니다."
 }

@@ -11,13 +11,14 @@ class RoomList extends Component {
     return onSelect && onSelect(id);
   }
   render() {
-    const { rooms, selected } = this.props;
+    const { rooms, selected, joined } = this.props;
     return (
       <ul className='room-list'>
         {rooms.map(room => (
           <RoomItem key={room.id}
             room={room}
             selected={room.id === selected}
+            joined={room.id === joined}
             onSelect={this.handleSelect.bind(this, room.id)}
           />
         ))}
@@ -40,11 +41,16 @@ RoomList.propTypes = {
     name: React.PropTypes.string
   })).isRequired,
   selected: PropTypes.number,
+  joined: PropTypes.number,
   onSelect: PropTypes.func
 };
 
 export default connect(
-  state => ({
-    rooms: values(state.room.list)
-  })
+  state => {
+    const connection = state.connection.list[state.connection.self];
+    return {
+      rooms: values(state.room.list),
+      joined: connection && connection.roomId
+    };
+  }
 )(RoomList);

@@ -24,11 +24,11 @@ export default class RoomItem extends Component {
     });
   }
   render() {
-    const { room, selected, onSelect = () => {} } = this.props;
+    const { room, selected, joined, onSelect = () => {} } = this.props;
     const { showDetails } = this.state;
     return (
       <li
-        className={classNames('room-item', { selected })}
+        className={classNames('room-item', { selected, joined })}
         onClick={onSelect}
       >
         <div className='thumb'>
@@ -63,6 +63,7 @@ export default class RoomItem extends Component {
           <RoomActionBar
             showDetails={showDetails}
             onDetails={this.toggleDetails.bind(this)}
+            joined={joined}
           />
         )}
       </li>
@@ -76,5 +77,6 @@ RoomItem.propTypes = {
     name: React.PropTypes.string
   }),
   onSelect: PropTypes.func,
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
+  joined: PropTypes.bool
 };

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 
-import DevTools from '../view/devTools';
+import DevTools from '../container/devTools';
 import middlewareList from './middleware';
 
 // Debug store init for __CLIENT__ && __DEVTOOLS__

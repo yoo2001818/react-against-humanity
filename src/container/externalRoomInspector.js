@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import __ from '../lang';
+
 import Entry from '../component/sidebar/entry';
 import RoomInspector from '../component/roomInspector';
 import RoomActionBar from '../component/roomActionBar';
@@ -26,19 +28,20 @@ KeyValue.propTypes = {
 
 export default class ExternalRoomInspector extends Component {
   render() {
-    const { room } = this.props;
+    const { room, joined } = this.props;
     if (room == null) {
       return (
         <Entry hideHeader>
-          선택한 방이 없습니다.
+          {__('NoRoomSelectedMsg')}
         </Entry>
       );
     }
     return (
       <Entry title={room.name} className='external-room-inspector'>
-        <KeyValue title='방장'>{room.host}</KeyValue>
+        <KeyValue title={__('RoomHost')}>{room.host}</KeyValue>
         <RoomInspector room={room} showCount />
-        <RoomActionBar noDetails />
+        <KeyValue title=''>{__('AlreadyJoinedRoom')}</KeyValue>
+        <RoomActionBar noDetails joined={joined} />
       </Entry>
     );
   }
@@ -46,13 +49,16 @@ export default class ExternalRoomInspector extends Component {
 
 ExternalRoomInspector.propTypes = {
   room: PropTypes.object,
-  id: PropTypes.number
+  id: PropTypes.number,
+  joined: PropTypes.bool
 };
 
 export default connect((state, props) => {
+  const connection = state.connection.list[state.connection.self];
   const { room: { list } } = state;
   const { id } = props;
   return {
-    room: list[id]
+    room: list[id],
+    joined: connection && connection.roomId === id
   };
 })(ExternalRoomInspector);

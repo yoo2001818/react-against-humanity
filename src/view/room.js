@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { routeActions } from 'redux-simple-router';
-import * as roomActions from '../../action/room';
+import * as roomActions from '../action/room';
 
 export default class Room extends Component {
   dispatchTest() {

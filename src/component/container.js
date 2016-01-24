@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Header from './header';
-import ConversationList from '../view/conversationList';
+import ConversationList from '../container/conversationList';
 import Sidebar from './sidebar';
 
 export default class Container extends Component {

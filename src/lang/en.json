@@ -12,11 +12,15 @@
   "UserLeave": "$1 has left",
   "ConnectingTitle": "Loading",
   "ConnectingDesc": "Connecting to the server...",
-  "GameLobbyChatTitle": "Game Lobby",
+  "GameLobbyChatTitle": "Lobby",
   "GameLobbyTitle": "Room List",
   "ProfileTitle": "Profile",
   "ConnectedUserListTitle": "Connected Users",
   "ErrorTitle": "Error",
   "Dismiss": "Dismiss",
-  "RoomListEmptyMsg": "Room list is empty. Why don't create one?"
+  "RoomListEmptyMsg": "Room list is empty. Why don't create one?",
+  "JoinedRoomTitle": "Joined Room",
+  "NoRoomSelectedMsg": "No room selected.",
+  "RoomHost": "Host",
+  "AlreadyJoinedRoom": "You've already joined this room."
 }

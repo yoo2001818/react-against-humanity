@@ -6,7 +6,8 @@ import 'es6-shim';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { Router } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { syncHistory } from 'redux-simple-router';
 
 import routes from './view/routes';
@@ -27,7 +28,9 @@ autoDetectLocale();
 let connector = new WebSocketClientConnector(
   clientRouter, {}, 'ws://' + window.location.host + '/');
 
-let reduxRouterMiddleware = syncHistory(browserHistory);
+const history = createBrowserHistory();
+
+let reduxRouterMiddleware = syncHistory(history);
 
 let store = createStore(undefined, [
   connectorMiddleware(connector),
@@ -49,7 +52,7 @@ document.body.appendChild(wrapper);
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       { routes }
     </Router>
   </Provider>,

@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { routeActions } from 'redux-simple-router';
-import * as roomActions from '../../action/room';
+import * as roomActions from '../action/room';
 
-import RoomList from '../roomList';
-import RightSidebarContainer from '../../component/rightSidebarContainer';
-import ExternalRoomInspector from '../externalRoomInspector';
+import RoomList from '../container/roomList';
+import RightSidebarContainer from '../component/rightSidebarContainer';
+import ExternalRoomInspector from '../container/externalRoomInspector';
 // import __ from '../lang';
 
 export default class Lobby extends Component {
