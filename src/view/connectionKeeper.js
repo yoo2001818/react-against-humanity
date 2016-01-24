@@ -9,7 +9,6 @@ import Dialog from '../component/ui/dialog';
 
 import Failed from '../component/connection/failed';
 import Disconnected from '../component/connection/disconnected';
-import Handshake from '../component/connection/handshake';
 
 import __ from '../lang';
 
@@ -34,10 +33,7 @@ class ConnectionKeeper extends Component {
       disconnected = (
         <Disconnected />
       ),
-      connected = (
-        <Handshake />
-      ),
-      children, transport, connectionId, reconnect, disconnect, handshake
+      children, transport, reconnect
     } = this.props;
     if (transport.status === 'pending') {
       return pending;
@@ -54,14 +50,6 @@ class ConnectionKeeper extends Component {
         onReconnect: reconnect
       });
     }
-    if (transport.status === 'connected' && connectionId == null) {
-      return cloneElement(connected, {
-        onHandshake: name => handshake({
-          name, version: '0.0.1'
-        }),
-        onDisconnect: disconnect
-      });
-    }
     return children;
   }
 }
@@ -70,7 +58,6 @@ ConnectionKeeper.propTypes = {
   pending: PropTypes.node,
   failed: PropTypes.node,
   disconnected: PropTypes.node,
-  connected: PropTypes.node,
   children: PropTypes.node,
   transport: PropTypes.shape({
     status: PropTypes.string.isRequired,
@@ -78,8 +65,7 @@ ConnectionKeeper.propTypes = {
   }).isRequired,
   connectionId: PropTypes.number,
   reconnect: PropTypes.func.isRequired,
-  disconnect: PropTypes.func.isRequired,
-  handshake: PropTypes.func.isRequired
+  disconnect: PropTypes.func.isRequired
 };
 
 export default connect(

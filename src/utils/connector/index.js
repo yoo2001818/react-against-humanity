@@ -13,6 +13,7 @@ export default class Connector {
           reject(error || new Error('Nothing handled the action'));
         });
       } catch (e) {
+        console.error(e); // eslint-disable-line no-console
         reject(e);
       }
     });

@@ -5,7 +5,7 @@ const router = new Router();
 
 router.poll(Connection.HANDSHAKE, (req, res) => {
   // Translate request...
-  let action = Connection.connect(Object.assign({}, req.action.payload, {
+  let action = Connection.connect(Object.assign({}, {
     id: req.connection
   }));
   req.store.dispatch(action)

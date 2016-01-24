@@ -28,7 +28,7 @@ ConnectionList.propTypes = {
 export default connect(
   state => ({
     connections: values(state.connection.list).filter(
-      connection => !connection.exited
+      connection => !connection.exited && connection.level != 'anonymous'
     )
   })
 )(ConnectionList);
