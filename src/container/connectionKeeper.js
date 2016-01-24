@@ -33,9 +33,10 @@ class ConnectionKeeper extends Component {
       disconnected = (
         <Disconnected />
       ),
-      children, transport, reconnect
+      children, transport, reconnect, connectionId
     } = this.props;
-    if (transport.status === 'pending') {
+    if (transport.status === 'pending' ||
+      (transport.status === 'connected' && connectionId == null)) {
       return pending;
     }
     if (transport.status === 'disconnected') {

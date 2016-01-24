@@ -18,6 +18,9 @@
   &.selected {
     background-color: #f3f3f3;
   }
+  &.joined {
+    background-color: #fff4e2;
+  }
   @media screen and (min-width: $mobile-size) {
     // Hide action and inspector in tablets or desktops
     .room-inspector, .room-action-bar {

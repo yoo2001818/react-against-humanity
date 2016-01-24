@@ -40,8 +40,8 @@ export default class RoomInspector extends Component {
           </div>
         )}>
           <ul>
-            {Array(room.playerCount).fill(0).map(() => (
-              <li>A player</li>
+            {Array(room.playerCount).fill(0).map((_, key) => (
+              <li key={key}>A player</li>
             ))}
           </ul>
         </Pane>

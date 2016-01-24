@@ -27,6 +27,12 @@
         content: $fa-var-sign-in;
       }
     }
+    &.leave {
+      color: #aa1b1b;
+      & > .icon:before {
+        content: $fa-var-sign-out;
+      }
+    }
     &.spectate {
       color: #815f13;
       & > .icon:before {

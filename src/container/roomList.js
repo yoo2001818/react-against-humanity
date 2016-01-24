@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import values from 'lodash.values';
 
+import * as roomActions from '../action/room';
 import RoomItem from '../component/roomItem';
 import __ from '../lang';
 
@@ -9,6 +10,15 @@ class RoomList extends Component {
   handleSelect(id) {
     const { onSelect } = this.props;
     return onSelect && onSelect(id);
+  }
+  handleJoin(room) {
+    this.props.onJoin(room.id);
+  }
+  handleLeave(room) {
+    this.props.onLeave(room.id);
+  }
+  handleSpectate() {
+    // WIP
   }
   render() {
     const { rooms, selected, joined } = this.props;
@@ -19,7 +29,11 @@ class RoomList extends Component {
             room={room}
             selected={room.id === selected}
             joined={room.id === joined}
+            joinedOther={joined != null}
             onSelect={this.handleSelect.bind(this, room.id)}
+            onJoin={this.handleJoin.bind(this, room)}
+            onLeave={this.handleLeave.bind(this, room)}
+            onSpectate={this.handleSpectate.bind(this, room)}
           />
         ))}
         {rooms.length === 0 && (
@@ -42,7 +56,9 @@ RoomList.propTypes = {
   })).isRequired,
   selected: PropTypes.number,
   joined: PropTypes.number,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  onJoin: PropTypes.func,
+  onLeave: PropTypes.func
 };
 
 export default connect(
@@ -52,5 +68,9 @@ export default connect(
       rooms: values(state.room.list),
       joined: connection && connection.roomId
     };
+  },
+  {
+    onJoin: roomActions.join,
+    onLeave: roomActions.leave
   }
 )(RoomList);

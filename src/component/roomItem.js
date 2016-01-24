@@ -24,7 +24,8 @@ export default class RoomItem extends Component {
     });
   }
   render() {
-    const { room, selected, joined, onSelect = () => {} } = this.props;
+    const { room, selected, joined, joinedOther,
+      onSelect = () => {}, onJoin, onLeave, onSpectate } = this.props;
     const { showDetails } = this.state;
     return (
       <li
@@ -64,6 +65,10 @@ export default class RoomItem extends Component {
             showDetails={showDetails}
             onDetails={this.toggleDetails.bind(this)}
             joined={joined}
+            joinedOther={joinedOther}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            onSpectate={onSpectate}
           />
         )}
       </li>
@@ -78,5 +83,9 @@ RoomItem.propTypes = {
   }),
   onSelect: PropTypes.func,
   selected: PropTypes.bool,
-  joined: PropTypes.bool
+  joined: PropTypes.bool,
+  joinedOther: PropTypes.bool,
+  onJoin: PropTypes.func,
+  onLeave: PropTypes.func,
+  onSpectate: PropTypes.func
 };

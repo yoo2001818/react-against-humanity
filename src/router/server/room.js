@@ -9,7 +9,6 @@ router.poll(Room.CREATE, setConnection, (req, res, next) => {
   // Inject increment data to the action.
   // This looks so ugly.
   const state = req.store.getState();
-  if (!req.action) req.action = {};
   if (!req.action.meta) req.action.meta = {};
   if (!req.action.meta.target) req.action.meta.target = {};
   req.action.meta.target.room = state.room.last;
@@ -17,7 +16,12 @@ router.poll(Room.CREATE, setConnection, (req, res, next) => {
 }, passThrough);
 router.poll(Room.DESTROY, setConnection, passThrough);
 router.poll(Room.UPDATE, setConnection, passThrough);
-router.poll(Room.JOIN, setConnection, passThrough);
+router.poll(Room.JOIN, setConnection, (req, res, next) => {
+  if (!req.action.meta) req.action.meta = {};
+  if (!req.action.meta.target) req.action.meta.target = {};
+  req.action.meta.target.room = req.action.payload && req.action.payload.room;
+  next();
+}, passThrough);
 router.poll(Room.LEAVE, setConnection, passThrough);
 
 export default router;

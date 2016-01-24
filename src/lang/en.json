@@ -22,5 +22,9 @@
   "JoinedRoomTitle": "Joined Room",
   "NoRoomSelectedMsg": "No room selected.",
   "RoomHost": "Host",
-  "AlreadyJoinedRoom": "You've already joined this room."
+  "AlreadyJoinedRoom": "You've already joined this room.",
+  "JoinBtn": "Join",
+  "LeaveBtn": "Leave",
+  "SpectateBtn": "Spectate",
+  "DetailsBtn": "Details"
 }

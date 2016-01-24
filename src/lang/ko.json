@@ -22,5 +22,9 @@
   "JoinedRoomTitle": "현재 들어간 방",
   "NoRoomSelectedMsg": "선택한 방이 없습니다.",
   "RoomHost": "방장",
-  "AlreadyJoinedRoom": "이미 들어가 있는 방입니다."
+  "AlreadyJoinedRoom": "현재 들어가 있는 방입니다.",
+  "JoinBtn": "들어가기",
+  "LeaveBtn": "나가기",
+  "SpectateBtn": "관전하기",
+  "DetailsBtn": "자세히"
 }
