@@ -26,5 +26,6 @@
   "JoinBtn": "들어가기",
   "LeaveBtn": "나가기",
   "SpectateBtn": "관전하기",
-  "DetailsBtn": "자세히"
+  "DetailsBtn": "자세히",
+  "Login": "로그인"
 }

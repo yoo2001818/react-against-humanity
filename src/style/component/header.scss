@@ -12,6 +12,13 @@
   font-size: $header-font-size;
   line-height: $header-height;
   vertical-align: middle;
+  a {
+    color: #f06f2a;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   & > .content {
     max-width: $header-max-width;
     box-sizing: border-box;

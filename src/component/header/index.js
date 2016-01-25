@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import { Link } from 'react-router';
 
 import __ from '../../lang';
 
@@ -22,7 +23,7 @@ export default class Header extends Component {
 
           </div>
           <div className='right'>
-            나가기
+            <Link to='/login'>{__('Login')}</Link>
           </div>
         </div>
       </div>

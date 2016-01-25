@@ -26,5 +26,6 @@
   "JoinBtn": "Join",
   "LeaveBtn": "Leave",
   "SpectateBtn": "Spectate",
-  "DetailsBtn": "Details"
+  "DetailsBtn": "Details",
+  "Login": "Login"
 }
