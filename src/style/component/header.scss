@@ -7,8 +7,8 @@
   height: $header-height;
   z-index: 1000;
   background-color: $headerColor;
-  box-shadow: 0 0.2rem 4px -1px darken($headerColor, 20%);
-  color: #E65100;
+  box-shadow: 0 0.2rem 4px -1px rgba(#000, 0.25);
+  color: #f06f2a;
   font-size: $header-font-size;
   line-height: $header-height;
   vertical-align: middle;

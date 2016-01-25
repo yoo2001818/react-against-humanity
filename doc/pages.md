@@ -3,13 +3,26 @@ React Against Humanity has many pages, and it is managed using URL.
 However, the whole site requires working WebSocket connection.
 
 ## /
-Main page. This is actually same as room list (/ redirects to /room)
+Main page. This is actually same as room list (/ redirects to /rooms)
+
+1. Login / Logout - User may want to login to the service in order to
+   play the game, of course.
+2. Friends - User may want to talk to their friends, to invite them or else.
+3. Notifications (if available)
+4. Navigate to other menu - This isn't really necessary, though.
 
 ## /about
 Project about page, introduction and stuff.
 
+1. Project about - This is just a static page, nothing else.
+
 ## /rooms
 Room listing.
+
+1. Room List - obviously!
+2. Detailed room info - User may want to see the details of the room.
+3. Search, Filtering - We need this if the service goes larger.
+4. Sorting - This too.
 
 ## /rooms/:id
 Room page. By default the user connects with spectate mode unless specified.
