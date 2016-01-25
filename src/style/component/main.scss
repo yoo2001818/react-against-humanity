@@ -13,10 +13,11 @@ button, input, textarea {
 }
 
 html {
-  background-color: #e2e4e6;
+  background-color: $bg-color;
+  color: $fg-color;
   // 10pt on mobile
-  font-size: 10pt;
+  font-size: 12pt;
   @media screen and (min-width: 400pt) {
-    font-size: 12pt;
+    font-size: 13pt;
   }
 }

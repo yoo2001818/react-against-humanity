@@ -1,0 +1,29 @@
+.lobby-view {
+  min-height: 100%;
+  height: 100%;
+  & > div {
+    float: left;
+  }
+  & > .list-column {
+    display: block;
+    width: 35em;
+    max-width: 100%;
+    height: 100%;
+    background-color: $grey-100;
+    padding: 1em;
+    box-sizing: border-box;
+    // border-left: 1px solid $grey-400;
+    // border-right: 1px solid $grey-400;
+  }
+  & > .details-column {
+    width: 16em;
+    background-color: $grey-100;
+    border: 1px solid $grey-400;
+    margin: 1em;
+  }
+  &:after {
+    content: '';
+    display: both;
+    clear: both;
+  }
+}

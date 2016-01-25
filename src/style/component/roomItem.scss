@@ -1,25 +1,18 @@
 .room-item {
-  background-color: #fff;
+  background-color: $grey-200;
   border: 1px solid #ccc;
-  border-top: none;
-  //box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-  padding: 0.7em 1em;
-  padding-left: 0.7em + 0.9em;
-  &:first-child {
-    border-radius: 3px 3px 0 0;
-    border-top: 1px solid #ccc;
-  }
-  &:last-child {
-    border-radius: 0 0 3px 3px;
-  }
-  &:hover {
-    background-color: #f3f3f3;
-  }
-  &.selected {
-    background-color: #f3f3f3;
+  border-radius: 2px;
+  padding: 0.8em 1em;
+  padding-left: 0.8em + 0.9em;
+  margin-bottom: 0.6em;
+  &:hover, &.selected {
+    background-color: $grey-100;
   }
   &.joined {
-    background-color: #fff4e2;
+    background-color: $green-200;
+    &:hover, &.selected {
+      background-color: $green-100;
+    }
   }
   @media screen and (min-width: $mobile-size) {
     // Hide action and inspector in tablets or desktops
@@ -40,7 +33,7 @@
       text-align: right;
       & > .host {
         display: inline-block;
-        color: #666;
+        color: $grey-600;
         vertical-align: middle;
         padding-right: 0.3rem;
         font-size: 0.9em;
@@ -50,11 +43,12 @@
         font-size: 0.9em;
         width: 2.9rem;
         text-align: center;
+        color: $grey-700;
         .current {
           &:after {
             content: '/';
             padding: 0 0.3em;
-            color: #666;
+            color: $grey-600;
           }
         }
       }
@@ -73,7 +67,7 @@
     vertical-align: middle;
     &.enabled {
       @include fa-icon();
-      color: #cd8628;
+      color: $orange-700;
       &:before {
         content: $fa-var-lock;
       }
@@ -91,13 +85,13 @@
     line-height: 1.05rem;
     font-size: 0.6em;
     &.waiting {
-      color: #46B120;
+      color: $green-700;
       &:before {
         content: $fa-var-circle;
       }
     }
     &.playing {
-      color: #c92727;
+      color: $red-700;
       &:before {
         content: $fa-var-circle;
       }

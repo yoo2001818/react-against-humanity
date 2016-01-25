@@ -4,16 +4,15 @@
   font-size: 0.9em;
   .action {
     display: inline-block;
-    color: #555;
     padding: 0.5em 0.6em;
     margin-right: 0.4em;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
+    background-color: $blue-700;
+    border-radius: 2px;
+    color: $grey-100;
     vertical-align: middle;
     cursor: default;
     &:hover {
-      background-color: #fafafa;
+      background-color: $blue-600;
     }
     & > .icon {
       @include fa-icon();
@@ -22,19 +21,28 @@
       margin-right: 0.5em;
     }
     &.join {
-      color: #308113;
+      background-color: $green-700;
+      &:hover {
+        background-color: $green-600;
+      }
       & > .icon:before {
         content: $fa-var-sign-in;
       }
     }
     &.leave {
-      color: #aa1b1b;
+      background-color: $red-700;
+      &:hover {
+        background-color: $red-600;
+      }
       & > .icon:before {
         content: $fa-var-sign-out;
       }
     }
     &.spectate {
-      color: #815f13;
+      background-color: $orange-700;
+      &:hover {
+        background-color: $orange-600;
+      }
       & > .icon:before {
         content: $fa-var-search;
       }

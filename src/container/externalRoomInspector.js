@@ -48,7 +48,7 @@ export default class ExternalRoomInspector extends Component {
       );
     }
     return (
-      <Entry title={room.name} className='external-room-inspector'>
+      <Entry hideHeader className='external-room-inspector'>
         <KeyValue title={__('RoomHost')}>{room.host}</KeyValue>
         <RoomInspector room={room} showCount />
         {joined && <KeyValue title=''>{__('AlreadyJoinedRoom')}</KeyValue>}

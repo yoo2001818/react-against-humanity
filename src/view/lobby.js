@@ -5,7 +5,6 @@ import { routeActions } from 'redux-simple-router';
 import * as roomActions from '../action/room';
 
 import RoomList from '../container/roomList';
-import RightSidebarContainer from '../component/rightSidebarContainer';
 import ExternalRoomInspector from '../container/externalRoomInspector';
 // import __ from '../lang';
 
@@ -33,15 +32,18 @@ export default class Lobby extends Component {
   render() {
     const { selected } = this.state;
     return (
-      <RightSidebarContainer sidebar={(
-        <ExternalRoomInspector id={selected} />
-      )}>
-        <RoomList
-          onSelect={this.handleSelect.bind(this)}
-          selected={selected}
-        />
-        <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
-      </RightSidebarContainer>
+      <div className='lobby-view'>
+        <div className='list-column'>
+          <RoomList
+            onSelect={this.handleSelect.bind(this)}
+            selected={selected}
+          />
+          <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
+        </div>
+        <div className='details-column'>
+          <ExternalRoomInspector id={selected} />
+        </div>
+      </div>
     );
   }
 }

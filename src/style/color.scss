@@ -1,17 +1,66 @@
 // Primary color definition
 
-$grey-1000: #000;
-$grey-900: #333;
-$grey-800: #444;
-$grey-700: #4f5258;
-$grey-600: #555;
-$grey-500: #666;
-$grey-400: #C7C7C7;
-$grey-300: #B0BEC5;
-$grey-200: #ddd;
-$grey-100: #e2e4e6;
-$grey-000: #fff;
+$grey-100: #f8f8f8;
+$grey-200: #ebebed;
+$grey-300: #dbdbdd;
+$grey-400: #c8c8cb;
+$grey-500: #9f9fa3;
+$grey-600: #7e7e85;
+$grey-700: #53535a;
+$grey-800: #303033;
+
+$blue-100: #f2fafe;
+$blue-200: #cfedfd;
+$blue-300: #a6ddfc;
+$blue-400: #82cffb;
+$blue-500: #4eb6f2;
+$blue-600: #21a4ef;
+$blue-700: #0f8bd2;
+$blue-800: #086ca4;
+
+$green-100: #f2fcec;
+$green-200: #e3f8d4;
+$green-300: #cbf2b0;
+$green-400: #b6ec90;
+$green-500: #95de62;
+$green-600: #6cc92b;
+$green-700: #5dae26;
+$green-800: #4a9319;
+
+$orange-100: #fdf7eb;
+$orange-200: #fdefcf;
+$orange-300: #fce1a6;
+$orange-400: #fbd481;
+$orange-500: #f9b847;
+$orange-600: #f79618;
+$orange-700: #de7504;
+$orange-800: #c96901;
+
+$red-100: #fef0ec;
+$red-200: #fdd9cf;
+$red-300: #fcb9a6;
+$red-400: #f89e84;
+$red-500: #f96f47;
+$red-600: #f74714;
+$red-700: #c8390f;
+$red-800: #a62906;
 
 // UI color definition
 
-// TODO
+$bg-color: $grey-300;
+$fg-color: $grey-800;
+
+$header-bg-color: $green-700;
+$header-title-color: $green-100;
+$header-color: $green-200;
+$header-border-color: $green-800;
+
+$sidebar-color: $bg-color;
+$sidebar-border-color: $grey-300;
+$sidebar-overlay-color: rgba($grey-800, 0.5);
+
+$sidebar-title-color: $grey-600;
+$sidebar-menu-color: $grey-700;
+$sidebar-hover-bg-color: $grey-200;
+$sidebar-active-fg-color: $orange-800;
+$sidebar-active-bg-color: $grey-100;

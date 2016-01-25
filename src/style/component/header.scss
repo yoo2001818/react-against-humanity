@@ -6,21 +6,21 @@
   right: 0;
   height: $header-height;
   z-index: 1000;
-  background-color: $headerColor;
-  box-shadow: 0 0.2rem 4px -1px rgba(#000, 0.25);
-  color: #f06f2a;
+  background-color: $header-bg-color;
+  // box-shadow: 0 0.2rem 4px -1px rgba(#000, 0.25);
+  border-bottom: 1px solid $header-border-color;
+  color: $header-color;
   font-size: $header-font-size;
   line-height: $header-height;
   vertical-align: middle;
   a {
-    color: #f06f2a;
+    color: $header-color;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
   }
   & > .content {
-    max-width: $header-max-width;
     box-sizing: border-box;
     padding: 0 2rem;
     margin: 0 auto;
@@ -48,9 +48,11 @@
       }
       & > .title {
         display: inline-block;
-        font-size: 1.1em;
+        font-size: 1.2em;
         margin: 0;
         padding: 0;
+        font-weight: normal;
+        color: $header-title-color;
       }
     }
     & > .center {
