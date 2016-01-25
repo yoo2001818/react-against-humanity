@@ -1,29 +1,42 @@
 .lobby-view {
   min-height: 100%;
   height: 100%;
-  & > div {
-    float: left;
-  }
+  max-width: 54em;
+  position: relative;
   & > .list-column {
-    display: block;
-    width: 35em;
-    max-width: 100%;
-    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    max-width: 36em;
+    height: 200%;
     background-color: $grey-100;
     padding: 1em;
     box-sizing: border-box;
     // border-left: 1px solid $grey-400;
     // border-right: 1px solid $grey-400;
+    @media screen and (min-width: $mobile-size) {
+      right: 16em;
+    }
+    @media screen and (min-width: $tablet-small-size) {
+      right: 18em;
+    }
   }
   & > .details-column {
+    display: none;
     width: 16em;
-    background-color: $grey-100;
-    border: 1px solid $grey-400;
-    margin: 1em;
-  }
-  &:after {
-    content: '';
-    display: both;
-    clear: both;
+    position: absolute;
+    right: 0;
+    @media screen and (min-width: $mobile-size) {
+      display: block;
+    }
+    @media screen and (min-width: $tablet-small-size) {
+      width: 18em;
+    }
+    & > .display {
+      margin: 1em;
+      background-color: $grey-100;
+      border: 1px solid $grey-400;
+    }
   }
 }

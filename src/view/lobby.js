@@ -41,7 +41,9 @@ export default class Lobby extends Component {
           <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
         </div>
         <div className='details-column'>
-          <ExternalRoomInspector id={selected} />
+          <div className='display'>
+            <ExternalRoomInspector id={selected} />
+          </div>
         </div>
       </div>
     );
