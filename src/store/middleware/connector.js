@@ -13,15 +13,18 @@ export default function connectorMiddleware(connector) {
     return connector.notify(action)
     .then(action => {
       if (isFSA(action)) {
-        return store.dispatch(Object.assign({}, action, {
+        const returned = store.dispatch(Object.assign({}, action, {
           meta: Object.assign({}, action.meta, {
             class: 'internal'
           })
         }));
+        // Reject errored actions
+        if (action.error) throw returned;
+        return returned;
       }
     }, error => {
       if (error instanceof Error) {
-        return store.dispatch(Object.assign({}, action, {
+        throw store.dispatch(Object.assign({}, action, {
           payload: {
             message: error.message,
             stack: error.stack
@@ -32,7 +35,7 @@ export default function connectorMiddleware(connector) {
           error: true
         }));
       }
-      return store.dispatch(Object.assign({}, action, {
+      throw store.dispatch(Object.assign({}, action, {
         payload: error,
         meta: Object.assign({}, meta, {
           class: 'internal'

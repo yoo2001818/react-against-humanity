@@ -58,15 +58,17 @@ export const login = createAction(LOGIN,
   (_, connection) => ({
     target: {
       connection: connection.id
-    }
+    },
+    class: 'write'
   })
 );
 
 export const logout = createAction(LOGOUT,
-  data => data,
-  (_, connection) => ({
+  () => {},
+  (connection) => ({
     target: {
       connection: connection.id
-    }
+    },
+    class: 'write'
   })
 );
