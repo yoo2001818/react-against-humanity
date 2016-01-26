@@ -64,10 +64,10 @@ export const login = createAction(LOGIN,
 );
 
 export const logout = createAction(LOGOUT,
-  () => {},
+  () => ({}),
   connection => ({
     target: {
-      connection: connection.id
+      connection: connection && connection.id
     },
     class: 'write'
   })
