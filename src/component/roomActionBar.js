@@ -5,7 +5,7 @@ import __ from '../lang';
 
 export default class RoomActionBar extends Component {
   render() {
-    const { showDetails, noDetails, onDetails = () => {},
+    const { showDetails, onDetails = () => {},
       joined,
       onJoin = () => {},
       onLeave = () => {},
@@ -13,31 +13,38 @@ export default class RoomActionBar extends Component {
     } = this.props;
     return (
       <div className='room-action-bar'>
-        <a className='action join' onClick={onJoin}>
-          <span className='icon' />
-          {__('JoinBtn')}
-        </a>
-        { joined && (
-          <a className='action leave' onClick={onLeave}>
+        <div className='action-container join'>
+          <a className='action' onClick={onJoin}>
             <span className='icon' />
-            {__('LeaveBtn')}
+            {__('JoinBtn')}
           </a>
+        </div>
+        { joined && (
+          <div className='action-container leave'>
+            <a className='action' onClick={onLeave}>
+              <span className='icon' />
+              {__('LeaveBtn')}
+            </a>
+          </div>
         )}
         { joined || (
-          <a className='action spectate' onClick={onSpectate}>
-            <span className='icon' />
-            {__('SpectateBtn')}
-          </a>
+          <div className='action-container spectate'>
+            <a className='action' onClick={onSpectate}>
+              <span className='icon' />
+              {__('SpectateBtn')}
+            </a>
+          </div>
         )}
-        { noDetails || (
-          <a
-            className={classNames('action details', {open: showDetails})}
-            onClick={onDetails}
-          >
+        <div
+          className={classNames('action-container details', {
+            open: showDetails
+          })}
+        >
+          <a className='action' onClick={onDetails}>
             {__('DetailsBtn')}
             <span className='icon' />
           </a>
-        )}
+        </div>
       </div>
     );
   }
@@ -45,7 +52,6 @@ export default class RoomActionBar extends Component {
 
 RoomActionBar.propTypes = {
   showDetails: PropTypes.bool,
-  noDetails: PropTypes.bool,
   onDetails: PropTypes.func,
   joined: PropTypes.bool,
   joinedOther: PropTypes.bool,

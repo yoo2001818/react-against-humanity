@@ -5,7 +5,6 @@ import { routeActions } from 'redux-simple-router';
 import * as roomActions from '../action/room';
 
 import RoomList from '../container/roomList';
-import ExternalRoomInspector from '../container/externalRoomInspector';
 // import __ from '../lang';
 
 export default class Lobby extends Component {
@@ -41,9 +40,9 @@ export default class Lobby extends Component {
           <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
         </div>
         <div className='details-column'>
-          <div className='display'>
-            <ExternalRoomInspector id={selected} />
-          </div>
+          {/* We display nothing in this column, as the room entry will
+            * expand to this column.
+            */}
         </div>
       </div>
     );

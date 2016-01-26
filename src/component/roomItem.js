@@ -24,12 +24,12 @@ export default class RoomItem extends Component {
     });
   }
   render() {
-    const { room, selected, joined, joinedOther,
+    const { room, selected, joined,
       onSelect = () => {}, onJoin, onLeave, onSpectate } = this.props;
     const { showDetails } = this.state;
     return (
       <li
-        className={classNames('room-item', { selected, joined })}
+        className={classNames('room-item', { selected, joined, showDetails })}
         onClick={onSelect}
       >
         <div className='thumb'>
@@ -57,20 +57,19 @@ export default class RoomItem extends Component {
             </div>
           </div>
         </div>
-        { showDetails && (
+        <div className='info'>
           <RoomInspector room={room} />
-        )}
-        { selected && (
-          <RoomActionBar
-            showDetails={showDetails}
-            onDetails={this.toggleDetails.bind(this)}
-            joined={joined}
-            joinedOther={joinedOther}
-            onJoin={onJoin}
-            onLeave={onLeave}
-            onSpectate={onSpectate}
-          />
-        )}
+          { selected && (
+            <RoomActionBar
+              showDetails={showDetails}
+              onDetails={this.toggleDetails.bind(this)}
+              joined={joined}
+              onJoin={onJoin}
+              onLeave={onLeave}
+              onSpectate={onSpectate}
+            />
+          )}
+        </div>
       </li>
     );
   }
@@ -84,7 +83,6 @@ RoomItem.propTypes = {
   onSelect: PropTypes.func,
   selected: PropTypes.bool,
   joined: PropTypes.bool,
-  joinedOther: PropTypes.bool,
   onJoin: PropTypes.func,
   onLeave: PropTypes.func,
   onSpectate: PropTypes.func

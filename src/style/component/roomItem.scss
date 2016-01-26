@@ -1,23 +1,85 @@
 .room-item {
   background-color: $grey-200;
-  border: 1px solid #ccc;
+  border: 1px solid $grey-400;
   border-radius: 2px;
   padding: 0.8em 1em;
   padding-left: 0.8em + 0.9em;
   margin-bottom: 0.6em;
+  position: relative;
   &:hover, &.selected {
     background-color: $grey-100;
   }
   &.joined {
     background-color: $green-200;
+    border: 1px solid $green-400;
     &:hover, &.selected {
       background-color: $green-100;
     }
   }
+  // Mobile showdetails
+  & .room-inspector {
+    display: none;
+  }
+  &.showDetails .room-inspector {
+    display: block;
+  }
+  &.selected > .info {
+    display: block;
+  }
+  // Tablets
   @media screen and (min-width: $mobile-size) {
-    // Hide action and inspector in tablets or desktops
-    .room-inspector, .room-action-bar {
+    // Show action bar on the right
+    & > .info {
       display: none;
+      position: absolute;
+      width: 14em;
+      // Outer room list has a 1em padding
+      right: -16em;
+      top: -1px;
+      box-sizing: border-box;
+      background-color: $grey-100;
+      padding: 0.5em;
+      padding-bottom: 0.9em;
+      border-radius: 2px;
+      // A triangle. urrugh
+      &:before {
+        content: '';
+        position: absolute;
+        left: -0.7em;
+        top: 0.7em;
+        width: 0;
+        height: 0;
+        z-index: 2;
+        border-right: 0.8em solid $grey-100;
+        border-bottom: 0.8em solid transparent;
+        border-top: 0.8em solid transparent;
+        transform: scale(1.01);
+      }
+    }
+    .room-inspector {
+      display: block;
+      .pane {
+        display: block;
+        width: 100%;
+        min-width: auto;
+      }
+    }
+    .room-action-bar > .action-container {
+      display: inline-block;
+      width: 50%;
+      .action {
+        text-align: center;
+      }
+    }
+    .room-action-bar .details {
+      display: none;
+    }
+  }
+  // Big tablets
+  @media screen and (min-width: $tablet-small-size) {
+    & > .info {
+      width: 16em;
+      right: -18em;
     }
   }
   & > .header {

@@ -1,26 +1,14 @@
 .room-action-bar {
-  margin-top: 0.6rem;
-  padding: 0 0.2em;
+  margin-top: 0.3em;
+  padding: 0 0.4em;
+  padding-right: 0em;
   font-size: 0.9em;
-  .action {
+  .action-container {
     display: inline-block;
-    padding: 0.5em 0.6em;
-    margin-right: 0.4em;
-    background-color: $blue-700;
-    border-radius: 2px;
-    color: $grey-100;
-    vertical-align: middle;
-    cursor: default;
-    &:hover {
-      background-color: $blue-600;
-    }
-    & > .icon {
-      @include fa-icon();
-      font-size: 0.8em;
-      vertical-align: middle;
-      margin-right: 0.5em;
-    }
-    &.join {
+    padding-right: 0.4em;
+    padding-top: 0.3em;
+    box-sizing: border-box;
+    &.join .action {
       background-color: $green-700;
       &:hover {
         background-color: $green-600;
@@ -29,7 +17,7 @@
         content: $fa-var-sign-in;
       }
     }
-    &.leave {
+    &.leave .action {
       background-color: $red-700;
       &:hover {
         background-color: $red-600;
@@ -38,7 +26,7 @@
         content: $fa-var-sign-out;
       }
     }
-    &.spectate {
+    &.spectate .action {
       background-color: $orange-700;
       &:hover {
         background-color: $orange-600;
@@ -47,7 +35,7 @@
         content: $fa-var-search;
       }
     }
-    &.details {
+    &.details .action {
       & > .icon {
         margin-left: 0.5em;
         margin-right: 0;
@@ -57,6 +45,23 @@
       }
       &.open > .icon:before {
         content: $fa-var-caret-up;
+      }
+    }
+    .action {
+      display: block;
+      padding: 0.5em 0.6em;
+      background-color: $blue-700;
+      border-radius: 2px;
+      color: $grey-100;
+      cursor: default;
+      &:hover {
+        background-color: $blue-600;
+      }
+      & > .icon {
+        @include fa-icon();
+        font-size: 0.8em;
+        vertical-align: middle;
+        margin-right: 0.5em;
       }
     }
   }

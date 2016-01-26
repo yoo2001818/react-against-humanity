@@ -29,7 +29,6 @@ class RoomList extends Component {
             room={room}
             selected={room.id === selected}
             joined={room.id === joined}
-            joinedOther={joined != null}
             onSelect={this.handleSelect.bind(this, room.id)}
             onJoin={this.handleJoin.bind(this, room)}
             onLeave={this.handleLeave.bind(this, room)}
