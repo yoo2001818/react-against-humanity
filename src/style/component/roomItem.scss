@@ -38,22 +38,29 @@
       top: -1px;
       box-sizing: border-box;
       background-color: $grey-100;
+      border: 1px solid $grey-400;
       padding: 0.5em;
       padding-bottom: 0.9em;
       border-radius: 2px;
-      // A triangle. urrugh
+      // A triangle. This uses px size because border uses px,
+      // and I have to match with them. Luckily, this is just a decoration
+      // so there won't be a problem.
       &:before {
         content: '';
         position: absolute;
-        left: -0.7em;
-        top: 0.7em;
-        width: 0;
-        height: 0;
-        z-index: 2;
-        border-right: 0.8em solid $grey-100;
-        border-bottom: 0.8em solid transparent;
-        border-top: 0.8em solid transparent;
-        transform: scale(1.01);
+        left: -20px;
+        top: 1.3em;
+        margin-top: -10px;
+        @include triangle-left(10px, 10px, $grey-400);
+      }
+      // triangle after
+      &:after {
+        content: '';
+        position: absolute;
+        left: -18px;
+        top: 1.3em;
+        margin-top: -9px;
+        @include triangle-left(9px, 9px, $grey-100);
       }
     }
     .room-inspector {

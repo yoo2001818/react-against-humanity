@@ -35,15 +35,15 @@
         content: $fa-var-search;
       }
     }
-    &.details .action {
-      & > .icon {
+    &.details {
+      & .action .icon {
         margin-left: 0.5em;
         margin-right: 0;
         &:before {
           content: $fa-var-caret-down;
         }
       }
-      &.open > .icon:before {
+      &.open .action .icon:before {
         content: $fa-var-caret-up;
       }
     }

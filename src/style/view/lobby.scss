@@ -12,8 +12,8 @@
     background-color: $grey-100;
     padding: 1em;
     box-sizing: border-box;
-    // border-left: 1px solid $grey-400;
-    // border-right: 1px solid $grey-400;
+    border-left: 1px solid $grey-400;
+    border-right: 1px solid $grey-400;
     @media screen and (min-width: $mobile-size) {
       right: 16em;
     }

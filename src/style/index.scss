@@ -6,5 +6,6 @@ $fa-font-path: "~font-awesome/fonts/";
 
 @import 'color.scss';
 @import 'constant.scss';
+@import 'utils/**/*.scss';
 @import 'component/**/*.scss';
 @import 'view/**/*.scss';
