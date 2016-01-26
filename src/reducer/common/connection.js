@@ -12,7 +12,7 @@ export function connectionEntry(state = {
   const { type, payload, error, meta } = action;
   if (error) return state;
   if (state.exited) {
-    throw new Error('This connection is exited; it cannot be changed.');
+    throw new Error('This connection has exited; it cannot be changed.');
   }
   let updateState = Object.assign({}, state, {
     lastUpdated: meta.date
@@ -25,6 +25,18 @@ export function connectionEntry(state = {
   case ConnectionActions.UPDATE:
     // Combine information with current status
     return Object.assign({}, updateState, payload);
+  case ConnectionActions.LOGIN:
+    if (updateState.level !== 'anonymous') {
+      throw new Error('Already logged in');
+    }
+    return Object.assign({}, updateState, payload);
+  case ConnectionActions.LOGOUT:
+    if (updateState.level === 'anonymous') {
+      throw new Error('Already logged out');
+    }
+    return Object.assign({}, updateState, {
+      level: 'anonymous'
+    });
   case ConnectionActions.DISCONNECT:
     return Object.assign({}, updateState, {
       exited: true

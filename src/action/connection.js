@@ -55,7 +55,7 @@ export const disconnect = createAction(DISCONNECT,
 
 export const login = createAction(LOGIN,
   data => data,
-  (_, connection) => ({
+  connection => ({
     target: {
       connection: connection.id
     },
@@ -65,7 +65,7 @@ export const login = createAction(LOGIN,
 
 export const logout = createAction(LOGOUT,
   () => {},
-  (connection) => ({
+  connection => ({
     target: {
       connection: connection.id
     },

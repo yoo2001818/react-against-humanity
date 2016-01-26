@@ -109,7 +109,7 @@ describe('connectorMiddleware', () => {
       };
     };
     return store.dispatch(testAction)
-    .then(() => {
+    .catch(() => {
       expect(store.getState()).toEqual({
         message: 'Nope.'
       });

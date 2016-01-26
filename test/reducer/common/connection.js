@@ -1,7 +1,7 @@
 import expect from 'expect';
 import connectionReducer from '../../../src/reducer/common/connection';
 import {
-  update, handshake, connect, disconnect
+  update, handshake, connect, disconnect, login, logout
 } from '../../../src/action/connection';
 import { createStore } from 'redux';
 
@@ -191,6 +191,63 @@ describe('connectionReducer', () => {
         self: null,
         list: {
           1: testConnection
+        }
+      });
+    });
+  });
+
+  describe('LOGIN', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+    });
+
+    it('should update connection', () => {
+      store.dispatch(login({
+        id: 1,
+        level: 'user',
+        name: 'Hello',
+        userId: 32
+      }));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: {
+            id: 1,
+            level: 'user',
+            name: 'Hello',
+            userId: 32,
+            lastUpdated: undefined,
+            lastCreated: undefined
+          }
+        }
+      });
+    });
+  });
+
+  describe('LOGIN', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+    });
+
+    it('should set level to anonymous', () => {
+      store.dispatch(login({
+        id: 1,
+        level: 'guest',
+        name: 'Hey'
+      }));
+      store.dispatch(logout({
+        id: 1
+      }));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: {
+            id: 1,
+            level: 'anonymous',
+            name: 'Hey',
+            lastUpdated: undefined,
+            lastCreated: undefined
+          }
         }
       });
     });
