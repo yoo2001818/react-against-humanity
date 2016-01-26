@@ -32,12 +32,6 @@ export default class RoomItem extends Component {
         className={classNames('room-item', { selected, joined, showDetails })}
         onClick={onSelect}
       >
-        <div className='thumb'>
-          <div className={classNames('state', {
-            playing: room.playing,
-            waiting: !room.playing
-          })} />
-        </div>
         <div className='header'>
           <div className='name'>
             {room.name}

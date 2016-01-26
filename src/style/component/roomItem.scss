@@ -3,18 +3,24 @@
   border: 1px solid $grey-400;
   border-radius: 2px;
   padding: 0.8em 1em;
-  padding-left: 0.8em + 0.9em;
+  padding-left: 1.2em;
   margin-bottom: 0.6em;
   position: relative;
   &:hover, &.selected {
     background-color: $grey-100;
   }
-  &.joined {
-    background-color: $green-200;
-    border: 1px solid $green-400;
-    &:hover, &.selected {
-      background-color: $green-100;
-    }
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.5em;
+    background: $green-600;
+    border-radius: 1px 0 0 1px;
+  }
+  &.joined:before {
+    background: $blue-600;
   }
   // Mobile showdetails
   & .room-inspector {
@@ -92,7 +98,6 @@
   & > .header {
     & > .name {
       float: left;
-      padding-left: 0.1em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -139,30 +144,6 @@
       color: $orange-700;
       &:before {
         content: $fa-var-lock;
-      }
-    }
-  }
-  .state {
-    @include fa-icon();
-    display: inline-block;
-    padding: 0 0.2rem;
-    width: 0.7rem;
-    text-align: left;
-    vertical-align: middle;
-    margin-left: -0.9rem;
-    float: left;
-    line-height: 1.05rem;
-    font-size: 0.6em;
-    &.waiting {
-      color: $green-700;
-      &:before {
-        content: $fa-var-circle;
-      }
-    }
-    &.playing {
-      color: $red-700;
-      &:before {
-        content: $fa-var-circle;
       }
     }
   }
