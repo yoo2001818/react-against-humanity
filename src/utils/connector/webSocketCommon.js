@@ -34,7 +34,7 @@ export default class WebSocketCommonConnector extends Connector {
   disconnect(code = 1000, reason, clientId) {
     const client = this.getClient(clientId);
     client.close(code, reason);
-    return this.handleClose({ code, reason }, clientId);
+    // return this.handleClose({ code, reason }, clientId);
   }
   handleClose(event, clientId) {
     debug('connection closed, ' + event.code + ' of ' + clientId);

@@ -12,9 +12,9 @@ export const chat = createAction(CHAT,
 );
 export const clearHistory = createAction(CLEAR_HISTORY,
   (scope) => ({ scope }),
-  () => ({ noWait: true })
+  () => ({})
 );
 export const setLimit = createAction(SET_LIMIT,
   (scope, limit) => ({ scope, limit }),
-  () => ({ noWait: true })
+  () => ({})
 );

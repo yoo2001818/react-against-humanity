@@ -2,6 +2,7 @@ import http from 'http';
 import { Server as WebSocketServer } from 'ws';
 import express from 'express';
 import serveStatic from 'serve-static';
+import { sessionMiddleware } from './db/session';
 
 import WebSocketServerConnector from './utils/connector/webSocketServer';
 import serverRouter from './router/server';
@@ -39,7 +40,9 @@ app.get('/favicon.ico', (req, res) => {
   res.sendStatus(404);
 });
 
-app.use((req, res) => {
+app.use(sessionMiddleware, (req, res) => {
+  // Some dummy value to set the session
+  req.session.lastIndexAccess = new Date().valueOf();
   res.send(`
     <!DOCTYPE html>
     <html>

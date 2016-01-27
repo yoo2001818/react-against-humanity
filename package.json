@@ -59,6 +59,7 @@
     "es5-shim": "^4.4.1",
     "es6-shim": "^0.34.1",
     "express": "^4.13.3",
+    "express-session": "^1.13.0",
     "flux-standard-action": "^0.6.0",
     "font-awesome": "^4.5.0",
     "history": "^1.14.0",

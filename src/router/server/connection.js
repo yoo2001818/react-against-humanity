@@ -7,6 +7,34 @@ import passThrough from '../middleware/passThrough';
 const router = new Router();
 
 router.poll(Connection.HANDSHAKE, (req, res) => {
+  // Obtain session.
+  let session = req.connector.getClient(req.connection).session;
+  if (session == null) {
+    // This is pretty unexpected. What...
+    return res.reject(new Error('Server hasn\'t loaded session data yet'));
+  }
+  // Otherwise, check if connection value is present
+  if (session.connection != null) {
+    // This will be a problem if the session persists, but connection list
+    // doesn't. We'll have to generate UUID after startup and silently
+    // fail when it's not equal to session data.
+    const { connection: { list } } = req.store.getState();
+    let connection = list[session.connection];
+    if (!connection.exited) {
+      res.reject(new Error('Multiple connection is not supported yet'));
+      // Give it a time to send action first
+      setTimeout(() => {
+        // Then disconnect
+        req.connector.disconnect(1008,
+          'Multiple connection is not supported yet', req.connection);
+      }, 10);
+      return;
+    }
+  }
+  // Set the connection value.
+  session.connection = req.connection;
+  // We don't have to wait for the callback; it's not necessary.
+  session.save();
   // Translate request...
   let action = Connection.connect({
     id: req.connection
