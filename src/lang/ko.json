@@ -27,5 +27,11 @@
   "LeaveBtn": "나가기",
   "SpectateBtn": "관전하기",
   "DetailsBtn": "자세히",
-  "Login": "로그인"
+  "Login": "로그인",
+  "AlreadyLoggedInTitle": "로그인",
+  "AlreadyLoggedInMsg": "이미 로그인되어 있습니다.",
+  "Logout": "로그아웃",
+  "GuestLoginTitle": "익명으로 로그인",
+  "IdLoginTitle": "아이디/비밀번호로 로그인",
+  "SocialLoginTitle": "소셜 계정으로 로그인"
 }

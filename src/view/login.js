@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import __ from '../lang';
 import * as connectionActions from '../action/connection';
+import GridEntry from '../component/ui/gridEntry';
+import Button from '../component/ui/button';
 
 class Login extends Component {
   handleLogin(e) {
@@ -18,19 +21,51 @@ class Login extends Component {
     const { level } = this.props;
     if (level !== 'anonymous') {
       return (
-        <div>
-          <p>You're already logged in!</p>
-          <button onClick={this.handleLogout.bind(this)}>Logout</button>
+        <div className='login-view'>
+          <div className='pane login-logout'>
+            <GridEntry title={__('AlreadyLoggedInTitle')}>
+              <p className='message'>
+                {__('AlreadyLoggedInMsg')}
+              </p>
+              <div className='controls'>
+                <Button onClick={this.handleLogout.bind(this)}>
+                  {__('Logout')}
+                </Button>
+              </div>
+            </GridEntry>
+          </div>
         </div>
       );
     }
     return (
-      <div>
-        <p>This is a login form!</p>
-        <form onSubmit={this.handleLogin.bind(this)}>
-        <p><input ref='name' type='text' placeholder='name'/></p>
-        <button>Login</button>
-        </form>
+      <div className='login-view'>
+        <div className='pane login-id'>
+          <GridEntry title={__('IdLoginTitle')}>
+            <p>WIP</p>
+          </GridEntry>
+        </div>
+        <div className='pane login-social'>
+          <GridEntry title={__('SocialLoginTitle')}>
+            <p>WIP</p>
+          </GridEntry>
+        </div>
+        <div className='pane login-guest'>
+          <GridEntry title={__('GuestLoginTitle')}>
+            <form onSubmit={this.handleLogin.bind(this)}>
+              <p>
+                {/* I have to use TextInput component for this, but
+                  * using ref isn't possible with that. But I'll change
+                  * this to redux-form or something, so until then,
+                  * I'll leave it like this.
+                  */}
+                <input ref='name' type='text' placeholder={__('Nickname')}
+                  className='text-input-component'
+                  />
+              </p>
+              <Button>{__('Login')}</Button>
+            </form>
+          </GridEntry>
+        </div>
       </div>
     );
   }

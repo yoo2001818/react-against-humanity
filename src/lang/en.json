@@ -27,5 +27,11 @@
   "LeaveBtn": "Leave",
   "SpectateBtn": "Spectate",
   "DetailsBtn": "Details",
-  "Login": "Login"
+  "Login": "Login",
+  "AlreadyLoggedInTitle": "Login",
+  "AlreadyLoggedInMsg": "You've already logged in.",
+  "Logout": "Logout",
+  "GuestLoginTitle": "Login as guest",
+  "IdLoginTitle": "Login with ID",
+  "SocialLoginTitle": "Login with your social account"
 }
