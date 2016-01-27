@@ -2,7 +2,7 @@ import * as Connection from '../../action/connection';
 import Router from '../../utils/router';
 import setConnection from '../middleware/setConnection';
 import checkLogin from '../middleware/checkLogin';
-import passThrough from '../middleware/passThrough';
+// import passThrough from '../middleware/passThrough';
 
 const router = new Router();
 
@@ -36,9 +36,10 @@ router.poll(Connection.HANDSHAKE, (req, res) => {
   // We don't have to wait for the callback; it's not necessary.
   session.save();
   // Translate request...
-  let action = Connection.connect({
+  // Inject authentication information from session
+  let action = Connection.connect(Object.assign({
     id: req.connection
-  });
+  }, session.auth));
   req.store.dispatch(action)
   .then(() => {
     const state = req.store.getState();
@@ -69,16 +70,39 @@ router.poll(Connection.LOGIN, (req, res) => {
       new Error('Nickname cannot contain whitespace characters')
     );
   }
-  // Done! let's send it to the reducer.
-  let action = Connection.login({
-    id: req.connection,
+  let auth = {
     level: payload.level,
     name: payload.name
-  });
+  };
+  // Done! let's send it to the reducer.
+  let action = Connection.login(Object.assign({
+    id: req.connection
+  }, auth));
   req.store.dispatch(action)
-  .then(res.resolve, res.reject);
+  .then(action => {
+    // Set the session data if succeeded
+    let session = req.connector.getClient(req.connection).session;
+    if (session == null) {
+      return res.reject(new Error('Session data not found'));
+    }
+    session.auth = auth;
+    session.save();
+    res.resolve(action);
+  }, res.reject);
 });
 
-router.poll(Connection.LOGOUT, checkLogin, setConnection, passThrough);
+router.poll(Connection.LOGOUT, checkLogin, setConnection, (req, res) => {
+  req.store.dispatch(req.action)
+  .then(action => {
+    // Delete the session data
+    let session = req.connector.getClient(req.connection).session;
+    if (session == null) {
+      return res.reject(new Error('Session data not found'));
+    }
+    delete session.auth;
+    session.save();
+    res.resolve(action);
+  }, res.reject);
+});
 
 export default router;
