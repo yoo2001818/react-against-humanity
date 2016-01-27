@@ -1,15 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import Entry from './entry';
-import SideNavigation from '../../container/sideNavigation';
-import ConnectionList from '../../container/connectionList';
-
-import __ from '../../lang';
-
 export default class Sidebar extends Component {
   render() {
-    const { visible, onClose = () => {} } = this.props;
+    const { children, visible, onClose = () => {} } = this.props;
     return (
       <div className={classNames('sidebar-container', {
         'hidden': !visible
@@ -20,10 +14,7 @@ export default class Sidebar extends Component {
           onTouchStart={onClose}
         />
         <div className='sidebar-root'>
-          <SideNavigation />
-          <Entry title={__('ConnectedUserListTitle')}>
-            <ConnectionList />
-          </Entry>
+          {children}
         </div>
       </div>
     );
@@ -31,6 +22,7 @@ export default class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
+  children: PropTypes.node,
   visible: PropTypes.bool,
   onClose: PropTypes.func
 };

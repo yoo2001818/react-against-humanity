@@ -6,7 +6,8 @@ import __ from '../../lang';
 
 export default class Header extends Component {
   render() {
-    const { onSidebar = () => {}, showSidebar } = this.props;
+    const { title, right, showLogin = true,
+      onSidebar = () => {}, showSidebar } = this.props;
     return (
       <div id='header'>
         <div className='content'>
@@ -16,14 +17,17 @@ export default class Header extends Component {
               onClick={onSidebar}
             />
             <h1 className='title'>
-              {__('GameLobbyTitle')}
+              { title }
             </h1>
           </div>
           <div className='center'>
 
           </div>
           <div className='right'>
-            <Link to='/login'>{__('Login')}</Link>
+            { right }
+            { showLogin && (
+              <Link to='/login'>{__('Login')}</Link>
+            )}
           </div>
         </div>
       </div>
@@ -33,5 +37,8 @@ export default class Header extends Component {
 
 Header.propTypes = {
   onSidebar: PropTypes.func,
-  showSidebar: PropTypes.bool
+  showSidebar: PropTypes.bool,
+  title: PropTypes.node,
+  right: PropTypes.node,
+  showLogin: PropTypes.bool
 };

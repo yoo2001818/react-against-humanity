@@ -5,7 +5,8 @@ import { routeActions } from 'redux-simple-router';
 import * as roomActions from '../action/room';
 
 import RoomList from '../container/roomList';
-// import __ from '../lang';
+import AppContainer from '../container/appContainer';
+import __ from '../lang';
 
 export default class Lobby extends Component {
   constructor(props) {
@@ -31,20 +32,24 @@ export default class Lobby extends Component {
   render() {
     const { selected } = this.state;
     return (
-      <div className='lobby-view'>
-        <div className='list-column'>
-          <RoomList
-            onSelect={this.handleSelect.bind(this)}
-            selected={selected}
-          />
-          <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
+      <AppContainer
+        title={__('RoomListTitle')}
+      >
+        <div className='lobby-view'>
+          <div className='list-column'>
+            <RoomList
+              onSelect={this.handleSelect.bind(this)}
+              selected={selected}
+            />
+            <button onClick={this.dispatchTest.bind(this)}>방 만들기</button>
+          </div>
+          <div className='details-column'>
+            {/* We display nothing in this column, as the room entry will
+              * expand to this column.
+              */}
+          </div>
         </div>
-        <div className='details-column'>
-          {/* We display nothing in this column, as the room entry will
-            * expand to this column.
-            */}
-        </div>
-      </div>
+      </AppContainer>
     );
   }
 }

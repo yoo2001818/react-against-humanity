@@ -13,7 +13,7 @@
   "ConnectingTitle": "Loading",
   "ConnectingDesc": "Connecting to the server...",
   "GameLobbyChatTitle": "Lobby",
-  "GameLobbyTitle": "Room List",
+  "RoomListTitle": "Room List",
   "ProfileTitle": "Profile",
   "ConnectedUserListTitle": "Connected Users",
   "ErrorTitle": "Error",
@@ -33,5 +33,6 @@
   "Logout": "Logout",
   "GuestLoginTitle": "Login as guest",
   "IdLoginTitle": "Login with ID",
-  "SocialLoginTitle": "Login with your social account"
+  "SocialLoginTitle": "Login with your social account",
+  "LoginTitle": "Login"
 }

@@ -14,7 +14,7 @@ class SideNavigation extends Component {
         <ul className='side-navigation'>
           <li>
             <IndexLink activeClassName='active' to='/'>
-              {__('GameLobbyTitle')}
+              {__('RoomListTitle')}
             </IndexLink>
           </li>
           { roomId != null && (

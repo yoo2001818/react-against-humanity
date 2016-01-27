@@ -13,7 +13,7 @@
   "ConnectingTitle": "접속 중",
   "ConnectingDesc": "서버에 접속하는 중입니다..",
   "GameLobbyChatTitle": "대기실",
-  "GameLobbyTitle": "방 목록",
+  "RoomListTitle": "방 목록",
   "ProfileTitle": "프로필",
   "ConnectedUserListTitle": "접속한 사용자",
   "ErrorTitle": "오류",
@@ -33,5 +33,6 @@
   "Logout": "로그아웃",
   "GuestLoginTitle": "익명으로 로그인",
   "IdLoginTitle": "아이디/비밀번호로 로그인",
-  "SocialLoginTitle": "소셜 계정으로 로그인"
+  "SocialLoginTitle": "소셜 계정으로 로그인",
+  "LoginTitle": "로그인"
 }
