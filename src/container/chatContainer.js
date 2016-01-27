@@ -32,11 +32,9 @@ ChatContainer.propTypes = {
 
 export default connect(
   state => {
-    const { chat: { messages }, connection: { list: connections } } = state;
+    const { chat: { messages } } = state;
     return {
-      messages: messages.map(message => Object.assign({}, message, {
-        connection: connections[message.connection]
-      }))
+      messages
     };
   },
   { chat }
