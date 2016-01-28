@@ -15,11 +15,11 @@ class ChatWindow extends Component {
     const conversation = (conversations[selected] || conversations[0]);
     const reverseLen = conversations.length - 1;
     return (
-      <div className='chat-window'>
+      <div className={classNames('chat-window', {open})}>
         <div className='content'>
           <ChatHeader open={open} onToggle={toggle}>
             { conversations.reverse().map((conversation, key) => (
-              <div 
+              <div
                 className={classNames('tab', {
                   selected: (reverseLen - key === selected)
                 })}
@@ -30,12 +30,10 @@ class ChatWindow extends Component {
               </div>
             ))}
           </ChatHeader>
-          { open && (
-            <ChatContainer
-               messages={conversation.messages}
-               onChat={chat.bind(null, conversation.scope)}
-             />
-           )}
+          <ChatContainer
+             messages={conversation.messages}
+             onChat={chat.bind(null, conversation.scope)}
+           />
         </div>
       </div>
     );

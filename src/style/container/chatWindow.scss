@@ -3,12 +3,16 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 100%;
-  max-width: 35em;
   z-index: 100;
   padding: 0 0.3em;
   box-sizing: border-box;
-
+  &.open {
+    width: 100%;
+    max-width: 35em;
+    & > .content > .chat-container {
+      display: block;
+    }
+  }
   & > .content {
     border-radius: 3px 3px 0 0;
     border: 1px solid $blue-800;
@@ -19,6 +23,7 @@
       background-color: $blue-800;
     }
     & > .chat-container {
+      display: none;
       position: relative;
       box-shadow: 0 0 3px -1px #000;
       height: 40vh;
@@ -44,13 +49,44 @@
         right: 0;
       }
     }
-    /*@media screen and (min-width: $desktop-large-size) {
-      right: 0;
-      left: auto;
-      top: 0;
-      padding-top: $header-height;
+  }
+  @media screen and (min-width: $desktop-large-size) {
+    right: 0;
+    left: auto;
+    top: 0;
+    padding: 0;
+    padding-top: $header-height;
+    width: $chatbar-width;
+    background-color: #fff;
+    &.open {
       width: $chatbar-width;
-      background-color: #fff;
-    }*/
+    }
+    & > .content {
+      border-radius: 0;
+      height: 100%;
+      box-shadow: none;
+      position: relative;
+      & > .chat-header {
+        padding-top: 0.3rem;
+        & > .tab-list {
+          // padding-left: 0.3em;
+          // text-align: left;
+        }
+        .right-icon {
+          display: none;
+        }
+      }
+      & > .chat-container {
+        display: block;
+        box-shadow: none;
+        position: absolute;
+        top: 2.3rem;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: none;
+        height: auto;
+      }
+    }
   }
 }
