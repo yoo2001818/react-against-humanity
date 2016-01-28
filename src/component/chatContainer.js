@@ -1,18 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-
-import { chat } from '../action/chat';
 
 import ChatForm from '../component/chatForm';
 import MessageList from '../component/messageList';
 
-class ChatContainer extends Component {
+export default class ChatContainer extends Component {
   render() {
-    const { messages, chat } = this.props;
+    const { messages, onChat } = this.props;
     return (
       <div className='chat-container'>
         <MessageList messages={messages} />
-        <ChatForm onChat={message => chat('global', message)} />
+        <ChatForm onChat={onChat} />
       </div>
     );
   }
@@ -27,15 +24,5 @@ ChatContainer.propTypes = {
     type: PropTypes.string,
     message: PropTypes.string
   })),
-  chat: PropTypes.func.isRequired
+  onChat: PropTypes.func
 };
-
-export default connect(
-  state => {
-    const { chat: { messages } } = state;
-    return {
-      messages
-    };
-  },
-  { chat }
-)(ChatContainer);

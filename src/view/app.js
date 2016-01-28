@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import ErrorOverlay from '../container/errorOverlay';
 import ConnectionKeeper from '../container/connectionKeeper';
+import ConversationList from '../container/conversationList';
 
 export default class App extends Component {
   render() {
@@ -11,6 +12,7 @@ export default class App extends Component {
         <ConnectionKeeper>
           {this.props.children}
         </ConnectionKeeper>
+        <ConversationList />
         <ErrorOverlay />
       </div>
     );

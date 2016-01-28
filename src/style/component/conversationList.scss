@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   white-space: nowrap;
-  text-align: right;
+  text-align: left;
   //overflow-x: auto;
   //height: 20em;
   //z-index: -1;
@@ -13,9 +13,10 @@
   box-sizing: border-box;
   // Flexbox if available.
   display: flex;
-  // justify-content: flex-end;
-  align-items: flex-end;
-  &:before {
+  // justify-content: flex-start;
+  // align-items: flex-start;
+  flex-direction: row-reverse;
+  &:after {
     content: '';
     display: inline-block;
     flex: 1 0 0em;

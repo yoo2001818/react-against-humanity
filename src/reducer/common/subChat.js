@@ -1,5 +1,6 @@
 import * as ChatActions from '../../action/chat';
 import * as ConnectionActions from '../../action/connection';
+import * as RoomActions from '../../action/room';
 
 export default function subChat(state = {
   limit: 100,
@@ -38,8 +39,18 @@ export default function subChat(state = {
         date: meta.date
       }]).slice(-limit)
     });
+  case RoomActions.JOIN:
+  case RoomActions.CREATE:
+    return Object.assign({}, state, {
+      messages: messages.concat([{
+        connection: connection,
+        type: 'join',
+        date: meta.date
+      }]).slice(-limit)
+    });
   case ConnectionActions.DISCONNECT:
   case ConnectionActions.LOGOUT:
+  case RoomActions.LEAVE:
     if (connection.level === 'anonymous') return state;
     return Object.assign({}, state, {
       messages: messages.concat([{

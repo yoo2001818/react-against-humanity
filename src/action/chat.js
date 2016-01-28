@@ -5,16 +5,16 @@ export const CLEAR_HISTORY = 'chat/clearHistory';
 export const SET_LIMIT = 'chat/setLimit';
 
 export const chat = createAction(CHAT,
-  (scope, message) => ({ message, scope }),
-  () => ({
-    class: 'write', noWait: true
+  (_, message) => ({ message }),
+  (scope) => ({
+    class: 'write', noWait: true, scope
   })
 );
 export const clearHistory = createAction(CLEAR_HISTORY,
-  (scope) => ({ scope }),
-  () => ({})
+  () => ({}),
+  (scope) => ({ scope })
 );
 export const setLimit = createAction(SET_LIMIT,
-  (scope, limit) => ({ scope, limit }),
-  () => ({})
+  (_, limit) => ({ limit }),
+  (scope) => ({ scope })
 );

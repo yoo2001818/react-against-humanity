@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { open, close, toggle } from '../action/sidebar';
 
 import Header from '../component/header';
-import ConversationList from './conversationList';
 import Sidebar from '../component/sidebar';
 
 import Entry from '../component/sidebar/entry';
@@ -41,8 +40,6 @@ class AppContainer extends Component {
             { children }
           </div>
         </div>
-        { /* Is it okay to put this in here? */ }
-        <ConversationList />
       </div>
     );
   }

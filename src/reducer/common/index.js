@@ -1,7 +1,7 @@
 import connection from './connection';
-import subChat from './subChat';
+import chatFilter from './chatFilter';
 import room from './room';
 
 export default {
-  connection, chat: subChat, room
+  connection, chat: chatFilter('global'), room
 };

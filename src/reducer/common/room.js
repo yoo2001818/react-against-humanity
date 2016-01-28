@@ -1,8 +1,17 @@
 import * as RoomActions from '../../action/room';
 import * as ConnectionActions from '../../action/connection';
 
+import chatFilter from './chatFilter';
 import { getMap, addMap, updateOrRemoveMap } from './map';
 import { addList, removeListEntry } from './list';
+
+const chatReducer = chatFilter('room', [
+  RoomActions.JOIN,
+  RoomActions.LEAVE,
+  RoomActions.CREATE,
+  ConnectionActions.DISCONNECT,
+  ConnectionActions.LOGOUT
+]);
 
 export default function roomEntry(state = {
   // Some default schema goes here
@@ -21,12 +30,14 @@ export default function roomEntry(state = {
   playing: false,
   locked: false,
   password: null,
-  chat: null
+  chat: undefined
 }, action) {
   const { type, payload, error, meta } = action;
   if (error) return state;
   let updateState = Object.assign({}, state, {
-    lastUpdated: meta.date
+    // Not gonna need this
+    // lastUpdated: meta.date,
+    chat: chatReducer(state.chat, action)
   });
   const connection = meta.target.connection;
   switch (type) {
@@ -67,7 +78,7 @@ export default function roomEntry(state = {
       userCount: updateState.userCount - 1
     });
   }
-  return state;
+  return updateState;
 }
 
 export default function room(state = {
