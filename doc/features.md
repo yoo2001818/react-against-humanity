@@ -2,8 +2,8 @@
 This document describes the features that React Against Humanity should have.
 
 - [ ] Chat
-  - [ ] Lobby chat
-  - [ ] Room chat
+  - [x] Lobby chat
+  - [x] Room chat
   - [ ] 1:1 chat
   - [ ] n:n chat (Not on roadmap)
 - [ ] Gameplay
@@ -32,7 +32,7 @@ This document describes the features that React Against Humanity should have.
   - [ ] Deck comment notification
   - [ ] 1:1 chat notification / logging
 - [ ] Login
-  - [ ] Guest login
+  - [x] Guest login
   - [ ] ID / Password login
   - [ ] oAuth login
-  - [ ] Session preserving /w cookie
+  - [x] Session preserving /w cookie

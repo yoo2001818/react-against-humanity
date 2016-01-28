@@ -3,10 +3,17 @@ import subChatReducer from '../../../src/reducer/common/subChat';
 import { chat, clearHistory, setLimit } from '../../../src/action/chat';
 import { createStore } from 'redux';
 
+const testUser = {
+  id: 1,
+  level: 'guest',
+  name: 'test'
+};
+
 const testMessage = {
   type: 'normal',
   message: 'Hello, world!',
-  connection: 1
+  connection: testUser,
+  date: undefined
 };
 
 function injectUser(action) {
@@ -14,7 +21,15 @@ function injectUser(action) {
     meta: Object.assign({}, action.meta, {
       target: Object.assign({}, action.meta && action.meta.target, {
         connection: 1
-      })
+      }),
+      // State data mockup
+      state: {
+        connection: {
+          list: {
+            1: testUser
+          }
+        }
+      }
     })
   });
 }
