@@ -70,7 +70,7 @@ unless scope is specified, except connection actions.
 
 - id
 - name
-- hosts
+- host
 - spectators
 - users
 - userCount
@@ -78,9 +78,8 @@ unless scope is specified, except connection actions.
 - configuration
   - decks
   - rules
-- state
-  - playing
-  - locked
+- playing
+- locked
 - password
 - chat
 - session

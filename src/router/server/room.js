@@ -20,7 +20,7 @@ router.poll(Room.UPDATE, setConnection, passThrough);
 router.poll(Room.JOIN, setConnection, checkLogin, (req, res, next) => {
   if (!req.action.meta) req.action.meta = {};
   if (!req.action.meta.target) req.action.meta.target = {};
-  req.action.meta.target.room = req.action.payload && req.action.payload.room;
+  req.action.meta.target.room = req.action.payload && req.action.payload.id;
   next();
 }, passThrough);
 router.poll(Room.LEAVE, setConnection, passThrough);

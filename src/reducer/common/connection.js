@@ -2,7 +2,7 @@ import * as TransportActions from '../../action/transport';
 import * as RoomActions from '../../action/room';
 import * as ConnectionActions from '../../action/connection';
 
-import { getList, updateList, addList } from './list';
+import { getMap, updateMap, addMap } from './map';
 
 export function connectionEntry(state = {
   id: null,
@@ -75,7 +75,7 @@ export default function connection(state = {
   switch (type) {
   case ConnectionActions.CONNECT:
     return Object.assign({}, state, {
-      list: addList(state.list, id, connectionEntry(undefined, action))
+      list: addMap(state.list, id, connectionEntry(undefined, action))
     });
   case ConnectionActions.HANDSHAKE:
     return payload.connection;
@@ -87,8 +87,8 @@ export default function connection(state = {
     // Otherwise, pass everything to the connection entry reducer, if available.
     if (id == null) return state;
     return Object.assign({}, state, {
-      list: updateList(state.list, id, connectionEntry(
-        getList(state.list, id), action
+      list: updateMap(state.list, id, connectionEntry(
+        getMap(state.list, id), action
       ))
     });
   }

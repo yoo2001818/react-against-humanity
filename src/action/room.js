@@ -37,7 +37,7 @@ export const fetchList = createAction(FETCH_LIST);
 
 // User joins the room.
 export const join = createAction(JOIN,
-  room => ({ room }),
+  room => ({ id: room }),
   room => ({
     class: 'write', target: { room }
   })
