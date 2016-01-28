@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import __ from '../lang';
+import __ from '../../lang';
 
 export default class MessageItem extends Component {
   render() {

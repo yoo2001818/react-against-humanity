@@ -1,0 +1,54 @@
+.chat-header {
+  & > .tab-list {
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9em;
+    & > .tab {
+      display: inline-block;
+      position: relative;
+      padding: 0 0.7rem;
+      height: 2rem;
+      line-height: 2rem;
+      vertical-align: middle;
+      margin-right: 0.3rem;
+      border-radius: 3px 3px 0 0;
+      color: $blue-100;
+      &:hover {
+        background-color: $blue-700;
+      }
+      &.selected {
+        background-color: $grey-100;
+        color: $blue-800;
+        z-index: 2;
+      }
+    }
+    & > .right-icon {
+      display: inline-block;
+      & > .button {
+        display: inline-block;
+        padding: 0 0.5rem;
+        height: 2rem;
+        line-height: 2rem;
+        color: $blue-100;
+        font-size: 1.1em;
+        margin-right: 0.3rem;
+        border-radius: 3px 3px 0 0;
+        vertical-align: middle;
+        &:hover {
+          background-color: $blue-700;
+        }
+      }
+      & > .minimize {
+        @include fa-icon();
+        line-height: 2rem;
+        &:before {
+          content: $fa-var-caret-up;
+        }
+        &.open:before {
+          content: $fa-var-caret-down;
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-import ChatForm from '../component/chatForm';
-import MessageList from '../component/messageList';
+import ChatForm from './chatForm';
+import MessageList from './messageList';
 
 export default class ChatContainer extends Component {
   render() {

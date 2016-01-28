@@ -20,5 +20,8 @@
     @media screen and (min-width: $tablet-size) {
       margin-left: $sidebar-space;
     }
+    @media screen and (min-width: $desktop-large-size) {
+      margin-right: $chatbar-width;
+    }
   }
 }

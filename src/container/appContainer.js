@@ -10,6 +10,8 @@ import Entry from '../component/sidebar/entry';
 import SideNavigation from './sideNavigation';
 import ConnectionList from './connectionList';
 
+import ChatWindow from './chatWindow';
+
 import __ from '../lang';
 
 class AppContainer extends Component {
@@ -40,6 +42,7 @@ class AppContainer extends Component {
             { children }
           </div>
         </div>
+        <ChatWindow />
       </div>
     );
   }

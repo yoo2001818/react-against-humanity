@@ -2,7 +2,7 @@
   $sidebar-space: $sidebar-width + $sidebar-margin * 2;
 
   position: fixed;
-  z-index: 2;
+  z-index: 150;
   transition: left 0.2s;
 
   top: 0;
@@ -30,6 +30,7 @@
   }
 
   @media screen and (min-width: $tablet-size) {
+    z-index: 21;
     left: auto;
     margin-left: -$sidebar-space;
     transition: none;
@@ -50,7 +51,7 @@
   transition: opacity 0.2s;
 
   position: fixed;
-  z-index: 1;
+  z-index: 149;
 
   top: 0;
   left: 0;
@@ -67,5 +68,6 @@
 
   @media screen and (min-width: $tablet-size) {
     display: none;
+    z-index: 20;
   }
 }

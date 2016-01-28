@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import TextInput from './ui/textInput';
+import TextInput from '../ui/textInput';
 
-import __ from '../lang';
+import __ from '../../lang';
 
 export default class ChatForm extends Component {
   handleSubmit(event) {

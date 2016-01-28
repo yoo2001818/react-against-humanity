@@ -1,0 +1,56 @@
+.chat-window {
+  // Put at bottom
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-width: 35em;
+  z-index: 100;
+  padding: 0 0.3em;
+  box-sizing: border-box;
+
+  & > .content {
+    border-radius: 3px 3px 0 0;
+    border: 1px solid $blue-800;
+    border-bottom: none;
+    box-shadow: 0 0 3px -1px #000;
+    & > .chat-header {
+      //padding-top: 0.2em;
+      background-color: $blue-800;
+    }
+    & > .chat-container {
+      position: relative;
+      box-shadow: 0 0 3px -1px #000;
+      height: 40vh;
+      font-size: 0.9em;
+      max-height: 12em;
+      background-color: $grey-100;
+      // border: 1px solid $grey-800;
+      border-bottom: none;
+      //border-radius: 3px;
+      .message-list {
+        position: absolute;
+        overflow: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 2.2em;
+        padding: 0.5em;
+      }
+      .chat-form {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+    /*@media screen and (min-width: $desktop-large-size) {
+      right: 0;
+      left: auto;
+      top: 0;
+      padding-top: $header-height;
+      width: $chatbar-width;
+      background-color: #fff;
+    }*/
+  }
+}
