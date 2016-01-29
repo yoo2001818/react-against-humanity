@@ -6,7 +6,7 @@ export default class Header extends Component {
     const { title, right,
       onSidebar = () => {}, showSidebar } = this.props;
     return (
-      <div id='header'>
+      <div className='header-component'>
         <div className='content'>
           <div className='left'>
             <i

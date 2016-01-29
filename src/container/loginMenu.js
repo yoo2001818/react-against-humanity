@@ -7,10 +7,16 @@ import __ from '../lang';
 import { logout } from '../action/connection';
 
 import ConnectionTag from '../component/connectionTag';
+import DropDown from '../component/ui/dropDown';
 
 class LoginMenu extends Component {
+  handleLogout(e) {
+    const { logout } = this.props;
+    logout();
+    e.preventDefault();
+  }
   render() {
-    const { connection, logout } = this.props;
+    const { connection } = this.props;
     if (connection.level === 'anonymous') {
       // Show login link
       return (
@@ -24,10 +30,17 @@ class LoginMenu extends Component {
     return (
       <div className='login-menu guest'>
         <div className='user-info'>
-          <ConnectionTag connection={connection} />
-        </div>
-        <div className='action'>
-          <Link to='/login' onClick={logout}>{__('Logout')}</Link>
+          <DropDown href='#' title={(
+            <ConnectionTag connection={connection} />
+          )}>
+            <ul className='menu-list'>
+              <li>
+                <Link to='/login' onClick={this.handleLogout.bind(this)}>
+                  {__('Logout')}
+                </Link>
+              </li>
+            </ul>
+          </DropDown>
         </div>
       </div>
     );
