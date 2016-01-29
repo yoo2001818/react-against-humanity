@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import __ from '../../lang';
 
+import ConnectionTag from '../connectionTag';
+
 export default class MessageItem extends Component {
   render() {
     const { message, type, connection } = this.props;
@@ -20,7 +22,7 @@ export default class MessageItem extends Component {
     }
     return (
       <div className='message'>
-        {connection.name}: {message}
+        <ConnectionTag connection={connection} />: {message}
       </div>
     );
   }

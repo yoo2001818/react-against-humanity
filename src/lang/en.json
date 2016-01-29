@@ -34,5 +34,8 @@
   "GuestLoginTitle": "Login as guest",
   "IdLoginTitle": "Login with ID",
   "SocialLoginTitle": "Login with your social account",
-  "LoginTitle": "Login"
+  "LoginTitle": "Login",
+  "RoomPlayersName": "Players",
+  "RoomRulesName": "Rules",
+  "RoomDecksName": "Decks"
 }

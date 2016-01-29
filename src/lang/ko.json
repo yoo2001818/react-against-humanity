@@ -34,5 +34,8 @@
   "GuestLoginTitle": "익명으로 로그인",
   "IdLoginTitle": "아이디/비밀번호로 로그인",
   "SocialLoginTitle": "소셜 계정으로 로그인",
-  "LoginTitle": "로그인"
+  "LoginTitle": "로그인",
+  "RoomPlayersName": "접속자",
+  "RoomRulesName": "규칙",
+  "RoomDecksName": "덱"
 }

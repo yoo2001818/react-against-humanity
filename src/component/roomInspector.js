@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
+import __ from '../lang';
+
+import ConnectionTag from './connectionTag';
+
 class Pane extends Component {
   render() {
     const { title, children } = this.props;
@@ -26,30 +30,32 @@ export default class RoomInspector extends Component {
       <div className='room-inspector'>
         <Pane title={(
           <div className='float'>
-            <div className='name'>접속자</div>
+            <div className='name'>{__('RoomPlayersName')}</div>
             {showCount && (
               <div className='count'>
                 <span className='current'>
-                  {room.playerCount || 1}
+                  {room.userCount}
                 </span>
                 <span className='max'>
-                  {room.maxPlayerCount || 1}
+                  {room.maxUserCount}
                 </span>
               </div>
             )}
           </div>
         )}>
           <ul>
-            {Array(room.playerCount).fill(0).map((_, key) => (
-              <li key={key}>A player</li>
+            {room.users.map(connection => (
+              <li key={connection.id}>
+                <ConnectionTag connection={connection} />
+              </li>
             ))}
           </ul>
         </Pane>
-        <Pane title='규칙'>
-          None.
+        <Pane title={__('RoomRulesName')}>
+          WIP
         </Pane>
-        <Pane title='덱'>
-          None.
+        <Pane title={__('RoomDecksName')}>
+          WIP
         </Pane>
       </div>
     );

@@ -22,7 +22,7 @@ export default function roomEntry(state = {
   users: [],
   userCount: 0,
   // Of course this is a placeholder value..
-  maxUserCount: 9999,
+  maxUserCount: 99,
   configuration: {
     decks: [],
     rules: []

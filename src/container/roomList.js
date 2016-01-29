@@ -62,9 +62,13 @@ RoomList.propTypes = {
 
 export default connect(
   state => {
-    const connection = state.connection.list[state.connection.self];
+    const connectionList = state.connection.list;
+    const connection = connectionList[state.connection.self];
     return {
-      rooms: values(state.room.list),
+      rooms: values(state.room.list).map(room => Object.assign({}, room, {
+        host: connectionList[room.host],
+        users: room.users.map(id => connectionList[id])
+      })),
       joined: connection && connection.roomId
     };
   },

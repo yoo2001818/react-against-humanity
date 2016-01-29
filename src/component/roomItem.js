@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import RoomActionBar from './roomActionBar';
 import RoomInspector from './roomInspector';
+import ConnectionTag from './connectionTag';
 
 export default class RoomItem extends Component {
   constructor(props) {
@@ -39,14 +40,14 @@ export default class RoomItem extends Component {
           </div>
           <div className='status'>
             <div className='host'>
-              {room.host || '끼로'}
+              <ConnectionTag connection={room.host} />
             </div>
             <div className='users'>
               <span className='current'>
-                {room.playerCount || 1}
+                {room.userCount}
               </span>
               <span className='max'>
-                {room.maxPlayerCount || 1}
+                {room.maxUserCount}
               </span>
             </div>
           </div>
