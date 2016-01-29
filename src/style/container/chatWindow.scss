@@ -10,7 +10,9 @@
     width: 100%;
     max-width: 35em;
     & > .content > .chat-container {
-      display: block;
+      visibility: visible;
+      height: 60vh;
+      max-height: 12em;
     }
   }
   & > .content {
@@ -23,11 +25,10 @@
       background-color: $blue-800;
     }
     & > .chat-container {
-      display: none;
+      visibility: hidden;
       position: relative;
       box-shadow: 0 0 3px -1px #000;
-      height: 60vh;
-      max-height: 12em;
+      height: 0;
       font-size: 0.9em;
       background-color: $grey-100;
       // border: 1px solid $grey-800;
@@ -65,6 +66,10 @@
     background-color: #fff;
     &.open {
       width: $chatbar-width;
+      & > .content > .chat-container {
+        max-height: none;
+        height: auto;
+      }
     }
     & > .content {
       border-radius: 0;
@@ -82,7 +87,7 @@
         }
       }
       & > .chat-container {
-        display: block;
+        visibility: visible;
         box-shadow: none;
         position: absolute;
         top: 2.3rem;

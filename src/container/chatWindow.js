@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
@@ -18,8 +19,26 @@ class ChatWindow extends Component {
       e.preventDefault();
     }
   }
+  handleSelect(id) {
+    const { select } = this.props;
+    select(id);
+    // Wait some time for DOM update..
+    setTimeout(() => {
+      // WTF WHY?????? What the ****??
+      findDOMNode(this.refs.chatContainer.refs.form.refs.input).focus();
+    }, 0);
+  }
+  handleToggle() {
+    const { toggle } = this.props;
+    toggle();
+    // Wait some time for DOM update..
+    setTimeout(() => {
+      // Sigh....
+      findDOMNode(this.refs.chatContainer.refs.form.refs.input).focus();
+    }, 0);
+  }
   render() {
-    const { conversations, selected, open, chat, toggle, select } = this.props;
+    const { conversations, selected, open, chat } = this.props;
     const conversation = (conversations[selected] || conversations[0]);
     const reverseLen = conversations.length - 1;
     return (
@@ -27,13 +46,13 @@ class ChatWindow extends Component {
         onKeyDown={this.handleKeyDown.bind(this)}
       >
         <div className='content'>
-          <ChatHeader open={open} onToggle={toggle}>
+          <ChatHeader open={open} onToggle={this.handleToggle.bind(this)}>
             { conversations.reverse().map((conversation, key) => (
               <div
                 className={classNames('tab', {
                   selected: (reverseLen - key === selected)
                 })}
-                onClick={select.bind(null, reverseLen - key)}
+                onClick={this.handleSelect.bind(this, reverseLen - key)}
                 key={key}
               >
                 {conversation.title}
@@ -43,6 +62,7 @@ class ChatWindow extends Component {
           <ChatContainer
              messages={conversation.messages}
              onChat={chat.bind(null, conversation.scope)}
+             ref='chatContainer'
            />
         </div>
       </div>

@@ -21,6 +21,7 @@ export default class ChatForm extends Component {
               placeholder={__('ChatPlaceholder')}
               name='message'
               autoComplete='off'
+              ref='input'
             />
           </div>
         </form>

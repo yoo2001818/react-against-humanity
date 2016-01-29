@@ -8,8 +8,8 @@ export default class ChatContainer extends Component {
     const { messages, onChat } = this.props;
     return (
       <div className='chat-container'>
-        <MessageList messages={messages} />
-        <ChatForm onChat={onChat} />
+        <MessageList messages={messages} ref='list' />
+        <ChatForm onChat={onChat} ref='form' />
       </div>
     );
   }

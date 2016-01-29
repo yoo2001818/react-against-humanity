@@ -10,7 +10,7 @@ export default class MessageList extends Component {
   componentWillUpdate() {
     let node = findDOMNode(this);
     this.shouldScrollBottom =
-      node.scrollTop + node.offsetHeight === node.scrollHeight;
+      Math.abs(node.scrollTop + node.offsetHeight - node.scrollHeight) < 10;
   }
   componentDidUpdate() {
     if (this.shouldScrollBottom) {

@@ -2,6 +2,7 @@ import subChat from './subChat';
 import * as ConnectionActions from '../../action/connection';
 
 export default function chatFilter(filter = 'global', filterActions = [
+  ConnectionActions.HANDSHAKE,
   ConnectionActions.CONNECT,
   ConnectionActions.DISCONNECT,
   ConnectionActions.LOGIN,
