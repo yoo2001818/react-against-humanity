@@ -113,7 +113,8 @@ describe('connectionReducer', () => {
         self: null,
         list: {
           1: Object.assign({}, testConnection, {
-            exited: true
+            exited: true,
+            roomId: null
           })
         }
       });
@@ -141,7 +142,8 @@ describe('connectionReducer', () => {
         self: null,
         list: {
           1: Object.assign({}, testConnection, {
-            exited: true
+            exited: true,
+            roomId: null
           }),
           2: testConnection2
         }
@@ -152,10 +154,12 @@ describe('connectionReducer', () => {
         self: null,
         list: {
           1: Object.assign({}, testConnection, {
-            exited: true
+            exited: true,
+            roomId: null
           }),
           2: Object.assign({}, testConnection2, {
-            exited: true
+            exited: true,
+            roomId: null
           })
         }
       });
@@ -293,7 +297,8 @@ describe('connectionReducer', () => {
             level: 'anonymous',
             name: 'Hey',
             lastUpdated: undefined,
-            lastCreated: undefined
+            lastCreated: undefined,
+            roomId: null
           }
         }
       });

@@ -35,11 +35,13 @@ export function connectionEntry(state = {
       throw new Error('Already logged out');
     }
     return Object.assign({}, updateState, {
-      level: 'anonymous'
+      level: 'anonymous',
+      roomId: null
     });
   case ConnectionActions.DISCONNECT:
     return Object.assign({}, updateState, {
-      exited: true
+      exited: true,
+      roomId: null
     });
   case RoomActions.CREATE:
   case RoomActions.JOIN:
@@ -55,9 +57,14 @@ export function connectionEntry(state = {
       roomId: meta.target.room
     });
   case RoomActions.LEAVE:
-    if (state.roomId == null) {
-      throw new Error('Connection doesn\'t belong to any room');
+    if (state.roomId != meta.target.room) {
+      throw new Error('You don\'t belong to that room');
     }
+    return Object.assign({}, updateState, {
+      roomId: null
+    });
+  case RoomActions.DESTROY:
+    // Just remove roomId and we're good to go
     return Object.assign({}, updateState, {
       roomId: null
     });
@@ -83,6 +90,23 @@ export default function connection(state = {
     return Object.assign({}, state, {
       self: null
     });
+  case RoomActions.DESTROY:
+    if (meta && meta.target && meta.target.room != null) {
+      // Retrieve that room from the state...
+      const room = meta.state.room.list[meta.target.room];
+      // It's easier to work on a copy of the connection list instead of
+      // recreating everytime (And it should be memory efficient... I guess?)
+      let newList = Object.assign({}, state.list);
+      // Now, pass this action to every connections in this room.
+      room.users.forEach(id => {
+        newList[id] = connectionEntry(state.list[id], action);
+      });
+      // Done! return new created list
+      return Object.assign({}, state, {
+        list: newList
+      });
+    }
+    return state;
   default:
     // Otherwise, pass everything to the connection entry reducer, if available.
     if (id == null) return state;

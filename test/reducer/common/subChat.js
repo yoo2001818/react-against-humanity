@@ -149,7 +149,7 @@ describe('subChatReducer', () => {
 
   describe('connection/disconnect', () => {
     it('should create leave message', () => {
-      store.dispatch(injectUser(disconnect(testUser)));
+      store.dispatch(injectUser(disconnect({}, testUser)));
       expect(store.getState()).toEqual({
         limit: 100,
         messages: [{
@@ -160,7 +160,7 @@ describe('subChatReducer', () => {
       });
     });
     it('should ignore anonymous action', () => {
-      store.dispatch(injectUser(disconnect(testAnonymous), testAnonymous));
+      store.dispatch(injectUser(disconnect({}, testAnonymous), testAnonymous));
       expect(store.getState()).toEqual({
         limit: 100,
         messages: []
