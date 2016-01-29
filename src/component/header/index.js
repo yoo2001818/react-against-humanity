@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router';
-
-import __ from '../../lang';
 
 export default class Header extends Component {
   render() {
-    const { title, right, showLogin = true,
+    const { title, right,
       onSidebar = () => {}, showSidebar } = this.props;
     return (
       <div id='header'>
@@ -25,9 +22,6 @@ export default class Header extends Component {
           </div>
           <div className='right'>
             { right }
-            { showLogin && (
-              <Link to='/login'>{__('Login')}</Link>
-            )}
           </div>
         </div>
       </div>
@@ -39,6 +33,5 @@ Header.propTypes = {
   onSidebar: PropTypes.func,
   showSidebar: PropTypes.bool,
   title: PropTypes.node,
-  right: PropTypes.node,
-  showLogin: PropTypes.bool
+  right: PropTypes.node
 };

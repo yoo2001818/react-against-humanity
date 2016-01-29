@@ -1,0 +1,13 @@
+.login-menu {
+  & > .user-info {
+    display: inline-block;
+    font-size: 0.7em;
+    margin-right: 0.4rem;
+    color: $green-300;
+    vertical-align: middle;
+  }
+  & > .action {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
