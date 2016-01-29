@@ -1,11 +1,21 @@
 import expect from 'expect';
 import subChatReducer from '../../../src/reducer/common/subChat';
 import { chat, clearHistory, setLimit } from '../../../src/action/chat';
+import {
+  connect, disconnect, login, logout
+} from '../../../src/action/connection';
+import { create, join, leave } from '../../../src/action/room';
 import { createStore } from 'redux';
 
 const testUser = {
   id: 1,
   level: 'guest',
+  name: 'test'
+};
+
+const testAnonymous = {
+  id: 1,
+  level: 'anonymous',
   name: 'test'
 };
 
@@ -16,7 +26,7 @@ const testMessage = {
   date: undefined
 };
 
-function injectUser(action) {
+function injectUser(action, user = testUser) {
   return Object.assign({}, action, {
     meta: Object.assign({}, action.meta, {
       target: Object.assign({}, action.meta && action.meta.target, {
@@ -26,7 +36,7 @@ function injectUser(action) {
       state: {
         connection: {
           list: {
-            1: testUser
+            1: user
           }
         }
       }
@@ -40,7 +50,7 @@ describe('subChatReducer', () => {
     store = createStore(subChatReducer);
   });
 
-  describe('INIT', () => {
+  describe('@/init', () => {
     it('should init with valid fields', () => {
       // We expect createStore already dispatched INIT action.
       expect(store.getState()).toEqual({
@@ -50,7 +60,7 @@ describe('subChatReducer', () => {
     });
   });
 
-  describe('CHAT', () => {
+  describe('@/chat', () => {
     it('should append incoming message', () => {
       // in subChat router, the scope, 'lobby' isn't checked actually.
       // However, this is used to route the action by chat router.
@@ -87,7 +97,7 @@ describe('subChatReducer', () => {
     });
   });
 
-  describe('CLEAR_HISTORY', () => {
+  describe('@/clearHistory', () => {
     it('should clear history', () => {
       // We need to put dummy data into the store before testing this.
       store.dispatch(injectUser(chat('lobby', 'Hello, world!')));
@@ -106,12 +116,124 @@ describe('subChatReducer', () => {
     });
   });
 
-  describe('SET_LIMIT', () => {
+  describe('@setLimit', () => {
     it('should set limit', () => {
       store.dispatch(setLimit('lobby', 200));
       expect(store.getState()).toEqual({
         limit: 200,
         messages: []
+      });
+    });
+  });
+
+  describe('connection/connect', () => {
+    it('should create join message', () => {
+      store.dispatch(connect(testUser));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'join',
+          date: undefined
+        }]
+      });
+    });
+    it('should ignore anonymous action', () => {
+      store.dispatch(connect(testAnonymous));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: []
+      });
+    });
+  });
+
+  describe('connection/disconnect', () => {
+    it('should create leave message', () => {
+      store.dispatch(injectUser(disconnect(testUser)));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'leave',
+          date: undefined
+        }]
+      });
+    });
+    it('should ignore anonymous action', () => {
+      store.dispatch(injectUser(disconnect(testAnonymous), testAnonymous));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: []
+      });
+    });
+  });
+
+  describe('connection/login', () => {
+    it('should create join message', () => {
+      store.dispatch(login(testUser));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'join',
+          date: undefined
+        }]
+      });
+    });
+  });
+
+  describe('connection/logout', () => {
+    it('should create leave message', () => {
+      store.dispatch(injectUser(logout(testUser)));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'leave',
+          date: undefined
+        }]
+      });
+    });
+  });
+
+  describe('room/create', () => {
+    it('should create join message', () => {
+      store.dispatch(injectUser(create({}, 1)));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'join',
+          date: undefined
+        }]
+      });
+    });
+  });
+
+  describe('room/join', () => {
+    it('should create join message', () => {
+      store.dispatch(injectUser(join(1)));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'join',
+          date: undefined
+        }]
+      });
+    });
+  });
+
+  describe('room/leave', () => {
+    it('should create leave message', () => {
+      store.dispatch(injectUser(leave(1)));
+      expect(store.getState()).toEqual({
+        limit: 100,
+        messages: [{
+          connection: testUser,
+          type: 'leave',
+          date: undefined
+        }]
       });
     });
   });

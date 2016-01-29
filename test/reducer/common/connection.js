@@ -3,6 +3,9 @@ import connectionReducer from '../../../src/reducer/common/connection';
 import {
   update, handshake, connect, disconnect, login, logout
 } from '../../../src/action/connection';
+import {
+  create, join, leave, destroy
+} from '../../../src/action/room';
 import { createStore } from 'redux';
 
 const testConnection = {
@@ -21,13 +24,31 @@ const testConnection2 = {
   lastUpdated: undefined
 };
 
+function injectUser(action) {
+  return Object.assign({}, action, {
+    meta: Object.assign({}, action.meta, {
+      target: Object.assign({}, action.meta && action.meta.target, {
+        connection: 1
+      })
+    })
+  });
+}
+
+function injectState(action, state) {
+  return Object.assign({}, action, {
+    meta: Object.assign({}, action.meta, {
+      state
+    })
+  });
+}
+
 describe('connectionReducer', () => {
   let store;
   beforeEach('configure store', () => {
     store = createStore(connectionReducer);
   });
 
-  describe('INIT', () => {
+  describe('@/init', () => {
     it('should init with valid fields', () => {
       // We expect createStore already dispatched INIT action.
       expect(store.getState()).toEqual({
@@ -37,7 +58,7 @@ describe('connectionReducer', () => {
     });
   });
 
-  describe('CONNECT', () => {
+  describe('@/connect', () => {
     beforeEach('connect user', () => {
       store.dispatch(connect(testConnection));
     });
@@ -81,7 +102,7 @@ describe('connectionReducer', () => {
     });
   });
 
-  describe('DISCONNECT', () => {
+  describe('@/disconnect', () => {
     beforeEach('connect user', () => {
       store.dispatch(connect(testConnection));
     });
@@ -93,6 +114,20 @@ describe('connectionReducer', () => {
         list: {
           1: Object.assign({}, testConnection, {
             exited: true
+          })
+        }
+      });
+    });
+
+    it('should set roomId to null', () => {
+      store.dispatch(injectUser(create({}, 1)));
+      store.dispatch(disconnect(null, testConnection));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: Object.assign({}, testConnection, {
+            exited: true,
+            roomId: null
           })
         }
       });
@@ -146,7 +181,7 @@ describe('connectionReducer', () => {
     });
   });
 
-  describe('UPDATE', () => {
+  describe('@/update', () => {
     beforeEach('connect user', () => {
       store.dispatch(connect(testConnection));
     });
@@ -196,11 +231,10 @@ describe('connectionReducer', () => {
     });
   });
 
-  describe('LOGIN', () => {
+  describe('@/login', () => {
     beforeEach('connect user', () => {
       store.dispatch(connect(testConnection));
     });
-
     it('should update connection', () => {
       store.dispatch(login({
         id: 1,
@@ -222,19 +256,32 @@ describe('connectionReducer', () => {
         }
       });
     });
+    it('should throw error if already logged in', () => {
+      store.dispatch(login({
+        id: 1,
+        level: 'user',
+        name: 'Hello',
+        userId: 32
+      }));
+      expect(() => store.dispatch(login({
+        id: 1,
+        level: 'user',
+        name: 'Hello',
+        userId: 32
+      }))).toThrow();
+    });
   });
 
-  describe('LOGIN', () => {
+  describe('@/logout', () => {
     beforeEach('connect user', () => {
       store.dispatch(connect(testConnection));
-    });
-
-    it('should set level to anonymous', () => {
       store.dispatch(login({
         id: 1,
         level: 'guest',
         name: 'Hey'
       }));
+    });
+    it('should set level to anonymous', () => {
       store.dispatch(logout({
         id: 1
       }));
@@ -251,9 +298,129 @@ describe('connectionReducer', () => {
         }
       });
     });
+    it('should throw error if already logged out', () => {
+      store.dispatch(logout({ id: 1 }));
+      expect(() => store.dispatch(logout({ id: 1 }))).toThrow();
+    });
+    it('should set roomId to null', () => {
+      store.dispatch(injectUser(create({}, 1)));
+      store.dispatch(logout({
+        id: 1
+      }));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: {
+            id: 1,
+            level: 'anonymous',
+            name: 'Hey',
+            lastUpdated: undefined,
+            lastCreated: undefined,
+            roomId: null
+          }
+        }
+      });
+    });
   });
 
-  describe('HANDSHAKE', () => {
+  describe('room/create', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+    });
+    it('should set the roomId to provided value', () => {
+      // We don't need template for this
+      store.dispatch(injectUser(create({}, 1)));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: Object.assign({}, testConnection, {
+            roomId: 1
+          })
+        }
+      });
+    });
+    it('should throw error if user already belongs to another room', () => {
+      store.dispatch(injectUser(create({}, 1)));
+      expect(() => store.dispatch(injectUser(create({}, 2)))).toThrow();
+    });
+  });
+
+  describe('room/join', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+    });
+    it('should set the roomId to provided value', () => {
+      store.dispatch(injectUser(join(1)));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: Object.assign({}, testConnection, {
+            roomId: 1
+          })
+        }
+      });
+    });
+    it('should throw error if user already belongs to another room', () => {
+      store.dispatch(injectUser(join(1)));
+      expect(() => store.dispatch(injectUser(join(2)))).toThrow();
+    });
+  });
+
+  describe('room/leave', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+      store.dispatch(injectUser(join(1)));
+    });
+    it('should set the roomId to null', () => {
+      store.dispatch(injectUser(leave(1)));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: Object.assign({}, testConnection, {
+            roomId: null
+          })
+        }
+      });
+    });
+    it('should throw error if user doesn\'t belong to that room', () => {
+      expect(() => store.dispatch(injectUser(leave(2)))).toThrow();
+    });
+    it('should throw error if user doesn\'t belong to any room', () => {
+      store.dispatch(injectUser(leave(1)));
+      expect(() => store.dispatch(injectUser(leave(1)))).toThrow();
+    });
+  });
+
+  describe('room/destroy', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+      store.dispatch(injectUser(join(1)));
+    });
+    it('should set the roomId to null', () => {
+      // This is impossible /wo the original state, so we have to inject them.
+      store.dispatch(injectState(destroy(1), {
+        room: {
+          list: {
+            1: {
+              // This should be enough to test this action.
+              id: 1,
+              users: [1]
+            }
+          }
+        }
+      }));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: Object.assign({}, testConnection, {
+            roomId: null
+          })
+        }
+      });
+    });
+  });
+
+  describe('@/handshake', () => {
     it('should set state', () => {
       store.dispatch(handshake({
         connection: {
