@@ -64,4 +64,9 @@
       float: right;
     }
   }
+  // Landscape and keyboard is out, At least users should be able to see
+  // what they are typing.
+  @media screen and (max-height: 5em) {
+    visibility: hidden;
+  }
 }

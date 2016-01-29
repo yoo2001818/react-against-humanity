@@ -10,12 +10,22 @@ import ChatHeader from '../component/chat/chatHeader';
 import ChatContainer from '../component/chat/chatContainer';
 
 class ChatWindow extends Component {
+  handleKeyDown(e) {
+    // TAB key
+    if (e.keyCode === 9) {
+      const { select, selected, conversations } = this.props;
+      select((selected + 1) % conversations.length);
+      e.preventDefault();
+    }
+  }
   render() {
     const { conversations, selected, open, chat, toggle, select } = this.props;
     const conversation = (conversations[selected] || conversations[0]);
     const reverseLen = conversations.length - 1;
     return (
-      <div className={classNames('chat-window', {open})}>
+      <div className={classNames('chat-window', {open})}
+        onKeyDown={this.handleKeyDown.bind(this)}
+      >
         <div className='content'>
           <ChatHeader open={open} onToggle={toggle}>
             { conversations.reverse().map((conversation, key) => (

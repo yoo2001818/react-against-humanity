@@ -26,21 +26,26 @@
       display: none;
       position: relative;
       box-shadow: 0 0 3px -1px #000;
-      height: 40vh;
-      font-size: 0.9em;
+      height: 60vh;
       max-height: 12em;
+      font-size: 0.9em;
       background-color: $grey-100;
       // border: 1px solid $grey-800;
       border-bottom: none;
       //border-radius: 3px;
       .message-list {
         position: absolute;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
         top: 0;
         left: 0;
         right: 0;
         bottom: 2.2em;
         padding: 0.5em;
+        word-wrap: break-word;
+        word-break: break-all;
+        word-break: break-word;
+        hyphens: auto;
       }
       .chat-form {
         position: absolute;
