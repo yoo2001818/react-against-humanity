@@ -3,6 +3,8 @@ import * as Connection from '../../action/connection';
 import Router from '../../utils/router';
 
 import { sessionAdapter } from '../../db/session';
+import setConnection from '../middleware/setConnection';
+import passThrough from '../middleware/passThrough';
 
 const router = new Router();
 
@@ -25,19 +27,18 @@ router.poll(Transport.OPEN, (req, res, next) => {
   next();
 });
 
-router.poll(Transport.CLOSE, (req, res) => {
+router.poll(Transport.CLOSE, (req, res, next) => {
   const { connection: { list } } = req.store.getState();
   // Ignore if connection is not created yet
   if (list[req.connection] == null) return res.resolve();
   // Dispatch disconnect event
-  req.store.dispatch(Connection.disconnect(
+  req.action = Connection.disconnect(
     {
       code: req.action.payload.code,
       reason: req.action.payload.reason
     }, list[req.connection]
-  ))
-  .then(res.resolve, res.reject);
-  // .then(res.resolve, res.reject);
-});
+  );
+  next();
+}, setConnection, passThrough);
 
 export default router;
