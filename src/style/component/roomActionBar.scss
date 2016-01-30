@@ -35,6 +35,15 @@
         content: $fa-var-search;
       }
     }
+    &.create .action {
+      background-color: $green-700;
+      &:hover {
+        background-color: $green-600;
+      }
+      & > .icon:before {
+        content: $fa-var-check;
+      }
+    }
     &.details {
       & .action .icon {
         margin-left: 0.5em;

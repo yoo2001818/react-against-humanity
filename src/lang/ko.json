@@ -37,5 +37,10 @@
   "LoginTitle": "로그인",
   "RoomPlayersName": "접속자",
   "RoomRulesName": "규칙",
-  "RoomDecksName": "덱"
+  "RoomDecksName": "덱",
+  "RoomCreateTitle": "방 만들기",
+  "RoomNameName": "이름",
+  "RoomPasswordName": "방 비밀번호",
+  "RoomMaxUserCountName": "최대 인원",
+  "RoomCreateBtn": "만들기"
 }

@@ -147,4 +147,37 @@
       }
     }
   }
+  // Room create item
+  &.create-room {
+    padding: 0.5em 1em;
+    margin-bottom: 0.6rem;
+    color: $grey-700;
+    &:before {
+      display: none;
+    }
+    & > .header {
+      text-align: center;
+      @media screen and (min-width: $mobile-size) {
+        font-size: 0.9em;
+      }
+    }
+    & > .info {
+      display: none;
+      color: $grey-800;
+      padding-top: 0.5em;
+      @media screen and (min-width: $mobile-size) {
+        &:before, &:after {
+          top: 1em;
+        }
+      }
+    }
+    &.selected {
+      & > .info {
+        display: block;
+        .room-inspector {
+          display: block;
+        }
+      }
+    }
+  }
 }

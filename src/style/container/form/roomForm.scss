@@ -1,0 +1,52 @@
+.room-form {
+  // margin: 0.4em;
+  // font-size: 0.9em;
+  .room-inspector {
+    .pane {
+      @media screen and (min-width: $tiny-size) {
+        display: inline-block;
+        width: 50%;
+      }
+    }
+    .pane.form {
+      padding-top: 0;
+      @media screen and (min-width: $tiny-size) {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+  .field {
+    margin: 0.2em 0;
+    &.label {
+      display: table;
+      label, input {
+        vertical-align: middle;
+        display: table-cell;
+      }
+      label {
+        max-width: 7em;
+        width: 60%;
+        color: $grey-600;
+        padding: 0.4em 0;
+      }
+      input {
+        width: 100%;
+      }
+    }
+  }
+  input {
+    width: 100%;
+    display: block;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid $grey-400;
+    background: none;
+    padding: 0.4em 0;
+  }
+  .room-action-bar {
+    @media screen and (min-width: $mobile-size) {
+      text-align: right;
+    }
+  }
+}

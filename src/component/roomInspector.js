@@ -4,7 +4,7 @@ import __ from '../lang';
 
 import ConnectionTag from './connectionTag';
 
-class Pane extends Component {
+export class Pane extends Component {
   render() {
     const { title, children } = this.props;
     return (

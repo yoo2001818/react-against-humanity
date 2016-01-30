@@ -37,5 +37,10 @@
   "LoginTitle": "Login",
   "RoomPlayersName": "Players",
   "RoomRulesName": "Rules",
-  "RoomDecksName": "Decks"
+  "RoomDecksName": "Decks",
+  "RoomCreateTitle": "Create room",
+  "RoomNameName": "Room name",
+  "RoomPasswordName": "Password",
+  "RoomMaxUserCountName": "Max players",
+  "RoomCreateBtn": "Create"
 }
