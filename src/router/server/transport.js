@@ -3,12 +3,14 @@ import * as Connection from '../../action/connection';
 import Router from '../../utils/router';
 
 import { sessionAdapter } from '../../db/session';
-import setConnection from '../middleware/setConnection';
-import passThrough from '../middleware/passThrough';
 
 const router = new Router();
 
-router.poll(Transport.OPEN, (req, next) => {
+// no-op routes to prevent 'nothing handled the action' error
+router.poll(Transport.CREATE, () => {});
+router.poll(Transport.ERROR, () => {});
+
+router.poll(Transport.OPEN, req => {
   // Obtain WebSocket object
   let client = req.connector.getClient(req.connection);
   // And obtain session object.
@@ -23,11 +25,11 @@ router.poll(Transport.OPEN, (req, next) => {
     req.connector.disconnect(1008, 'Cannot access session value',
       req.connection);
   });
-  // Silently call next
-  return next();
+  // Drop the action; we don't need it.
+  return;
 });
 
-router.poll(Transport.CLOSE, (req, next) => {
+router.poll(Transport.CLOSE, req => {
   const { connection: { list } } = req.store.getState();
   // Ignore if connection is not created yet
   if (list[req.connection] == null) return;
@@ -38,7 +40,8 @@ router.poll(Transport.CLOSE, (req, next) => {
       reason: req.action.payload.reason
     }, list[req.connection]
   );
-  return next();
-}, setConnection, passThrough);
+  // Drop the action; we don't need it.
+  return;
+});
 
 export default router;
