@@ -6,7 +6,7 @@ export default class Route {
     this.stack = routes;
   }
 
-  handle(req, res, next) {
+  handle(req, next) {
     // Check request data first....
     if (this.classType != null &&
       this.classType !== (
@@ -33,8 +33,8 @@ export default class Route {
         return next(err);
       }
       let current = this.stack[i];
-      return current(req, res, processNext);
+      return current(req, processNext);
     };
-    processNext();
+    return processNext();
   }
 }

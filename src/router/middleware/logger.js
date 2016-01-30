@@ -2,7 +2,7 @@
 
 /* eslint-disable no-console */
 
-export default function logger(req, res, next) {
+export default function logger(req, next) {
   let type = (req.action && req.action.type) || '@@invalid';
   let time = new Date().toTimeString();
   let target = 'dispatch';
@@ -24,5 +24,5 @@ export default function logger(req, res, next) {
     console.log('%c  payload: %o', 'color: #000', req.action.payload);
     console.log('%c  meta: %o', 'color: #000', req.action.meta);
   }
-  next();
+  return next();
 }

@@ -14,8 +14,6 @@ const testReq = {
   connector: {}
 };
 
-const testRes = {};
-
 describe('Router', () => {
   let router;
   beforeEach('initalize router', () => {
@@ -27,17 +25,17 @@ describe('Router', () => {
       .toBeA(Function);
   });
   it('should call next if no route is found', done => {
-    router(testReq, testRes, done);
+    router(testReq, done);
   });
   describe('#use', () => {
     it('should register a middleware', done => {
       router.use(() => {
         done();
       });
-      router(testReq, testRes, () => done('should not reach here'));
+      router(testReq, () => done('should not reach here'));
     });
     it('should be able to handle multiple use', done => {
-      router.use((req, res, next) => {
+      router.use((req, next) => {
         req.flag = true;
         next();
       });
@@ -48,13 +46,13 @@ describe('Router', () => {
           done('Flag not set');
         }
       });
-      router(testReq, testRes, () => done('should not reach here'));
+      router(testReq, () => done('should not reach here'));
     });
     it('should pass error to next', done => {
-      router.use((req, res, next) => {
+      router.use((req, next) => {
         next('Errrr');
       });
-      router(testReq, testRes, err => {
+      router(testReq, err => {
         if (err !== 'Errrr') {
           return done(err + 'was returned instead');
         }
@@ -70,7 +68,7 @@ describe('Router', () => {
       router.all('toast/toast', () => {
         done('should not reach here');
       });
-      router(testReq, testRes, () => done('should not reach here'));
+      router(testReq, () => done('should not reach here'));
     });
   });
   describe('#METHOD', () => {
@@ -81,7 +79,7 @@ describe('Router', () => {
       router.read('test/test', () => {
         done();
       });
-      router(testReq, testRes, () => done('should not reach here'));
+      router(testReq, () => done('should not reach here'));
     });
     it('should check action type', done => {
       router.read('test/test', () => {
@@ -90,7 +88,7 @@ describe('Router', () => {
       router.read('toast/toast', () => {
         done('should not reach here');
       });
-      router(testReq, testRes, () => done('should not reach here'));
+      router(testReq, () => done('should not reach here'));
     });
     it('should check regular expression', done => {
       router.read(/test\/toast/, () => {
@@ -102,7 +100,7 @@ describe('Router', () => {
       router.read(/toast\/toast/, () => {
         done('should not reach here');
       });
-      router(testReq, testRes, () => done('should not reach here'));
+      router(testReq, () => done('should not reach here'));
     });
   });
 });

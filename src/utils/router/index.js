@@ -2,8 +2,8 @@ import Route from './route';
 
 const proto = function () {
 
-  function router(req, res, next) {
-    router.handle(req, res, next);
+  function router(req, next) {
+    return router.handle(req, next);
   }
 
   Object.setPrototypeOf(router, proto);
@@ -37,7 +37,7 @@ for (let cause of ['poll', 'middleware']) {
   };
 }
 
-proto.handle = function handle(req, res, next) {
+proto.handle = function handle(req, next) {
   let i = -1;
   const processNext = (err) => {
     i++;
@@ -46,9 +46,9 @@ proto.handle = function handle(req, res, next) {
       return next(err);
     }
     let current = this.stack[i];
-    return current.handle(req, res, processNext);
+    return current.handle(req, processNext);
   };
-  processNext();
+  return processNext();
 };
 
 export default proto;

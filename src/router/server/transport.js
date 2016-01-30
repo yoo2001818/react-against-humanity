@@ -8,7 +8,7 @@ import passThrough from '../middleware/passThrough';
 
 const router = new Router();
 
-router.poll(Transport.OPEN, (req, res, next) => {
+router.poll(Transport.OPEN, (req, next) => {
   // Obtain WebSocket object
   let client = req.connector.getClient(req.connection);
   // And obtain session object.
@@ -24,13 +24,13 @@ router.poll(Transport.OPEN, (req, res, next) => {
       req.connection);
   });
   // Silently call next
-  next();
+  return next();
 });
 
-router.poll(Transport.CLOSE, (req, res, next) => {
+router.poll(Transport.CLOSE, (req, next) => {
   const { connection: { list } } = req.store.getState();
   // Ignore if connection is not created yet
-  if (list[req.connection] == null) return res.resolve();
+  if (list[req.connection] == null) return;
   // Dispatch disconnect event
   req.action = Connection.disconnect(
     {
@@ -38,7 +38,7 @@ router.poll(Transport.CLOSE, (req, res, next) => {
       reason: req.action.payload.reason
     }, list[req.connection]
   );
-  next();
+  return next();
 }, setConnection, passThrough);
 
 export default router;

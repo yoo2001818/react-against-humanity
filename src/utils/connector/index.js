@@ -6,17 +6,19 @@ export default class Connector {
   }
 
   callRouter(req, router) {
-    return new Promise((resolve, reject) => {
-      let res = { resolve, reject };
-      try {
-        router(req, res, error => {
-          reject(error || new Error('Nothing handled the action'));
-        });
-      } catch (e) {
-        console.error(e); // eslint-disable-line no-console
-        reject(e);
+    try {
+      let returned = router(req, error => {
+        throw new Error(error || new Error('Nothing handled the action'));
+      });
+      // If returned one is a Promise object, just return it
+      if (returned && typeof returned.then === 'function') {
+        return returned;
       }
-    });
+      // If not, wrap it.
+      return Promise.resolve(returned);
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 
   // Protocol -> Router

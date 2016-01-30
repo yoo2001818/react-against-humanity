@@ -26,8 +26,8 @@ describe('Connector', () => {
     it('should return a Promise', () => {
       expect(connector.handle(testAction, 1)).toBeA(Promise);
     });
-    it('should call with req, res, next', () => {
-      connector.router = (req, res, next) => {
+    it('should call with req, next', () => {
+      connector.router = (req, next) => {
         expect(req).toEqual({
           action: testAction,
           cause: 'poll',
@@ -35,12 +35,10 @@ describe('Connector', () => {
           store: connector.store,
           connector
         });
-        expect(res.resolve).toBeA('function');
-        expect(res.reject).toBeA('function');
         expect(next).toBeA('function');
         // Resolve it; We need to resolve a Promise in order to
         // finish this test.
-        res.resolve();
+        return;
       };
       return connector.handle(testAction, 1);
     });
@@ -71,25 +69,23 @@ describe('Connector', () => {
     it('should return a Promise', () => {
       expect(connector.notify(testAction)).toBeA(Promise);
     });
-    it('should call with req, res, next', () => {
-      connector.router = (req, res, next) => {
+    it('should call with req, next', () => {
+      connector.router = (req, next) => {
         expect(req).toEqual({
           action: testAction,
           cause: 'middleware',
           store: connector.store,
           connector
         });
-        expect(res.resolve).toBeA('function');
-        expect(res.reject).toBeA('function');
         expect(next).toBeA('function');
         // Resolve it; We need to resolve a Promise in order to
         // finish this test.
-        res.resolve();
+        return;
       };
       return connector.notify(testAction);
     });
     it('should reject if router didn\'t handle action', () => {
-      connector.router = (req, res, next) => next();
+      connector.router = (req, next) => next();
       return connector.notify(testAction)
       .then(() => {
         throw new Error('Should throw an error');

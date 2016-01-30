@@ -1,34 +1,19 @@
+import expect from 'expect';
 import blockNonAction from '../../../src/router/middleware/blockNonAction';
 
 describe('blockNonAction', () => {
-  it('should block non action', done => {
+  it('should block non action', () => {
     let req = {
       action: 'nope'
     };
-    let res = {
-      resolve() {},
-      reject() {
-        done();
-      }
-    };
-    blockNonAction(req, res, () => {
-      done('should not reach here');
-    });
+    expect(() => blockNonAction(req, () => {})).toThrow();
   });
-  it('should not block action', done => {
+  it('should not block action', () => {
     let req = {
       action: {
         type: 'test/test'
       }
     };
-    let res = {
-      resolve() {},
-      reject() {
-        done('should not reach here');
-      }
-    };
-    blockNonAction(req, res, () => {
-      done();
-    });
+    blockNonAction(req, () => {});
   });
 });

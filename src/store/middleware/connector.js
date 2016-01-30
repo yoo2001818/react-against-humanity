@@ -1,7 +1,7 @@
 import { isFSA } from 'flux-standard-action';
 
 export default function connectorMiddleware(connector) {
-  return store => next => action => {
+  return () => next => action => {
     if (!isFSA(action)) return next(action);
     const { meta } = action;
     if (!meta) return next(action);
@@ -10,38 +10,7 @@ export default function connectorMiddleware(connector) {
     }
 
     // This should return a Promise.
-    return connector.notify(action)
-    .then(action => {
-      if (isFSA(action)) {
-        const returned = store.dispatch(Object.assign({}, action, {
-          meta: Object.assign({}, action.meta, {
-            class: 'internal'
-          })
-        }));
-        // Reject errored actions
-        if (action.error) throw returned;
-        return returned;
-      }
-    }, error => {
-      if (error instanceof Error) {
-        throw store.dispatch(Object.assign({}, action, {
-          payload: {
-            message: error.message,
-            stack: error.stack
-          },
-          meta: Object.assign({}, meta, {
-            class: 'internal'
-          }),
-          error: true
-        }));
-      }
-      throw store.dispatch(Object.assign({}, action, {
-        payload: error,
-        meta: Object.assign({}, meta, {
-          class: 'internal'
-        }),
-        error: true
-      }));
-    });
+    // However we just notify it; don't do anything else!
+    return connector.notify(action);
   };
 }

@@ -4,23 +4,23 @@ import Router from '../../utils/router';
 
 const router = new Router();
 
-router.middleware(Transport.CREATE, (req, res) => {
+router.middleware(Transport.CREATE, (req, next) => {
   // Reconnect request..
   req.connector.reconnect();
-  res.resolve();
+  return next();
 });
 
-router.middleware(Transport.CLOSE, (req, res) => {
+router.middleware(Transport.CLOSE, (req, next) => {
   // Disconnect...
   req.connector.disconnect();
-  res.resolve();
+  return next();
 });
 
-router.poll(Transport.OPEN, (req, res, next) => {
+router.poll(Transport.OPEN, (req, next) => {
   req.store.dispatch(Connection.handshake({
     // Currently share nothing while handshaking.
   }));
-  next();
+  return next();
 });
 
 export default router;

@@ -1,8 +1,5 @@
-export default function passThrough(req, res) {
+export default function passThrough(req) {
   // Passthrough
-  req.store.dispatch(req.action)
-  .then(() => {
-    res.resolve(req.action);
-  }, res.reject);
+  return req.store.dispatch(req.action);
   // .then(res.resolve, res.reject);
 }

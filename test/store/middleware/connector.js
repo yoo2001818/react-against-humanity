@@ -64,41 +64,26 @@ describe('connectorMiddleware', () => {
     });
     expect(dispatched).toBe(false, 'Should not run when class is internal');
   });
-  it('should call next if resolved value is action', () => {
+  it('should return promise and not call next ', () => {
     let dispatched = false;
     let resolveObj = {
       type: 'test/target',
       payload: {},
       meta: {}
     };
-    connector.router = (req, res) => {
-      res.resolve(resolveObj);
-    };
+    connector.router = () => resolveObj;
     reducer = (state = {}, action) => {
       if (action && action.type === 'test/test') return state;
       dispatched = true;
       return state;
     };
     return store.dispatch(testAction)
-    .then(() => {
-      expect(dispatched).toBe(true, 'Should call next if action is returned');
-      resolveObj = 'Nice boat';
-      dispatched = false;
-    })
-    .then(() => store.dispatch(testAction))
-    .then(() => {
-      expect(dispatched).toBe(false,
-        'Shouldn\'t call next if anything else is returned');
-      resolveObj = undefined;
-      dispatched = false;
-    })
-    .then(() => store.dispatch(testAction))
-    .then(() => {
-      expect(dispatched).toBe(false,
-        'Shouldn\'t call next if undefined is returned');
+    .then(resolved => {
+      expect(resolved).toBe(resolveObj);
+      expect(dispatched).toBe(false, 'Should not call next');
     });
   });
-  it('should call next with an error if rejected', () => {
+  it('should not call next if rejected', () => {
     connector.router = () => {
       throw new Error('Nope.');
     };
@@ -110,9 +95,7 @@ describe('connectorMiddleware', () => {
     };
     return store.dispatch(testAction)
     .catch(() => {
-      expect(store.getState()).toEqual({
-        message: 'Nope.'
-      });
+      expect(store.getState()).toEqual({});
     });
   });
 });

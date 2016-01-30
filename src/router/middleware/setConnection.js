@@ -1,5 +1,5 @@
 // Overrides action's connection info to connector's ID
-export default function setConnection(req, res, next) {
+export default function setConnection(req, next) {
   if (req.cause === 'poll') {
     if (!req.action) req.action = {};
     if (!req.action.meta) req.action.meta = {};
@@ -9,5 +9,5 @@ export default function setConnection(req, res, next) {
     let connection = state.connection.list[req.connection];
     if (connection) req.action.meta.target.room = connection.roomId;
   }
-  next();
+  return next();
 }
