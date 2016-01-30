@@ -2,6 +2,8 @@ import * as Transport from '../../action/transport';
 import * as Connection from '../../action/connection';
 import Router from '../../utils/router';
 
+import setConnection from '../middleware/setConnection';
+import passThrough from '../middleware/passThrough';
 import { sessionAdapter } from '../../db/session';
 
 const router = new Router();
@@ -29,7 +31,7 @@ router.poll(Transport.OPEN, req => {
   return;
 });
 
-router.poll(Transport.CLOSE, req => {
+router.poll(Transport.CLOSE, (req, next) => {
   const { connection: { list } } = req.store.getState();
   // Ignore if connection is not created yet
   if (list[req.connection] == null) return;
@@ -40,8 +42,7 @@ router.poll(Transport.CLOSE, req => {
       reason: req.action.payload.reason
     }, list[req.connection]
   );
-  // Drop the action; we don't need it.
-  return;
-});
+  return next();
+}, setConnection, passThrough);
 
 export default router;
