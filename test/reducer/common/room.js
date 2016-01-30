@@ -125,7 +125,8 @@ describe('roomReducer', () => {
       expect(room.users).toEqual([1, 2]);
     });
     it('should throw error if exists', () => {
-      expect(() => injectUser(RoomActions.join(1), 1)).toThrow();
+      expect(() => store.dispatch(injectUser(RoomActions.join(1), 1)))
+        .toThrow();
     });
   });
   // Various 'exit' tests... I don't get it.

@@ -73,6 +73,17 @@ export default function roomEntry(state = {
       // Just destroy the room if nobody will be in the room
       return null;
     }
+    if (updateState.host === connection) {
+      // If exiting user is the host, set the host to user next to the host.
+      const hostIndex = updateState.users.indexOf(connection);
+      let nextHost = updateState.users[
+        (hostIndex + 1) % updateState.users.length
+      ];
+      // Overwrite host information.
+      Object.assign(updateState, {
+        host: nextHost
+      });
+    }
     return Object.assign(updateState, {
       users: removeListEntry(updateState.users, connection),
       userCount: updateState.userCount - 1
