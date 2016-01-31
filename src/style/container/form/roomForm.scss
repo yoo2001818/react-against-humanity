@@ -9,6 +9,12 @@
       }
     }
     .pane.form {
+      max-height: none;
+      .content {
+        max-height: none;
+        height: auto;
+        overflow: visible;
+      }
       padding-top: 0;
       @media screen and (min-width: $tiny-size) {
         display: block;
@@ -19,19 +25,19 @@
   .field {
     margin: 0.2em 0;
     &.label {
-      display: table;
-      label, input {
-        vertical-align: middle;
-        display: table-cell;
-      }
       label {
-        max-width: 7em;
-        width: 60%;
-        color: $grey-600;
-        padding: 0.4em 0;
-      }
-      input {
-        width: 100%;
+        display: table;
+        .label {
+          display: table-cell;
+          white-space: nowrap;
+          vertical-align: middle;
+          padding-right: 0.4em;
+        }
+        .field {
+          display: table-cell;
+          width: 100%;
+          vertical-align: middle;
+        }
       }
     }
   }

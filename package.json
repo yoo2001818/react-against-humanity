@@ -63,6 +63,7 @@
     "flux-standard-action": "^0.6.0",
     "font-awesome": "^4.5.0",
     "history": "^1.14.0",
+    "jsonschema": "^1.0.3",
     "knex": "^0.9.0",
     "lodash.omit": "^4.0.1",
     "lodash.values": "^4.0.0",

@@ -43,6 +43,9 @@
       & > .icon:before {
         content: $fa-var-check;
       }
+      &.disabled {
+        background-color: $grey-700;
+      }
     }
     &.details {
       & .action .icon {
@@ -61,6 +64,9 @@
       padding: 0.5em 0.6em;
       background-color: $blue-700;
       border-radius: 2px;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
       color: $grey-100;
       cursor: default;
       &:hover {

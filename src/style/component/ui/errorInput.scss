@@ -1,0 +1,65 @@
+.error-input-component {
+  & > label {
+    & > .label {
+      // Label is hidden by default..
+      display: none;
+      color: $grey-600;
+    }
+    & > .field {
+      display: block;
+      position: relative;
+      input:required {
+        box-shadow: none;
+      }
+      input:invalid {
+        box-shadow: none;
+      }
+      &.error > input, &.valid > input, &.asyncValidating > .indicator {
+        padding-right: 1.4rem;
+      }
+      &.error > .indicator {
+        display: block;
+        color: $red-800;
+        &:before {
+          content: $fa-var-times;
+        }
+      }
+      &.valid > .indicator {
+        display: block;
+        color: $green-800;
+        &:before {
+          content: $fa-var-check;
+        }
+      }
+      &.asyncValidating > .indicator {
+        display: block;
+        color: $grey-600;
+        animation: icon-spin 2s infinite linear;
+        &:before {
+          content: $fa-var-gear;
+        }
+      }
+      &>.indicator {
+        display: none;
+        @include fa-icon();
+        position: absolute;
+        top: 50%;
+        text-align: center;
+        line-height: 1rem;
+        margin-top: -0.5rem;
+        width: 1rem;
+        right: 0.2rem;
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}

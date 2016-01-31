@@ -42,5 +42,11 @@
   "RoomNameName": "Room name",
   "RoomPasswordName": "Password",
   "RoomMaxUserCountName": "Max players",
-  "RoomCreateBtn": "Create"
+  "RoomCreateBtn": "Create",
+  "ErrorValidationRequired": "Required",
+  "ErrorValidationMinLength": "Must be longer than $1 characters",
+  "ErrorValidationMaxLength": "Must be shorter than $1 characters",
+  "ErrorValidationTypeInteger": "Only integer is accepted",
+  "ErrorValidationMinimum": "Cannot be smaller than $1",
+  "ErrorValidationMaximum": "Cannot be larger than $1"
 }

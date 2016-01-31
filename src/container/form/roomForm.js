@@ -1,18 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import { validate } from 'jsonschema';
+import classNames from 'classnames';
 
 import { routeActions as RouteActions } from 'redux-simple-router';
 import * as RoomActions from '../../action/room';
 
-import TextInput from '../../component/ui/textInput';
+import ErrorInput from '../../component/ui/errorInput';
 import { Pane } from '../../component/roomInspector';
 
 import __ from '../../lang';
+import convertValidations from '../../utils/convertValidations';
+
+import roomCreateFormSchema from '../../schema/roomCreateForm';
 
 class RoomForm extends Component {
   render() {
     const { fields: { name, maxUserCount, password },
-      handleSubmit } = this.props;
+      handleSubmit, invalid } = this.props;
     return (
       <div className='room-form'>
         <form onSubmit={handleSubmit}>
@@ -20,19 +25,18 @@ class RoomForm extends Component {
             <div className='pane form'>
               <div className='content'>
                 <div className='field'>
-                  <TextInput type='text' placeholder={__('RoomNameName')}
+                  <ErrorInput type='text' placeholder={__('RoomNameName')}
                     {...name}
                   />
                 </div>
                 <div className='field'>
-                  <TextInput type='password'
+                  <ErrorInput type='password'
                     placeholder={__('RoomPasswordName')} {...password}
                   />
                 </div>
                 <div className='field label'>
-                  <label>{__('RoomMaxUserCountName')}</label>
-                  <TextInput type='number' {...maxUserCount}
-                    min={1} max={100}
+                  <ErrorInput type='number' {...maxUserCount}
+                    min={1} max={100} label={__('RoomMaxUserCountName')}
                   />
                 </div>
               </div>
@@ -46,10 +50,12 @@ class RoomForm extends Component {
           </div>
           <div className='room-action-bar'>
             <div className='action-container create'>
-              <a className='action' onClick={handleSubmit}>
+              <button className={classNames('action', {
+                disabled: invalid
+              })} onClick={handleSubmit}>
                 <span className='icon' />
                 {__('RoomCreateBtn')}
-              </a>
+              </button>
             </div>
           </div>
         </form>
@@ -60,7 +66,8 @@ class RoomForm extends Component {
 
 RoomForm.propTypes = {
   fields: PropTypes.object,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  invalid: PropTypes.bool
 };
 
 export default reduxForm({
@@ -76,5 +83,12 @@ export default reduxForm({
       let roomId = action.meta.target.room;
       dispatch(RouteActions.push(`/room/${roomId}`));
     });
+  },
+  validate: values => {
+    let newValues = Object.assign({}, values, {
+      maxUserCount: parseFloat(values.maxUserCount)
+    });
+    let errors = convertValidations(validate(newValues, roomCreateFormSchema));
+    return errors;
   }
 })(RoomForm);
