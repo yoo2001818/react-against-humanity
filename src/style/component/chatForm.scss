@@ -8,12 +8,15 @@
     & > .message {
       & > .text-input-component {
         border: none;
-        border-top: 1px solid #ccc;
+        border-top: 1px solid $grey-400;
         box-shadow: none;
-        background-color: #fff;
+        background-color: $grey-000;
         width: 100%;
         margin: 0;
         border-radius: 0;
+        &:disabled {
+          background-color: $grey-300;
+        }
       }
     }
   }

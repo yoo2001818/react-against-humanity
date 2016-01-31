@@ -49,10 +49,10 @@ class RoomForm extends Component {
             </Pane>
           </div>
           <div className='room-action-bar'>
-            <div className='action-container create'>
-              <button className={classNames('action', {
-                disabled: invalid
-              })} onClick={handleSubmit}>
+            <div className={classNames('action-container create', {
+              disabled: invalid
+            })}>
+              <button className='action' onClick={handleSubmit}>
                 <span className='icon' />
                 {__('RoomCreateBtn')}
               </button>

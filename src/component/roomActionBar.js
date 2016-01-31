@@ -6,14 +6,16 @@ import __ from '../lang';
 export default class RoomActionBar extends Component {
   render() {
     const { showDetails, onDetails = () => {},
-      joined,
+      joined, canJoin,
       onJoin = () => {},
       onLeave = () => {},
       onSpectate = () => {}
     } = this.props;
     return (
       <div className='room-action-bar'>
-        <div className='action-container join'>
+        <div className={classNames('action-container join', {
+          disabled: !canJoin
+        })}>
           <a className='action' onClick={onJoin}>
             <span className='icon' />
             {__('JoinBtn')}
@@ -54,7 +56,7 @@ RoomActionBar.propTypes = {
   showDetails: PropTypes.bool,
   onDetails: PropTypes.func,
   joined: PropTypes.bool,
-  joinedOther: PropTypes.bool,
+  canJoin: PropTypes.bool,
   onJoin: PropTypes.func,
   onLeave: PropTypes.func,
   onSpectate: PropTypes.func

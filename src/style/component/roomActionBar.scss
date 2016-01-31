@@ -16,6 +16,9 @@
       & > .icon:before {
         content: $fa-var-sign-in;
       }
+      &.disabled {
+        display: none;
+      }
     }
     &.leave .action {
       background-color: $red-700;
@@ -43,8 +46,11 @@
       & > .icon:before {
         content: $fa-var-check;
       }
-      &.disabled {
-        background-color: $grey-700;
+    }
+    &.disabled .action {
+      background-color: $grey-600;
+      &:hover {
+        background-color: $grey-600;
       }
     }
     &.details {

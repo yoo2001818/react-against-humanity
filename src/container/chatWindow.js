@@ -38,7 +38,7 @@ class ChatWindow extends Component {
     }, 0);
   }
   render() {
-    const { conversations, selected, open, chat } = this.props;
+    const { conversations, selected, open, chat, canChat } = this.props;
     const conversation = (conversations[selected] || conversations[0]);
     const reverseLen = conversations.length - 1;
     return (
@@ -63,6 +63,7 @@ class ChatWindow extends Component {
              messages={conversation.messages}
              onChat={chat.bind(null, conversation.scope)}
              ref='chatContainer'
+             canChat={canChat}
            />
         </div>
       </div>
@@ -76,7 +77,8 @@ ChatWindow.propTypes = {
   open: PropTypes.bool,
   toggle: PropTypes.func,
   select: PropTypes.func,
-  chat: PropTypes.func
+  chat: PropTypes.func,
+  canChat: PropTypes.bool
 };
 
 export default connect(state => {
@@ -99,6 +101,7 @@ export default connect(state => {
   return {
     selected: state.chatTab.selected,
     open: state.chatTab.open,
-    conversations
+    conversations,
+    canChat: connection.level !== 'anonymous'
   };
 }, { chat, select, toggle })(ChatWindow);

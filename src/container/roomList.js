@@ -12,6 +12,7 @@ class RoomList extends Component {
     return onSelect && onSelect(id);
   }
   handleJoin(room) {
+    if (this.props.level === 'anonymous') return;
     this.props.onJoin(room.id);
   }
   handleLeave(room) {
@@ -21,7 +22,7 @@ class RoomList extends Component {
     // WIP
   }
   render() {
-    const { rooms, selected, joined } = this.props;
+    const { rooms, selected, joined, level } = this.props;
     return (
       <ul className='room-list'>
         {rooms.map(room => (
@@ -29,6 +30,7 @@ class RoomList extends Component {
             room={room}
             selected={room.id === selected}
             joined={room.id === joined}
+            canJoin={level !== 'anonymous'}
             onSelect={this.handleSelect.bind(this, room.id)}
             onJoin={this.handleJoin.bind(this, room)}
             onLeave={this.handleLeave.bind(this, room)}
@@ -39,7 +41,10 @@ class RoomList extends Component {
           <div className='no-room-msg'>
             <div className='icon' />
             <p className='message'>
-              {__('RoomListEmptyMsg')}
+              {level === 'anonymous' ?
+                __('RoomListEmptyMsgAnonymous') :
+                __('RoomListEmptyMsg')
+              }
             </p>
           </div>
         )}
@@ -55,6 +60,7 @@ RoomList.propTypes = {
   })).isRequired,
   selected: PropTypes.number,
   joined: PropTypes.number,
+  level: PropTypes.string,
   onSelect: PropTypes.func,
   onJoin: PropTypes.func,
   onLeave: PropTypes.func
@@ -69,7 +75,8 @@ export default connect(
         host: connectionList[room.host],
         users: room.users.map(id => connectionList[id])
       })),
-      joined: connection && connection.roomId
+      joined: connection && connection.roomId,
+      level: connection && connection.level
     };
   },
   {

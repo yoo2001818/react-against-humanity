@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import RoomForm from '../container/form/roomForm';
@@ -29,7 +30,7 @@ RoomCreateItem.propTypes = {
   onSelect: PropTypes.func
 };
 
-export default class Lobby extends Component {
+class Lobby extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,16 +44,19 @@ export default class Lobby extends Component {
   }
   render() {
     const { selected } = this.state;
+    const { level } = this.props;
     return (
       <AppContainer
         title={__('RoomListTitle')}
       >
         <div className='lobby-view'>
           <div className='list-column'>
-            <RoomCreateItem
-              onSelect={this.handleSelect.bind(this, -1)}
-              selected={selected === -1}
-            />
+            { level !== 'anonymous' && (
+              <RoomCreateItem
+                onSelect={this.handleSelect.bind(this, -1)}
+                selected={selected === -1}
+              />
+            )}
             <RoomList
               onSelect={this.handleSelect.bind(this)}
               selected={selected}
@@ -68,3 +72,12 @@ export default class Lobby extends Component {
     );
   }
 }
+
+Lobby.propTypes = {
+  level: PropTypes.string
+};
+
+export default connect(state => {
+  const connection = state.connection.list[state.connection.self];
+  return { level: connection && connection.level };
+})(Lobby);

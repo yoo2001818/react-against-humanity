@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 import TextInput from '../ui/textInput';
 
@@ -13,15 +14,20 @@ export default class ChatForm extends Component {
     message.value = '';
   }
   render() {
+    const { canChat } = this.props;
     return (
-      <div className='chat-form'>
+      <div className={classNames('chat-form', {
+        disabled: !canChat
+      })}>
         <form onSubmit={this.handleSubmit.bind(this)} ref='form'>
           <div className='message'>
             <TextInput
-              placeholder={__('ChatPlaceholder')}
+              placeholder=
+                {canChat ? __('ChatPlaceholder') : __('ChatNeedLogin')}
               name='message'
               autoComplete='off'
               ref='input'
+              disabled={!canChat}
             />
           </div>
         </form>
@@ -31,5 +37,6 @@ export default class ChatForm extends Component {
 }
 
 ChatForm.propTypes = {
-  onChat: PropTypes.func.isRequired
+  onChat: PropTypes.func.isRequired,
+  canChat: PropTypes.bool
 };

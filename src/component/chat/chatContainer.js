@@ -5,11 +5,11 @@ import MessageList from './messageList';
 
 export default class ChatContainer extends Component {
   render() {
-    const { messages, onChat } = this.props;
+    const { messages, onChat, canChat } = this.props;
     return (
       <div className='chat-container'>
         <MessageList messages={messages} ref='list' />
-        <ChatForm onChat={onChat} ref='form' />
+        <ChatForm onChat={onChat} canChat={canChat} ref='form' />
       </div>
     );
   }
@@ -24,5 +24,6 @@ ChatContainer.propTypes = {
     type: PropTypes.string,
     message: PropTypes.string
   })),
-  onChat: PropTypes.func
+  onChat: PropTypes.func,
+  canChat: PropTypes.bool
 };
