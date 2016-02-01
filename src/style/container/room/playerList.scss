@@ -1,0 +1,12 @@
+.player-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline-block;
+    width: 50%;
+    min-width: 12em;
+    padding: 0.2em;
+    box-sizing: border-box;
+  }
+}

@@ -49,7 +49,7 @@ class Lobby extends Component {
       <AppContainer
         title={__('RoomListTitle')}
       >
-        <div className='lobby-view'>
+        <div className='lobby-view two-column-view'>
           <div className='list-column'>
             { level !== 'anonymous' && (
               <RoomCreateItem

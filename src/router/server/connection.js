@@ -18,6 +18,9 @@ router.poll(Connection.HANDSHAKE, req => {
     // This will be a problem if the session persists, but connection list
     // doesn't. We'll have to generate UUID after startup and silently
     // fail when it's not equal to session data.
+
+    // Blocking multiple connection is not helpful for debugging.
+    /*
     const { connection: { list } } = req.store.getState();
     let connection = list[session.connection];
     if (!connection.exited) {
@@ -29,6 +32,7 @@ router.poll(Connection.HANDSHAKE, req => {
       }, 10);
       throw new Error('Multiple connection is not supported yet');
     }
+    */
   }
   // Set the connection value.
   session.connection = req.connection;

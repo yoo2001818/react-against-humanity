@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import AppContainer from '../container/appContainer';
+import PlayerList from '../container/room/playerList';
 
 import { routeActions } from 'redux-simple-router';
 import * as roomActions from '../action/room';
@@ -23,9 +24,14 @@ export default class Room extends Component {
     }
     return (
       <AppContainer title={room.name}>
-        <div>
-          <h1>{`#${room.id} ${room.name}`}</h1>
-          <button onClick={this.dispatchTest.bind(this)}>방 나가기</button>
+        <div className='room-view two-column-view'>
+          <div className='list-column'>
+            <PlayerList room={room} />
+            <button onClick={this.dispatchTest.bind(this)}>방 나가기</button>
+          </div>
+          <div className='details-column'>
+
+          </div>
         </div>
       </AppContainer>
     );
@@ -40,7 +46,6 @@ Room.propTypes = {
 export default connect((state, props) => {
   const { room: { list } } = state;
   const { params: { roomId } } = props;
-  return {
-    room: list[roomId]
-  };
+  const room = list[roomId];
+  return { room };
 })(Room);
