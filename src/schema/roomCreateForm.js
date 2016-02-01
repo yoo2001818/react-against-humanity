@@ -8,7 +8,7 @@ export const RoomCreateForm = {
       maxLength: 32
     },
     password: {
-      type: 'string',
+      type: ['string', 'null'],
       maxLength: 32
     },
     maxUserCount: {

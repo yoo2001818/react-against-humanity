@@ -45,6 +45,7 @@
   "RoomPasswordName": "방 비밀번호",
   "RoomMaxUserCountName": "최대 인원",
   "RoomCreateBtn": "만들기",
+  "RoomApplyBtn": "적용",
   "ErrorValidationRequired": "필수로 입력해야 합니다",
   "ErrorValidationMinLength": "$1글자보다 길어야 합니다",
   "ErrorValidationMaxLength": "$1글자보다 짧아야 합니다",

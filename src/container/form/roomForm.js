@@ -3,9 +3,6 @@ import { reduxForm } from 'redux-form';
 import { validate } from 'jsonschema';
 import classNames from 'classnames';
 
-import { routeActions as RouteActions } from 'redux-simple-router';
-import * as RoomActions from '../../action/room';
-
 import ErrorInput from '../../component/ui/errorInput';
 import { Pane } from '../../component/roomInspector';
 
@@ -17,9 +14,10 @@ import roomCreateFormSchema from '../../schema/roomCreateForm';
 class RoomForm extends Component {
   render() {
     const { fields: { name, maxUserCount, password },
-      handleSubmit, invalid } = this.props;
+      handleSubmit, invalid, pristine, className, inRoom,
+      canEdit, roomView, onJoin = () => {}, onLeave = () => {} } = this.props;
     return (
-      <div className='room-form'>
+      <div className={classNames('room-form', className)}>
         <form onSubmit={handleSubmit}>
           <div className='room-inspector'>
             <div className='pane form'>
@@ -49,14 +47,41 @@ class RoomForm extends Component {
             </Pane>
           </div>
           <div className='room-action-bar'>
-            <div className={classNames('action-container create', {
-              disabled: invalid
-            })}>
-              <button className='action' onClick={handleSubmit}>
-                <span className='icon' />
-                {__('RoomCreateBtn')}
-              </button>
-            </div>
+            { !inRoom && (
+              <div className={classNames('action-container create', {
+                disabled: invalid
+              })}>
+                <button className='action' onClick={handleSubmit}>
+                  <span className='icon' />
+                  {__('RoomCreateBtn')}
+                </button>
+              </div>
+            )}
+            { roomView && canEdit && (
+              <div className={classNames('action-container apply', {
+                disabled: invalid || pristine
+              })}>
+                <button className='action' onClick={handleSubmit}>
+                  <span className='icon' />
+                  {__('RoomApplyBtn')}
+                </button>
+              </div>
+            )}
+            { roomView && ( inRoom ? (
+              <div className='action-container leave'>
+                <button className='action' onClick={onLeave}>
+                  <span className='icon' />
+                  {__('LeaveBtn')}
+                </button>
+              </div>
+            ) : (
+              <div className='action-container join'>
+                <button className='action' onClick={onJoin}>
+                  <span className='icon' />
+                  {__('JoinBtn')}
+                </button>
+              </div>
+            ))}
           </div>
         </form>
       </div>
@@ -67,7 +92,15 @@ class RoomForm extends Component {
 RoomForm.propTypes = {
   fields: PropTypes.object,
   handleSubmit: PropTypes.func,
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
+  pristine: PropTypes.bool,
+  className: PropTypes.string,
+  roomId: PropTypes.number,
+  canEdit: PropTypes.bool,
+  inRoom: PropTypes.bool,
+  roomView: PropTypes.bool,
+  onJoin: PropTypes.func,
+  onLeave: PropTypes.func
 };
 
 export default reduxForm({
@@ -75,14 +108,6 @@ export default reduxForm({
   fields: ['name', 'maxUserCount', 'password'],
   initialValues: {
     maxUserCount: 10
-  },
-  onSubmit: (values, dispatch) => {
-    dispatch(RoomActions.create(values))
-    .then(action => {
-      // Navigate to the room.
-      let roomId = action.meta.target.room;
-      dispatch(RouteActions.push(`/room/${roomId}`));
-    });
   },
   validate: values => {
     let newValues = Object.assign({}, values, {

@@ -3,18 +3,26 @@ import { connect } from 'react-redux';
 
 import AppContainer from '../container/appContainer';
 import PlayerList from '../container/room/playerList';
+import RoomForm from '../container/form/roomForm';
 
-import { routeActions } from 'redux-simple-router';
-import * as roomActions from '../action/room';
+import { routeActions as RouteActions } from 'redux-simple-router';
+import * as RoomActions from '../action/room';
 
 export default class Room extends Component {
-  dispatchTest() {
-    // It's not necessary to set the current room value.
-    this.props.dispatch(roomActions.leave())
-    .then(() => this.props.dispatch(routeActions.push('/')));
+  handleJoin(e) {
+    this.props.dispatch(RoomActions.join(this.props.room.id));
+    e.preventDefault();
+  }
+  handleLeave(e) {
+    this.props.dispatch(RoomActions.leave())
+    .then(() => this.props.dispatch(RouteActions.push('/')));
+    e.preventDefault();
+  }
+  handleFormEdit(values) {
+    this.props.dispatch(RoomActions.update(values, this.props.room.id));
   }
   render() {
-    const { room } = this.props;
+    const { room, connectionId } = this.props;
     if (room == null) {
       return (
         <AppContainer title='404'>
@@ -27,10 +35,19 @@ export default class Room extends Component {
         <div className='room-view two-column-view'>
           <div className='list-column'>
             <PlayerList room={room} />
-            <button onClick={this.dispatchTest.bind(this)}>방 나가기</button>
           </div>
           <div className='details-column'>
-
+            <div className='details-dialog'>
+              <RoomForm initialValues={room} formKey={'id/'+room.id}
+                className='dialog' roomId={room.id} roomView
+                inRoom={room.users.indexOf(connectionId) !== -1}
+                canEdit={room.host === connectionId}
+                readonly={room.host !== connectionId}
+                onSubmit={this.handleFormEdit.bind(this)}
+                onLeave={this.handleLeave.bind(this)}
+                onJoin={this.handleJoin.bind(this)}
+              />
+            </div>
           </div>
         </div>
       </AppContainer>
@@ -40,12 +57,13 @@ export default class Room extends Component {
 
 Room.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  room: PropTypes.object
+  room: PropTypes.object,
+  connectionId: PropTypes.number
 };
 
 export default connect((state, props) => {
-  const { room: { list } } = state;
+  const { room: { list }, connection: { self } } = state;
   const { params: { roomId } } = props;
   const room = list[roomId];
-  return { room };
+  return { room, connectionId: self };
 })(Room);

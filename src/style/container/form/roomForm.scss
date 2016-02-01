@@ -1,6 +1,10 @@
 .room-form {
   // margin: 0.4em;
   // font-size: 0.9em;
+  &.dialog .room-inspector .pane {
+    display: block;
+    width: 100%;
+  }
   .room-inspector {
     .pane {
       @media screen and (min-width: $tiny-size) {

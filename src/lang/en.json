@@ -45,6 +45,7 @@
   "RoomPasswordName": "Password",
   "RoomMaxUserCountName": "Max players",
   "RoomCreateBtn": "Create",
+  "RoomApplyBtn": "Apply",
   "ErrorValidationRequired": "Required",
   "ErrorValidationMinLength": "Must be longer than $1 characters",
   "ErrorValidationMaxLength": "Must be shorter than $1 characters",

@@ -2,12 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
+import { routeActions as RouteActions } from 'redux-simple-router';
+import * as RoomActions from '../action/room';
+
 import RoomForm from '../container/form/roomForm';
 import RoomList from '../container/roomList';
 import AppContainer from '../container/appContainer';
 import __ from '../lang';
 
 export class RoomCreateItem extends Component {
+  handleSubmit(values, dispatch) {
+    dispatch(RoomActions.create(values))
+    .then(action => {
+      // Navigate to the room.
+      let roomId = action.meta.target.room;
+      dispatch(RouteActions.push(`/room/${roomId}`));
+    });
+  }
   render() {
     const { selected, onSelect } = this.props;
     return (
@@ -18,7 +29,7 @@ export class RoomCreateItem extends Component {
           {__('RoomCreateTitle')}
         </div>
         <div className='info'>
-          <RoomForm />
+          <RoomForm onSubmit={this.handleSubmit.bind(this)} />
         </div>
       </div>
     );
