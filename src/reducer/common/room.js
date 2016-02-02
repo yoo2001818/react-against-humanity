@@ -13,6 +13,32 @@ const chatReducer = chatFilter('room', [
   ConnectionActions.LOGOUT
 ]);
 
+function handleLeave(state, connection) {
+  // TODO We might want to look for the spectators too
+  if (state.users.indexOf(connection) === -1) {
+    throw new Error('User did not connect to the room');
+  }
+  if (state.userCount === 1) {
+    // Just destroy the room if nobody will be in the room
+    return null;
+  }
+  let host = state.host;
+  if (state.host === connection) {
+    // If exiting user is the host, set the host to user next to the host.
+    const hostIndex = state.users.indexOf(connection);
+    let nextHost = state.users[
+      (hostIndex + 1) % state.users.length
+    ];
+    // Overwrite host information.
+    host = nextHost;
+  }
+  return Object.assign(state, {
+    users: removeListEntry(state.users, connection),
+    userCount: state.userCount - 1,
+    host
+  });
+}
+
 export default function roomEntry(state = {
   // Some default schema goes here
   id: null,
@@ -49,10 +75,16 @@ export default function roomEntry(state = {
       userCount: 1
     });
   case RoomActions.DESTROY:
-    // TODO Note that connection side room unsetting is not done yet
     return null;
   case RoomActions.UPDATE:
     return Object.assign(updateState, payload);
+  case RoomActions.TRANSFER_HOST:
+    if (updateState.users.indexOf(payload.id) === -1) {
+      throw new Error('User did not connect to the room');
+    }
+    return Object.assign(updateState, {
+      host: payload.id
+    });
   case RoomActions.JOIN:
     if (updateState.users.indexOf(connection) !== -1) {
       throw new Error('User has already connected to the room');
@@ -65,29 +97,9 @@ export default function roomEntry(state = {
   case ConnectionActions.DISCONNECT:
   // Logout isn't handled well yet
   case ConnectionActions.LOGOUT:
-    // TODO We might want to look for the spectators too
-    if (updateState.users.indexOf(connection) === -1) {
-      throw new Error('User did not connect to the room');
-    }
-    if (updateState.userCount === 1) {
-      // Just destroy the room if nobody will be in the room
-      return null;
-    }
-    if (updateState.host === connection) {
-      // If exiting user is the host, set the host to user next to the host.
-      const hostIndex = updateState.users.indexOf(connection);
-      let nextHost = updateState.users[
-        (hostIndex + 1) % updateState.users.length
-      ];
-      // Overwrite host information.
-      Object.assign(updateState, {
-        host: nextHost
-      });
-    }
-    return Object.assign(updateState, {
-      users: removeListEntry(updateState.users, connection),
-      userCount: updateState.userCount - 1
-    });
+    return handleLeave(updateState, connection);
+  case RoomActions.KICK:
+    return handleLeave(updateState, payload.id);
   }
   return updateState;
 }
@@ -100,7 +112,7 @@ export default function room(state = {
 }, action) {
   const { type, payload, meta, error } = action;
   if (error) return state;
-  const id = meta && meta.target && meta.target.room;
+  let id = meta && meta.target && meta.target.room;
   switch (type) {
   case ConnectionActions.HANDSHAKE:
     return payload.room;
@@ -110,6 +122,13 @@ export default function room(state = {
     return Object.assign({}, state, {
       list: addMap(state.list, id, roomEntry(undefined, action)),
       last: Math.max(state.last, id + 1)
+    });
+  case RoomActions.DESTROY:
+    id = payload && payload.id;
+    return Object.assign({}, state, {
+      list: updateOrRemoveMap(state.list, id, roomEntry(
+        getMap(state.list, id), action
+      ))
     });
   default:
     // Pass everything else to the room entry reducer

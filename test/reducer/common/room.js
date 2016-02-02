@@ -112,6 +112,25 @@ describe('roomReducer', () => {
       expect(room.colonel).toBe('that');
     });
   });
+  describe('@/transferHost', () => {
+    beforeEach('create room', () => {
+      store.dispatch(injectUser(RoomActions.create({
+        name: 'Hello, world!'
+      }, 1)));
+      store.dispatch(injectUser(RoomActions.join(1), 2));
+    });
+    it('should set the room host', () => {
+      store.dispatch(injectUser(RoomActions.transferHost(2, 1), 1));
+      let room = store.getState().list[1];
+      expect(room.host).toBe(2);
+    });
+    it('should throw error if wrong connection is specified', () => {
+      expect(() =>
+        store.dispatch(injectUser(RoomActions.transferHost(3, 1), 1))
+      )
+        .toThrow();
+    });
+  });
   describe('@/join', () => {
     beforeEach('create room', () => {
       store.dispatch(injectUser(RoomActions.create({
@@ -142,6 +161,10 @@ describe('roomReducer', () => {
     {
       name: 'connection/logout',
       value: ConnectionActions.logout(testConnection)
+    },
+    {
+      name: '@/kick',
+      value: RoomActions.kick(1)
     }
   ];
   for (let test of LEAVE_TESTS) {
@@ -151,14 +174,7 @@ describe('roomReducer', () => {
           name: 'Hello, world!'
         }, 1)));
       });
-      it('should remove player from the room', () => {
-        store.dispatch(injectUser(RoomActions.join(1), 2));
-        store.dispatch(injectUser(injectRoom(test.value), 2));
-        let room = store.getState().list[1];
-        expect(room.userCount).toBe(1);
-        expect(room.users).toEqual([1]);
-      });
-      it('should change host if host has left', () => {
+      it('should remove player and change host', () => {
         store.dispatch(injectUser(RoomActions.join(1), 2));
         store.dispatch(injectUser(injectRoom(test.value), 1));
         let room = store.getState().list[1];

@@ -4,7 +4,7 @@ import {
   update, handshake, connect, disconnect, login, logout
 } from '../../../src/action/connection';
 import {
-  create, join, leave, destroy
+  create, join, leave, destroy, kick
 } from '../../../src/action/room';
 import { createStore } from 'redux';
 
@@ -24,11 +24,11 @@ const testConnection2 = {
   lastUpdated: undefined
 };
 
-function injectUser(action) {
+function injectUser(action, connection = 1) {
   return Object.assign({}, action, {
     meta: Object.assign({}, action.meta, {
       target: Object.assign({}, action.meta && action.meta.target, {
-        connection: 1
+        connection
       })
     })
   });
@@ -422,6 +422,31 @@ describe('connectionReducer', () => {
           })
         }
       });
+    });
+  });
+
+  describe('room/kick', () => {
+    beforeEach('connect user', () => {
+      store.dispatch(connect(testConnection));
+      store.dispatch(injectUser(join(1)));
+    });
+    it('should set the roomId to null', () => {
+      store.dispatch(injectUser(kick(1, 1), 2));
+      expect(store.getState()).toEqual({
+        self: null,
+        list: {
+          1: Object.assign({}, testConnection, {
+            roomId: null
+          })
+        }
+      });
+    });
+    it('should throw error if user doesn\'t belong to that room', () => {
+      expect(() => store.dispatch(injectUser(kick(2, 1)))).toThrow();
+    });
+    it('should throw error if user doesn\'t belong to any room', () => {
+      store.dispatch(injectUser(leave(1)));
+      expect(() => store.dispatch(injectUser(kick(1, 1), 2))).toThrow();
     });
   });
 

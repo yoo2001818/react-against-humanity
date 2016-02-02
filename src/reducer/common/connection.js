@@ -68,6 +68,13 @@ export function connectionEntry(state = {
     return Object.assign({}, updateState, {
       roomId: null
     });
+  case RoomActions.KICK:
+    if (updateState.roomId !== meta.target.room) {
+      throw new Error('You don\'t belong to that room');
+    }
+    return Object.assign({}, updateState, {
+      roomId: null
+    });
   }
   return updateState;
 }
@@ -77,7 +84,7 @@ export default function connection(state = {
   list: {}
 }, action) {
   const { type, payload, meta, error } = action;
-  const id = meta && meta.target && meta.target.connection;
+  let id = meta && meta.target && meta.target.connection;
   if (error) return state;
   switch (type) {
   case ConnectionActions.CONNECT:
@@ -91,9 +98,9 @@ export default function connection(state = {
       self: null
     });
   case RoomActions.DESTROY:
-    if (meta && meta.target && meta.target.room != null) {
+    if (payload && payload.id != null) {
       // Retrieve that room from the state...
-      const room = meta.state.room.list[meta.target.room];
+      const room = meta.state.room.list[payload.id];
       // It's easier to work on a copy of the connection list instead of
       // recreating everytime (And it should be memory efficient... I guess?)
       let newList = Object.assign({}, state.list);
@@ -107,6 +114,14 @@ export default function connection(state = {
       });
     }
     return state;
+  case RoomActions.KICK:
+    id = payload.id;
+    if (id == null) throw new Error('Connection is not specified');
+    return Object.assign({}, state, {
+      list: updateMap(state.list, id, connectionEntry(
+        getMap(state.list, id), action
+      ))
+    });
   default:
     // Otherwise, pass everything to the connection entry reducer, if available.
     if (id == null) return state;
