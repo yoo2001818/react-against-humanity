@@ -1,7 +1,9 @@
 import './style/index.scss';
 
-import 'es5-shim';
-import 'es6-shim';
+// TODO disable es6 shim because it's not reporting promise error - so I'd just
+// use native objects.
+// import 'es5-shim';
+// import 'es6-shim';
 
 import React from 'react';
 import { render } from 'react-dom';

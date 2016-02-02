@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import { validate } from 'jsonschema';
 import classNames from 'classnames';
 
+import ReadInput from '../../component/ui/readInput';
 import ErrorInput from '../../component/ui/errorInput';
 import { Pane } from '../../component/roomInspector';
 
@@ -16,6 +17,7 @@ class RoomForm extends Component {
     const { fields: { name, maxUserCount, password },
       handleSubmit, invalid, pristine, className, inRoom,
       canEdit, roomView, onJoin = () => {}, onLeave = () => {} } = this.props;
+    const Input = !roomView || canEdit ? ErrorInput : ReadInput;
     return (
       <div className={classNames('room-form', className)}>
         <form onSubmit={handleSubmit}>
@@ -23,17 +25,19 @@ class RoomForm extends Component {
             <div className='pane form'>
               <div className='content'>
                 <div className='field'>
-                  <ErrorInput type='text' placeholder={__('RoomNameName')}
+                  <Input type='text' placeholder={__('RoomNameName')}
                     {...name}
                   />
                 </div>
-                <div className='field'>
-                  <ErrorInput type='password'
-                    placeholder={__('RoomPasswordName')} {...password}
-                  />
-                </div>
+                {!roomView || canEdit && (
+                  <div className='field'>
+                    <ErrorInput type='password'
+                      placeholder={__('RoomPasswordName')} {...password}
+                    />
+                  </div>
+                )}
                 <div className='field label'>
-                  <ErrorInput type='number' {...maxUserCount}
+                  <Input type='number' {...maxUserCount}
                     min={1} max={100} label={__('RoomMaxUserCountName')}
                   />
                 </div>
@@ -47,7 +51,7 @@ class RoomForm extends Component {
             </Pane>
           </div>
           <div className='room-action-bar'>
-            { !inRoom && (
+            { !roomView && (
               <div className={classNames('action-container create', {
                 disabled: invalid
               })}>

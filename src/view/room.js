@@ -33,9 +33,6 @@ export default class Room extends Component {
     return (
       <AppContainer title={room.name}>
         <div className='room-view two-column-view'>
-          <div className='list-column'>
-            <PlayerList room={room} />
-          </div>
           <div className='details-column'>
             <div className='details-dialog'>
               <RoomForm initialValues={room} formKey={'id/'+room.id}
@@ -48,6 +45,9 @@ export default class Room extends Component {
                 onJoin={this.handleJoin.bind(this)}
               />
             </div>
+          </div>
+          <div className='list-column'>
+            <PlayerList room={room} />
           </div>
         </div>
       </AppContainer>

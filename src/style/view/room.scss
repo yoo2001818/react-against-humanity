@@ -1,10 +1,27 @@
 .room-view {
-  .room-action-bar {
-    .action-container {
-      display: inline-block;
-      width: 50%;
-      .action {
-        text-align: center;
+  @media screen and (min-width: $mobile-size) {
+    .room-action-bar {
+      .action-container {
+        display: inline-block;
+        width: 50%;
+        .action {
+          text-align: center;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $mobile-size) {
+    &.two-column-view {
+      & > .list-column, & > .details-column {
+        display: block;
+        position: static;
+        width: auto;
+        background: none;
+      }
+      & > .details-column {
+        background-color: $grey-100;
+        padding: 0.5em 0;
+        border-bottom: 1px solid $grey-400;
       }
     }
   }
