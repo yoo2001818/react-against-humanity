@@ -59,6 +59,7 @@ export default class RoomItem extends Component {
           <RoomInspector room={room} />
           { selected && (
             <RoomActionBar
+              roomId={room.id}
               showDetails={showDetails}
               onDetails={this.toggleDetails.bind(this)}
               joined={joined}

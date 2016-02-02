@@ -10,7 +10,11 @@ import * as RoomActions from '../action/room';
 
 export default class Room extends Component {
   handleJoin(e) {
-    this.props.dispatch(RoomActions.join(this.props.room.id));
+    const { connection, room, dispatch } = this.props;
+    if (!connection || connection.level === 'anonymous') {
+      return e.preventDefault();
+    }
+    dispatch(RoomActions.join(room.id));
     e.preventDefault();
   }
   handleLeave(e) {
@@ -22,7 +26,7 @@ export default class Room extends Component {
     this.props.dispatch(RoomActions.update(values, this.props.room.id));
   }
   render() {
-    const { room, connectionId } = this.props;
+    const { room, connection } = this.props;
     if (room == null) {
       return (
         <AppContainer title='404'>
@@ -37,8 +41,9 @@ export default class Room extends Component {
             <div className='details-dialog'>
               <RoomForm initialValues={room} formKey={'id/'+room.id}
                 className='dialog' room={room} roomView
-                inRoom={room.users.indexOf(connectionId) !== -1}
-                canEdit={room.host === connectionId}
+                inRoom={room.users.indexOf(connection && connection.id) !== -1}
+                canEdit={room.host === (connection && connection.id)}
+                canJoin={connection && connection.level !== 'anonymous'}
                 onSubmit={this.handleFormEdit.bind(this)}
                 onLeave={this.handleLeave.bind(this)}
                 onJoin={this.handleJoin.bind(this)}
@@ -57,12 +62,13 @@ export default class Room extends Component {
 Room.propTypes = {
   dispatch: PropTypes.func.isRequired,
   room: PropTypes.object,
-  connectionId: PropTypes.number
+  connection: PropTypes.object
 };
 
 export default connect((state, props) => {
-  const { room: { list }, connection: { self } } = state;
+  const { room: { list }, connection: { self, list: connectionList } } = state;
   const { params: { roomId } } = props;
   const room = list[roomId];
-  return { room, connectionId: self };
+  const connection = connectionList[self];
+  return { room, connection };
 })(Room);

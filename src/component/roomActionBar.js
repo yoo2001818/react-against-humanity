@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
+import { Link } from 'react-router';
+
 import __ from '../lang';
 
 export default class RoomActionBar extends Component {
   render() {
     const { showDetails, onDetails = () => {},
-      joined, canJoin,
+      joined, canJoin, roomId,
       onJoin = () => {},
       onLeave = () => {},
       onSpectate = () => {}
@@ -16,10 +18,10 @@ export default class RoomActionBar extends Component {
         <div className={classNames('action-container join', {
           disabled: !canJoin
         })}>
-          <a className='action' onClick={onJoin}>
+          <Link to={`/room/${roomId}`} className='action' onClick={onJoin}>
             <span className='icon' />
             {__('JoinBtn')}
-          </a>
+          </Link>
         </div>
         { joined && (
           <div className='action-container leave'>
@@ -31,10 +33,12 @@ export default class RoomActionBar extends Component {
         )}
         { joined || (
           <div className='action-container spectate'>
-            <a className='action' onClick={onSpectate}>
+            <Link to={`/room/${roomId}`} className='action'
+              onClick={onSpectate}
+            >
               <span className='icon' />
               {__('SpectateBtn')}
-            </a>
+            </Link>
           </div>
         )}
         <div
@@ -53,6 +57,7 @@ export default class RoomActionBar extends Component {
 }
 
 RoomActionBar.propTypes = {
+  roomId: PropTypes.number,
   showDetails: PropTypes.bool,
   onDetails: PropTypes.func,
   joined: PropTypes.bool,

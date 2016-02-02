@@ -18,7 +18,8 @@ class RoomForm extends Component {
   render() {
     const { fields: { name, maxUserCount, lockType, password },
       handleSubmit, invalid, pristine, className, inRoom, room, resetForm,
-      canEdit, roomView, onJoin = () => {}, onLeave = () => {} } = this.props;
+      canEdit, roomView, onJoin = () => {}, onLeave = () => {}, canJoin
+    } = this.props;
     const Input = !roomView || canEdit ? ErrorInput : ReadInput;
     return (
       <div className={classNames('room-form', className)}>
@@ -99,7 +100,9 @@ class RoomForm extends Component {
                 </button>
               </div>
             ) : (
-              <div className='action-container join'>
+              <div className={classNames('action-container join', {
+                disabled: !canJoin
+              })}>
                 <button className='action' onClick={onJoin}>
                   <span className='icon' />
                   {__('JoinBtn')}
@@ -122,6 +125,7 @@ RoomForm.propTypes = {
   className: PropTypes.string,
   room: PropTypes.object,
   canEdit: PropTypes.bool,
+  canJoin: PropTypes.bool,
   inRoom: PropTypes.bool,
   roomView: PropTypes.bool,
   onJoin: PropTypes.func,

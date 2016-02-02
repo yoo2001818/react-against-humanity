@@ -8,6 +8,9 @@
     padding-right: 0.4em;
     padding-top: 0.3em;
     box-sizing: border-box;
+    a {
+      text-decoration: none;
+    }
     &.join .action {
       background-color: $green-700;
       &:hover {
