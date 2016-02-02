@@ -135,15 +135,23 @@
   }
   .lock {
     display: inline-block;
-    padding: 0 0.2em;
-    width: 0.9rem;
-    text-align: right;
+    padding: 0 0.2rem;
+    width: 1.2rem;
+    text-align: center;
     vertical-align: middle;
-    &.enabled {
+    &.password {
       @include fa-icon();
       color: $orange-700;
       &:before {
         content: $fa-var-lock;
+      }
+    }
+    &.invite {
+      @include fa-icon();
+      font-size: 0.8em;
+      color: $red-700;
+      &:before {
+        content: $fa-var-envelope;
       }
     }
   }

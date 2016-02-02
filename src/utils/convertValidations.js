@@ -8,6 +8,7 @@ export default function convertValidations(validations) {
   for (let error of validations.errors) {
     // Iterate through every errors, and extract the last value.
     let property = error.property.slice(error.property.lastIndexOf('.') + 1);
+    if (property === 'instance') property = '_error';
     // If already occupied, just continue. (Most important errors are placed
     // on the top I guess)
     if (errors[property]) continue;

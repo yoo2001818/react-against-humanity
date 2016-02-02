@@ -9,9 +9,11 @@ export default class SelectInput extends Component {
     };
   }
   handleSelect(value) {
+    if (this.props.readonly) return;
     this.props.onChange(value);
   }
-  handleFocus() {
+  handleFocus(e) {
+    if (this.props.readonly) return e.preventDefault();
     this.setState({
       isFocused: true
     });
@@ -21,6 +23,7 @@ export default class SelectInput extends Component {
     this.setState({
       isFocused: false
     });
+    if (this.props.readonly) return;
     this.props.onBlur(this.props.value);
   }
   getCurrentPos() {
@@ -50,12 +53,12 @@ export default class SelectInput extends Component {
     }
   }
   render() {
-    const { className, tabIndex, options, value } = this.props;
+    const { className, tabIndex, options, value, readonly } = this.props;
     const { isFocused } = this.state;
     return (
       <ul
         className={classNames('select-input-component', className)}
-        tabIndex={tabIndex || 0}
+        tabIndex={readonly ? null : (tabIndex || 0)}
         onFocus={this.handleFocus.bind(this)}
         onBlur={this.handleBlur.bind(this)}
         onKeyDown={this.handleKeyDown.bind(this)}
@@ -84,5 +87,6 @@ SelectInput.propTypes = {
   options: PropTypes.array,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
+  readonly: PropTypes.bool
 };

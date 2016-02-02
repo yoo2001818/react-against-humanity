@@ -44,6 +44,7 @@
   "RoomNameName": "Room name",
   "RoomPasswordName": "Password",
   "RoomMaxUserCountName": "Max players",
+  "RoomAllowSpectate": "Allow spectate",
   "RoomCreateBtn": "Create",
   "RoomApplyBtn": "Apply",
   "RoomTypePublic": "Public",

@@ -36,7 +36,10 @@ export default class RoomItem extends Component {
         <div className='header'>
           <div className='name'>
             {room.name}
-            <div className={classNames('lock', {enabled: room.locked})} />
+            <div className={classNames('lock', {
+              password: room.lockType === 'password',
+              invite: room.lockType === 'invite'
+            })} />
           </div>
           <div className='status'>
             <div className='host'>

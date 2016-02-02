@@ -41,6 +41,11 @@
           display: table-cell;
           width: 100%;
           vertical-align: middle;
+          text-align: left;
+          input[type='checkbox'] {
+            display: inline;
+            width: auto;
+          }
         }
       }
     }

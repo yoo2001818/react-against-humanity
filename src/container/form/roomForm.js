@@ -11,7 +11,8 @@ import { Pane } from '../../component/roomInspector';
 import __ from '../../lang';
 import convertValidations from '../../utils/convertValidations';
 
-import roomCreateFormSchema from '../../schema/roomCreateForm';
+import RoomCreateFormSchema, { RoomCreateFormPassword }
+  from '../../schema/roomCreateForm';
 
 class RoomForm extends Component {
   render() {
@@ -40,9 +41,9 @@ class RoomForm extends Component {
                     { label: __('RoomTypePublic'), value: 'public' },
                     { label: __('RoomTypePassword'), value: 'password' },
                     { label: __('RoomTypeInvite'), value: 'invite' }
-                  ]}/>
+                  ]} readonly={roomView && !canEdit} />
                 </div>
-                {(!roomView || canEdit) && (
+                {(!roomView || canEdit) && lockType.value === 'password' && (
                   <div className='field'>
                     <ErrorInput type='password'
                       placeholder={__('RoomPasswordName')} {...password}
@@ -69,7 +70,7 @@ class RoomForm extends Component {
                 </button>
               </div>
             )}
-            { roomView && (
+            { roomView && canEdit && (
               <div className={classNames('action-container apply', {
                 disabled: invalid || pristine
               })}>
@@ -126,7 +127,13 @@ export default reduxForm({
     let newValues = Object.assign({}, values, {
       maxUserCount: parseFloat(values.maxUserCount)
     });
-    let errors = convertValidations(validate(newValues, roomCreateFormSchema));
+    let errors = convertValidations(validate(newValues, RoomCreateFormSchema));
+    // If it has a password type, test that too.
+    if (newValues.lockType === 'password') {
+      Object.assign(errors, convertValidations(
+        validate(newValues, RoomCreateFormPassword)
+      ));
+    }
     return errors;
   }
 })(RoomForm);

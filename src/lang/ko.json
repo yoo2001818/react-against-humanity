@@ -44,6 +44,7 @@
   "RoomNameName": "이름",
   "RoomPasswordName": "방 비밀번호",
   "RoomMaxUserCountName": "최대 인원",
+  "RoomAllowSpectate": "관전 허용하기",
   "RoomCreateBtn": "만들기",
   "RoomApplyBtn": "적용",
   "RoomTypePublic": "공개",
