@@ -41,23 +41,16 @@ function handleLeave(state, connection) {
 
 export default function roomEntry(state = {
   // Some default schema goes here
-  id: null,
-  name: null,
-  host: null,
   spectators: [],
   users: [],
   userCount: 0,
-  // Of course this is a placeholder value..
   maxUserCount: 99,
   configuration: {
     decks: [],
     rules: []
   },
   playing: false,
-  lockType: 'public',
-  allowSpectate: true,
-  password: null,
-  chat: undefined
+  lockType: 'public'
 }, action) {
   const { type, payload, error, meta } = action;
   if (error) return state;

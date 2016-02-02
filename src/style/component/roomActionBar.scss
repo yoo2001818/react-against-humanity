@@ -56,6 +56,15 @@
         content: $fa-var-check;
       }
     }
+    &.reset .action {
+      background-color: $orange-700;
+      &:hover {
+        background-color: $orange-600;
+      }
+      & > .icon:before {
+        content: $fa-var-undo;
+      }
+    }
     &.disabled .action {
       background-color: $grey-600;
       &:hover {

@@ -36,7 +36,7 @@ export default class Room extends Component {
           <div className='details-column'>
             <div className='details-dialog'>
               <RoomForm initialValues={room} formKey={'id/'+room.id}
-                className='dialog' roomId={room.id} roomView
+                className='dialog' room={room} roomView
                 inRoom={room.users.indexOf(connectionId) !== -1}
                 canEdit={room.host === connectionId}
                 onSubmit={this.handleFormEdit.bind(this)}

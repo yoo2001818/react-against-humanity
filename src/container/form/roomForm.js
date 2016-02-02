@@ -17,7 +17,7 @@ import RoomCreateFormSchema, { RoomCreateFormPassword }
 class RoomForm extends Component {
   render() {
     const { fields: { name, maxUserCount, lockType, password },
-      handleSubmit, invalid, pristine, className, inRoom,
+      handleSubmit, invalid, pristine, className, inRoom, room, resetForm,
       canEdit, roomView, onJoin = () => {}, onLeave = () => {} } = this.props;
     const Input = !roomView || canEdit ? ErrorInput : ReadInput;
     return (
@@ -33,7 +33,8 @@ class RoomForm extends Component {
                 </div>
                 <div className='field label'>
                   <Input type='number' {...maxUserCount}
-                    min={1} max={100} label={__('RoomMaxUserCountName')}
+                    min={room ? room.userCount : 2} max={100}
+                    label={__('RoomMaxUserCountName')}
                   />
                 </div>
                 <div className='field'>
@@ -70,13 +71,23 @@ class RoomForm extends Component {
                 </button>
               </div>
             )}
-            { roomView && canEdit && (
+            { roomView && canEdit && !pristine && (
               <div className={classNames('action-container apply', {
                 disabled: invalid || pristine
               })}>
                 <button className='action' onClick={handleSubmit}>
                   <span className='icon' />
                   {__('RoomApplyBtn')}
+                </button>
+              </div>
+            )}
+            { roomView && canEdit && !pristine && (
+              <div className={classNames('action-container reset', {
+                disabled: pristine
+              })}>
+                <button className='action' onClick={resetForm}>
+                  <span className='icon' />
+                  {__('FormResetBtn')}
                 </button>
               </div>
             )}
@@ -105,10 +116,11 @@ class RoomForm extends Component {
 RoomForm.propTypes = {
   fields: PropTypes.object,
   handleSubmit: PropTypes.func,
+  resetForm: PropTypes.func,
   invalid: PropTypes.bool,
   pristine: PropTypes.bool,
   className: PropTypes.string,
-  roomId: PropTypes.number,
+  room: PropTypes.object,
   canEdit: PropTypes.bool,
   inRoom: PropTypes.bool,
   roomView: PropTypes.bool,
@@ -123,7 +135,7 @@ export default reduxForm({
     maxUserCount: 10,
     lockType: 'public'
   },
-  validate: values => {
+  validate: (values, props) => {
     let newValues = Object.assign({}, values, {
       maxUserCount: parseFloat(values.maxUserCount)
     });
@@ -133,6 +145,15 @@ export default reduxForm({
       Object.assign(errors, convertValidations(
         validate(newValues, RoomCreateFormPassword)
       ));
+    }
+    // Check minimum player limit; set error if it's weird.
+    if (props.room && props.room.userCount > newValues.maxUserCount) {
+      Object.assign(errors, {
+        maxUserCount: {
+          name: 'ErrorValidationMinimum',
+          values: props.room.userCount
+        }
+      });
     }
     return errors;
   }

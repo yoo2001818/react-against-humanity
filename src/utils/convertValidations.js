@@ -16,7 +16,7 @@ export default function convertValidations(validations) {
     if (error.name === 'required') {
       errors[error.argument] = {
         name: 'ErrorValidationRequired',
-        argument: error.argument
+        values: error.argument
       };
       continue;
     }
@@ -27,7 +27,7 @@ export default function convertValidations(validations) {
     ) {
       errors[property] = {
         name: 'ErrorValidationRequired',
-        argument: property
+        values: property
       };
       continue;
     }
@@ -35,7 +35,7 @@ export default function convertValidations(validations) {
       const type = error.argument[0];
       errors[property] = {
         name: 'ErrorValidationType' + toCamelCase(type),
-        argument: error.argument
+        values: error.argument
       };
       continue;
     }
