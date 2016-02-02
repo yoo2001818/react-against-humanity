@@ -61,7 +61,7 @@ class RoomForm extends Component {
                 </button>
               </div>
             )}
-            { roomView && canEdit && (
+            { roomView && (
               <div className={classNames('action-container apply', {
                 disabled: invalid || pristine
               })}>

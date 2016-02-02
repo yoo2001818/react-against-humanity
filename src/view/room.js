@@ -39,7 +39,6 @@ export default class Room extends Component {
                 className='dialog' roomId={room.id} roomView
                 inRoom={room.users.indexOf(connectionId) !== -1}
                 canEdit={room.host === connectionId}
-                readonly={room.host !== connectionId}
                 onSubmit={this.handleFormEdit.bind(this)}
                 onLeave={this.handleLeave.bind(this)}
                 onJoin={this.handleJoin.bind(this)}

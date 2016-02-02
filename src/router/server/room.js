@@ -6,6 +6,16 @@ import checkLogin from '../middleware/checkLogin';
 
 const router = new Router();
 
+function checkRoomHost(req, next) {
+  const roomId = req.action.meta.target.room;
+  const { room: { list } } = req.store.getState();
+  const room = list[roomId];
+  if (room.host !== req.action.meta.target.connection) {
+    throw new Error('You are not the host of the room');
+  }
+  return next();
+}
+
 router.poll(Room.CREATE, setConnection, checkLogin, (req, next) => {
   // Inject increment data to the action.
   // This looks so ugly.
@@ -16,7 +26,7 @@ router.poll(Room.CREATE, setConnection, checkLogin, (req, next) => {
   return next();
 }, passThrough);
 router.poll(Room.DESTROY, setConnection, passThrough);
-router.poll(Room.UPDATE, setConnection, passThrough);
+router.poll(Room.UPDATE, setConnection, checkRoomHost, passThrough);
 router.poll(Room.JOIN, setConnection, checkLogin, (req, next) => {
   if (!req.action.meta) req.action.meta = {};
   if (!req.action.meta.target) req.action.meta.target = {};
@@ -24,5 +34,7 @@ router.poll(Room.JOIN, setConnection, checkLogin, (req, next) => {
   return next();
 }, passThrough);
 router.poll(Room.LEAVE, setConnection, passThrough);
+router.poll(Room.TRANSFER_HOST, setConnection, checkRoomHost, passThrough);
+router.poll(Room.KICK, setConnection, checkRoomHost, passThrough);
 
 export default router;

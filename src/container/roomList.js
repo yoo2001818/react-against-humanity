@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import values from 'lodash.values';
 
-import * as roomActions from '../action/room';
+import { routeActions as RouteActions } from 'redux-simple-router';
+import * as RoomActions from '../action/room';
+
 import RoomItem from '../component/roomItem';
 import __ from '../lang';
 
@@ -13,10 +15,11 @@ class RoomList extends Component {
   }
   handleJoin(room) {
     if (this.props.level === 'anonymous') return;
-    this.props.onJoin(room.id);
+    this.props.dispatch(RoomActions.join(room.id))
+      .then(() => this.props.dispatch(RouteActions.push(`/room/${room.id}`)));
   }
   handleLeave(room) {
-    this.props.onLeave(room.id);
+    this.props.dispatch(RoomActions.leave(room.id));
   }
   handleSpectate() {
     // WIP
@@ -62,8 +65,7 @@ RoomList.propTypes = {
   joined: PropTypes.number,
   level: PropTypes.string,
   onSelect: PropTypes.func,
-  onJoin: PropTypes.func,
-  onLeave: PropTypes.func
+  dispatch: PropTypes.func
 };
 
 export default connect(
@@ -78,9 +80,5 @@ export default connect(
       joined: connection && connection.roomId,
       level: connection && connection.level
     };
-  },
-  {
-    onJoin: roomActions.join,
-    onLeave: roomActions.leave
   }
 )(RoomList);
