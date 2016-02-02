@@ -79,7 +79,8 @@ unless scope is specified, except connection actions.
   - decks
   - rules
 - playing
-- locked
+- lockType
+- allowSpectate
 - password
 - chat
 - session

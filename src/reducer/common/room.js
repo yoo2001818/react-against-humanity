@@ -54,7 +54,8 @@ export default function roomEntry(state = {
     rules: []
   },
   playing: false,
-  locked: false,
+  lockType: 'public',
+  allowSpectate: true,
   password: null,
   chat: undefined
 }, action) {

@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import { validate } from 'jsonschema';
 import classNames from 'classnames';
 
+import SelectInput from '../../component/ui/selectInput';
 import ReadInput from '../../component/ui/readInput';
 import ErrorInput from '../../component/ui/errorInput';
 import { Pane } from '../../component/roomInspector';
@@ -14,7 +15,7 @@ import roomCreateFormSchema from '../../schema/roomCreateForm';
 
 class RoomForm extends Component {
   render() {
-    const { fields: { name, maxUserCount, password },
+    const { fields: { name, maxUserCount, lockType, password },
       handleSubmit, invalid, pristine, className, inRoom,
       canEdit, roomView, onJoin = () => {}, onLeave = () => {} } = this.props;
     const Input = !roomView || canEdit ? ErrorInput : ReadInput;
@@ -29,18 +30,25 @@ class RoomForm extends Component {
                     {...name}
                   />
                 </div>
-                {!roomView || canEdit && (
+                <div className='field label'>
+                  <Input type='number' {...maxUserCount}
+                    min={1} max={100} label={__('RoomMaxUserCountName')}
+                  />
+                </div>
+                <div className='field'>
+                  <SelectInput {...lockType} options={[
+                    { label: __('RoomTypePublic'), value: 'public' },
+                    { label: __('RoomTypePassword'), value: 'password' },
+                    { label: __('RoomTypeInvite'), value: 'invite' }
+                  ]}/>
+                </div>
+                {(!roomView || canEdit) && (
                   <div className='field'>
                     <ErrorInput type='password'
                       placeholder={__('RoomPasswordName')} {...password}
                     />
                   </div>
                 )}
-                <div className='field label'>
-                  <Input type='number' {...maxUserCount}
-                    min={1} max={100} label={__('RoomMaxUserCountName')}
-                  />
-                </div>
               </div>
             </div>
             <Pane title={__('RoomRulesName')}>
@@ -109,9 +117,10 @@ RoomForm.propTypes = {
 
 export default reduxForm({
   form: 'room',
-  fields: ['name', 'maxUserCount', 'password'],
+  fields: ['name', 'maxUserCount', 'lockType', 'password'],
   initialValues: {
-    maxUserCount: 10
+    maxUserCount: 10,
+    lockType: 'public'
   },
   validate: values => {
     let newValues = Object.assign({}, values, {

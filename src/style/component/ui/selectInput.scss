@@ -1,0 +1,30 @@
+.select-input-component {
+  text-align: center;
+  margin: 0.4em 0;
+  padding: 0;
+  list-style-type: none;
+  & > .option {
+    display: inline-block;
+    margin: 0;
+    margin-right: 0.4em;
+    &:last-child {
+      margin-right: 0;
+    }
+    padding: 0.4em 0.54em;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    background-color: $blue-700;
+    color: $blue-100;
+    &:hover, &.focus {
+      background-color: $blue-600;
+    }
+    &.selected {
+      color: $blue-800;
+      background-color: $grey-100;
+      border: 1px solid $blue-700;
+      &.focus {
+        background-color: $blue-200;
+      }
+    }
+  }
+}
