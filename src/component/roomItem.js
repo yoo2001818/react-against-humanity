@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
+import __ from '../lang';
+
+import ErrorInput from './ui/errorInput';
 import RoomActionBar from './roomActionBar';
 import RoomInspector from './roomInspector';
 import ConnectionTag from './connectionTag';
@@ -9,7 +12,8 @@ export default class RoomItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDetails: false
+      showDetails: false,
+      passwordValue: ''
     };
   }
   componentWillReceiveProps(props) {
@@ -19,6 +23,23 @@ export default class RoomItem extends Component {
       });
     }
   }
+  handleJoin(e) {
+    if (this.props.room.lockType === 'password') {
+      if (this.state.passwordValue.length === 0) {
+        return e.preventDefault();
+      }
+      this.props.onJoin(e, {
+        password: this.state.passwordValue
+      });
+    } else {
+      this.props.onJoin(e);
+    }
+  }
+  handlePassword(e) {
+    this.setState({
+      passwordValue: e.target.value
+    });
+  }
   toggleDetails() {
     this.setState({
       showDetails: !this.state.showDetails
@@ -26,8 +47,8 @@ export default class RoomItem extends Component {
   }
   render() {
     const { room, selected, joined,
-      onSelect = () => {}, onJoin, onLeave, onSpectate, canJoin } = this.props;
-    const { showDetails } = this.state;
+      onSelect = () => {}, onLeave, onSpectate, canJoin } = this.props;
+    const { showDetails, passwordValue } = this.state;
     return (
       <li
         className={classNames('room-item', { selected, joined, showDetails })}
@@ -55,21 +76,36 @@ export default class RoomItem extends Component {
             </div>
           </div>
         </div>
-        <div className='info'>
-          <RoomInspector room={room} />
-          { selected && (
-            <RoomActionBar
-              roomId={room.id}
-              showDetails={showDetails}
-              onDetails={this.toggleDetails.bind(this)}
-              joined={joined}
-              onJoin={onJoin}
-              onLeave={onLeave}
-              onSpectate={onSpectate}
-              canJoin={canJoin}
-            />
-          )}
-        </div>
+        { selected && (
+          <div className='info'>
+            <RoomInspector room={room} />
+            <form onSubmit={this.handleJoin.bind(this)}>
+              { room.lockType === 'password' && (
+                <div className='password-form'>
+                  <ErrorInput
+                    placeholder={__('RoomPasswordName')}
+                    type='password'
+                    value={passwordValue}
+                    onChange={this.handlePassword.bind(this)}
+                    onBlur={this.handlePassword.bind(this)}
+                  />
+                </div>
+              )}
+              <RoomActionBar
+                roomId={room.id}
+                showDetails={showDetails}
+                onDetails={this.toggleDetails.bind(this)}
+                joined={joined}
+                onJoin={this.handleJoin.bind(this)}
+                onLeave={onLeave}
+                onSpectate={onSpectate}
+                canJoin={canJoin && (room.lockType !== 'password' ||
+                  passwordValue.length !== 0
+                )}
+              />
+            </form>
+          </div>
+        )}
       </li>
     );
   }
@@ -77,8 +113,9 @@ export default class RoomItem extends Component {
 
 RoomItem.propTypes = {
   room: PropTypes.shape({
-    id: React.PropTypes.number,
-    name: React.PropTypes.string
+    id: PropTypes.number,
+    name: PropTypes.string,
+    lockType: PropTypes.string
   }),
   onSelect: PropTypes.func,
   selected: PropTypes.bool,

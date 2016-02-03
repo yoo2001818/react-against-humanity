@@ -8,6 +8,9 @@
     & > .field {
       display: block;
       position: relative;
+      input {
+        width: 100%;
+      }
       input:required {
         box-shadow: none;
       }
