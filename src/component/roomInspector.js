@@ -9,7 +9,9 @@ export class Pane extends Component {
     const { title, children } = this.props;
     return (
       <div className='pane'>
-        <div className='header'>{title}</div>
+        {title && (
+          <div className='header'>{title}</div>
+        )}
         <div className='content'>
           {children}
         </div>

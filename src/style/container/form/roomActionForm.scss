@@ -1,0 +1,14 @@
+.room-action-form {
+  .content {
+    margin: 0 0.4em;
+    margin-top: 0.4em;
+    input {
+      display: block;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid $grey-400;
+      background: none;
+      padding: 0.4em 0;
+    }
+  }
+}

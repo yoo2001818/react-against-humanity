@@ -7,6 +7,8 @@ import SelectInput from '../../component/ui/selectInput';
 import ReadInput from '../../component/ui/readInput';
 import ErrorInput from '../../component/ui/errorInput';
 import { Pane } from '../../component/roomInspector';
+import RoomActionBar, { RoomCreateButton, RoomApplyButton, FormResetButton }
+  from '../../component/roomActionBar';
 
 import __ from '../../lang';
 import convertValidations from '../../utils/convertValidations';
@@ -17,8 +19,8 @@ import RoomCreateFormSchema, { RoomCreateFormPassword }
 class RoomForm extends Component {
   render() {
     const { fields: { name, maxUserCount, lockType, password },
-      handleSubmit, invalid, pristine, className, inRoom, room, resetForm,
-      canEdit, roomView, onJoin = () => {}, onLeave = () => {}, canJoin
+      handleSubmit, invalid, pristine, className, room, resetForm,
+      canEdit, roomView
     } = this.props;
     const Input = !roomView || canEdit ? ErrorInput : ReadInput;
     return (
@@ -61,55 +63,23 @@ class RoomForm extends Component {
               WIP
             </Pane>
           </div>
-          <div className='room-action-bar'>
+          <RoomActionBar>
             { !roomView && (
-              <div className={classNames('action-container create', {
-                disabled: invalid
-              })}>
-                <button className='action' onClick={handleSubmit}>
-                  <span className='icon' />
-                  {__('RoomCreateBtn')}
-                </button>
-              </div>
+              <RoomCreateButton disabled={invalid} button
+                onClick={handleSubmit}
+              />
             )}
             { roomView && canEdit && !pristine && (
-              <div className={classNames('action-container apply', {
-                disabled: invalid || pristine
-              })}>
-                <button className='action' onClick={handleSubmit}>
-                  <span className='icon' />
-                  {__('RoomApplyBtn')}
-                </button>
-              </div>
+              <span>
+                <RoomApplyButton disabled={invalid || pristine} button
+                  onClick={handleSubmit}
+                />
+                <FormResetButton disabled={pristine} button
+                  onClick={resetForm}
+                />
+              </span>
             )}
-            { roomView && canEdit && !pristine && (
-              <div className={classNames('action-container reset', {
-                disabled: pristine
-              })}>
-                <button className='action' onClick={resetForm}>
-                  <span className='icon' />
-                  {__('FormResetBtn')}
-                </button>
-              </div>
-            )}
-            { roomView && ( inRoom ? (
-              <div className='action-container leave'>
-                <button className='action' onClick={onLeave}>
-                  <span className='icon' />
-                  {__('LeaveBtn')}
-                </button>
-              </div>
-            ) : (
-              <div className={classNames('action-container join', {
-                disabled: !canJoin
-              })}>
-                <button className='action' onClick={onJoin}>
-                  <span className='icon' />
-                  {__('JoinBtn')}
-                </button>
-              </div>
-            ))}
-          </div>
+          </RoomActionBar>
         </form>
       </div>
     );
@@ -125,11 +95,7 @@ RoomForm.propTypes = {
   className: PropTypes.string,
   room: PropTypes.object,
   canEdit: PropTypes.bool,
-  canJoin: PropTypes.bool,
-  inRoom: PropTypes.bool,
-  roomView: PropTypes.bool,
-  onJoin: PropTypes.func,
-  onLeave: PropTypes.func
+  roomView: PropTypes.bool
 };
 
 export default reduxForm({

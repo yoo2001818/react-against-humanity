@@ -56,5 +56,6 @@
   "ErrorValidationMaxLength": "Must be shorter than $1 characters",
   "ErrorValidationTypeInteger": "Only integer is accepted",
   "ErrorValidationMinimum": "Cannot be smaller than $1",
-  "ErrorValidationMaximum": "Cannot be larger than $1"
+  "ErrorValidationMaximum": "Cannot be larger than $1",
+  "ErrorValidationPasswordMismatch": "Wrong password"
 }

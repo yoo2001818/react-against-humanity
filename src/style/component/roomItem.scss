@@ -32,18 +32,6 @@
   &.selected > .info {
     display: block;
   }
-  .password-form {
-    margin: 0 0.4em;
-    margin-top: 0.4em;
-    input {
-      display: block;
-      border-radius: 0;
-      border: none;
-      border-bottom: 1px solid $grey-400;
-      background: none;
-      padding: 0.4em 0;
-    }
-  }
   // Tablets
   @media screen and (min-width: $mobile-size) {
     // Show action bar on the right
@@ -87,13 +75,6 @@
         display: block;
         width: 100%;
         min-width: auto;
-      }
-    }
-    .room-action-bar > .action-container {
-      display: inline-block;
-      width: 50%;
-      .action {
-        text-align: center;
       }
     }
     .room-action-bar .details {

@@ -3,6 +3,13 @@
   padding: 0 0.4em;
   padding-right: 0em;
   font-size: 0.9em;
+  @media screen and (min-width: $mobile-size) {
+    text-align: right;
+    .action-container {
+      width: 50%;
+      text-align: center;
+    }
+  }
   .action-container {
     display: inline-block;
     padding-right: 0.4em;
@@ -16,7 +23,7 @@
       &:hover {
         background-color: $green-600;
       }
-      & > .icon:before {
+      &:before {
         content: $fa-var-sign-in;
       }
       &.disabled {
@@ -28,7 +35,7 @@
       &:hover {
         background-color: $red-600;
       }
-      & > .icon:before {
+      &:before {
         content: $fa-var-sign-out;
       }
     }
@@ -37,7 +44,7 @@
       &:hover {
         background-color: $orange-600;
       }
-      & > .icon:before {
+      &:before {
         content: $fa-var-search;
       }
     }
@@ -46,7 +53,7 @@
       &:hover {
         background-color: $green-600;
       }
-      & > .icon:before {
+      &:before {
         content: $fa-var-check;
       }
     }
@@ -55,7 +62,7 @@
       &:hover {
         background-color: $green-600;
       }
-      & > .icon:before {
+      &:before {
         content: $fa-var-check;
       }
     }
@@ -64,7 +71,7 @@
       &:hover {
         background-color: $orange-600;
       }
-      & > .icon:before {
+      &:before {
         content: $fa-var-undo;
       }
     }
@@ -75,14 +82,17 @@
       }
     }
     &.details {
-      & .action .icon {
-        margin-left: 0.5em;
-        margin-right: 0;
-        &:before {
-          content: $fa-var-caret-down;
-        }
+      .action:before {
+        display: none;
       }
-      &.open .action .icon:before {
+      .action:after {
+        @include fa-icon();
+        font-size: 0.8em;
+        vertical-align: middle;
+        margin-left: 0.5em;
+        content: $fa-var-caret-down;
+      }
+      &.open .action:after {
         content: $fa-var-caret-up;
       }
     }
@@ -99,7 +109,7 @@
       &:hover {
         background-color: $blue-600;
       }
-      & > .icon {
+      &:before {
         @include fa-icon();
         font-size: 0.8em;
         vertical-align: middle;

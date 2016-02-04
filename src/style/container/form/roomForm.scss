@@ -59,9 +59,4 @@
     background: none;
     padding: 0.4em 0;
   }
-  .room-action-bar {
-    @media screen and (min-width: $mobile-size) {
-      text-align: right;
-    }
-  }
 }

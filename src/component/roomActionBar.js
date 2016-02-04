@@ -5,64 +5,89 @@ import { Link } from 'react-router';
 
 import __ from '../lang';
 
+export class ActionButton extends Component {
+  render() {
+    const { className, disabled, onClick, href, children, button } = this.props;
+    return (
+      <div className={classNames('action-container', className, { disabled })}>
+        {button ? (
+          <button className='action' onClick={onClick}>
+            {children}
+          </button>
+        ) : (
+          <Link className='action' onClick={onClick} to={href}>
+            {children}
+          </Link>
+        )}
+      </div>
+    );
+  }
+}
+
+ActionButton.propTypes = {
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  href: PropTypes.string,
+  button: PropTypes.bool,
+  children: PropTypes.node
+};
+
+// Simple alias functions for buttons used in here.
+export function JoinButton(props) {
+  return (
+    <ActionButton {...props} className='join'>
+      {__('JoinBtn')}
+    </ActionButton>
+  );
+}
+export function LeaveButton(props) {
+  return (
+    <ActionButton {...props} className='leave' href='/'>
+      {__('LeaveBtn')}
+    </ActionButton>
+  );
+}
+export function SpectateButton(props) {
+  return (
+    <ActionButton {...props} className='spectate'>
+      {__('SpectateBtn')}
+    </ActionButton>
+  );
+}
+export function RoomCreateButton(props) {
+  return (
+    <ActionButton {...props} className='create'>
+      {__('RoomCreateBtn')}
+    </ActionButton>
+  );
+}
+export function RoomApplyButton(props) {
+  return (
+    <ActionButton {...props} className='apply'>
+      {__('RoomApplyBtn')}
+    </ActionButton>
+  );
+}
+export function FormResetButton(props) {
+  return (
+    <ActionButton {...props} className='reset'>
+      {__('FormResetBtn')}
+    </ActionButton>
+  );
+}
+
 export default class RoomActionBar extends Component {
   render() {
-    const { showDetails, onDetails = () => {},
-      joined, canJoin, roomId,
-      onJoin = () => {},
-      onLeave = () => {},
-      onSpectate = () => {}
-    } = this.props;
+    const { children } = this.props;
     return (
       <div className='room-action-bar'>
-        <div className={classNames('action-container join', {
-          disabled: !canJoin
-        })}>
-          <Link to={`/room/${roomId}`} className='action' onClick={onJoin}>
-            <span className='icon' />
-            {__('JoinBtn')}
-          </Link>
-        </div>
-        { joined && (
-          <div className='action-container leave'>
-            <a className='action' onClick={onLeave}>
-              <span className='icon' />
-              {__('LeaveBtn')}
-            </a>
-          </div>
-        )}
-        { joined || (
-          <div className='action-container spectate'>
-            <Link to={`/room/${roomId}`} className='action'
-              onClick={onSpectate}
-            >
-              <span className='icon' />
-              {__('SpectateBtn')}
-            </Link>
-          </div>
-        )}
-        <div
-          className={classNames('action-container details', {
-            open: showDetails
-          })}
-        >
-          <a className='action' onClick={onDetails}>
-            {__('DetailsBtn')}
-            <span className='icon' />
-          </a>
-        </div>
+        {children}
       </div>
     );
   }
 }
 
 RoomActionBar.propTypes = {
-  roomId: PropTypes.number,
-  showDetails: PropTypes.bool,
-  onDetails: PropTypes.func,
-  joined: PropTypes.bool,
-  canJoin: PropTypes.bool,
-  onJoin: PropTypes.func,
-  onLeave: PropTypes.func,
-  onSpectate: PropTypes.func
+  children: PropTypes.node
 };

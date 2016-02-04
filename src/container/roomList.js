@@ -13,11 +13,10 @@ class RoomList extends Component {
     const { onSelect } = this.props;
     return onSelect && onSelect(id);
   }
-  handleJoin(room, e, data) {
-    if (this.props.level === 'anonymous') return e.preventDefault();
-    this.props.dispatch(RoomActions.join(room.id, data))
+  handleJoin(room, data) {
+    if (this.props.level === 'anonymous') return Promise.resolve();
+    return this.props.dispatch(RoomActions.join(room.id, data))
       .then(() => this.props.dispatch(RouteActions.push(`/room/${room.id}`)));
-    e.preventDefault();
   }
   handleLeave(room) {
     this.props.dispatch(RoomActions.leave(room.id));

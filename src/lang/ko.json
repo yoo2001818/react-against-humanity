@@ -56,5 +56,6 @@
   "ErrorValidationMaxLength": "$1글자보다 짧아야 합니다",
   "ErrorValidationTypeInteger": "정수만 입력할 수 있습니다",
   "ErrorValidationMinimum": "$1 이상이어야 합니다",
-  "ErrorValidationMaximum": "$1 이하여야 합니다"
+  "ErrorValidationMaximum": "$1 이하여야 합니다",
+  "ErrorValidationPasswordMismatch": "비밀번호가 틀립니다"
 }

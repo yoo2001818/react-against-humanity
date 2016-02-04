@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import AppContainer from '../container/appContainer';
 import PlayerList from '../container/room/playerList';
 import RoomForm from '../container/form/roomForm';
+import RoomActionForm from '../container/form/roomActionForm';
 
 import { routeActions as RouteActions } from 'redux-simple-router';
 import * as RoomActions from '../action/room';
 
 export default class Room extends Component {
-  handleJoin(e, data) {
+  handleJoin(data) {
     const { connection, room, dispatch } = this.props;
     if (!connection || connection.level === 'anonymous') {
-      return e.preventDefault();
+      return Promise.resolve();
     }
-    dispatch(RoomActions.join(room.id, data));
-    e.preventDefault();
+    return dispatch(RoomActions.join(room.id, data));
   }
   handleLeave(e) {
     this.props.dispatch(RoomActions.leave())
@@ -43,8 +43,11 @@ export default class Room extends Component {
                 className='dialog' room={room} roomView
                 inRoom={room.users.indexOf(connection && connection.id) !== -1}
                 canEdit={room.host === (connection && connection.id)}
-                canJoin={connection && connection.level !== 'anonymous'}
                 onSubmit={this.handleFormEdit.bind(this)}
+              />
+              <RoomActionForm room={room}
+                joined={room.users.indexOf(connection && connection.id) !== -1}
+                canJoin={connection && connection.level !== 'anonymous'}
                 onLeave={this.handleLeave.bind(this)}
                 onJoin={this.handleJoin.bind(this)}
               />

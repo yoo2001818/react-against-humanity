@@ -33,7 +33,7 @@ if (__DEVELOPMENT__) {
     publicPath: '/assets'
   }));
 } else {
-  app.use('assets', serveStatic('./dist'));
+  app.use('/assets', serveStatic('./dist'));
 }
 
 app.get('/favicon.ico', (req, res) => {
