@@ -98,16 +98,17 @@ unless scope is specified, except connection actions.
 Represents playing session, contains information about the game.
 
 - phase
-- turns
-- answerDrawCards
-- questionDrawCards
+- turn
+- ~answerDrawCards~
+- ~questionDrawCards~
 - czar
 - selectedAnswer
+- userList
 - users
   - id
   - points
   - cards
-- questionCards
+- questionCard
 - answerCards
   - userId
   - cards

@@ -29,6 +29,6 @@ export const phaseSelect = createAction(PHASE_SELECT,
   answerCards => answerCards);
 export const phaseEnd = createAction(PHASE_END);
 
-export const draw = createAction(DRAW, cards => cards);
+export const draw = createAction(DRAW, (user, cards) => ({user, cards}));
 export const submit = createAction(SUBMIT, cards => cards);
 export const select = createAction(SELECT, cards => cards);
