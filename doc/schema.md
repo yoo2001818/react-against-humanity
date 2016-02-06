@@ -104,6 +104,7 @@ Represents playing session, contains information about the game.
 - czar
 - selectedAnswer
 - userList
+- submittedUsers
 - users
   - id
   - points
