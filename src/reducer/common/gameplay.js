@@ -1,10 +1,10 @@
 import * as GameplayActions from '../../action/gameplay';
 
 import { getMap, updateMap } from './map';
-import { addList } from './map';
+import { addList } from './list';
 
 export default function gameplay(room, state, action) {
-  const { type, payload } = action;
+  const { type, payload, meta } = action;
   if (state == null) {
     // Silently ignore everything other than START action, although this is
     // not recommended behavior. TODO Add proper error throwing
@@ -36,6 +36,8 @@ export default function gameplay(room, state, action) {
     }
     return state;
   }
+  // Retrieve connection ID of who initiated the action.
+  const connectionId = meta && meta.target && meta.target.connection;
   switch (type) {
   case GameplayActions.START:
     throw new Error('Game already started');
@@ -83,7 +85,35 @@ export default function gameplay(room, state, action) {
     });
   case GameplayActions.SUBMIT:
     // User submits the card; we get list of card *INDEX*.
-    return state;
+    // If clause exists to create its own scope - to prevent variable
+    // confliction.
+    if (payload) {
+      // Pull cards from the card array.
+      const user = state.users[connectionId];
+      const cards = payload.map(id => user.cards[id]);
+      // Validate if all cards exist. Throw error if any of those cards
+      // are null.
+      if (!cards.every(card => card)) {
+        throw new Error('Wrong card specified');
+      }
+      // Remove cards from user's deck. Since we remove multiple items
+      // from the array, it'd be better to work on a copy of the array
+      // instance.
+      // Note that Array.from is ES6 method; it might be better to use
+      // array.slice if ES5 support is required. Although we're using
+      // polyfill to resolve that.
+      const userCards = Array.from(user.cards);
+      payload.forEach(id => userCards.splice(id, 1));
+      // That's enough - now let's combine those data to root state.
+      return Object.assign({}, state, {
+        answerCards: addList(state.answerCards, cards),
+        users: updateMap(state.users, connectionId,
+          Object.assign({}, user, { cards: userCards })
+        )
+      );
+    }
+    // Normally shouldn't reach here, as payload must be provided
+    throw new Error('Payload must be specified');
   case GameplayActions.SELECT:
     // Czar selects cards; we get index of answer cards.
     return state;
