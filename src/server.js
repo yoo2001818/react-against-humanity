@@ -11,6 +11,8 @@ import connectorMiddleware from './store/middleware/connector';
 import reducer from './reducer/server';
 import createStore from './store/configureStore';
 
+import networkConfig from '../config/network.config';
+
 /* eslint-disable no-console */
 
 const httpServer = http.createServer();
@@ -60,7 +62,7 @@ app.use(sessionMiddleware, (req, res) => {
 });
 
 httpServer.on('request', app);
-httpServer.listen(8000, () => {
+httpServer.listen(networkConfig.port, networkConfig.listen, () => {
   console.log('Listening on ' + httpServer.address().port);
 });
 
