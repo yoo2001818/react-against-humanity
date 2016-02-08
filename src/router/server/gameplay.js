@@ -6,6 +6,14 @@ import checkRoomHost from '../middleware/checkRoomHost';
 
 import { getQuestion, getAnswer } from '../../db/deck';
 
+function waitNext(call) {
+  return (req, next) => {
+    let original = next();
+    setTimeout(call.bind(null, req, next), 0);
+    return original;
+  };
+}
+
 const router = new Router();
 
 // Poll events
@@ -18,17 +26,13 @@ router.poll(Gameplay.SUBMIT, setConnection, passThrough);
 router.poll(Gameplay.SELECT, setConnection, passThrough);
 
 // Middleware events; we need to intercept the game reducer.
-router.middleware(Gameplay.START, (req, next) => {
-  // First we need to run the start action first.
-  let original = next();
+router.middleware(Gameplay.START, waitNext(req => {
   // Pull random question card, then emit the action.
   let card = getQuestion();
   // Done! I think.
   req.store.dispatch(Gameplay.phaseSubmit(card, req.action.meta.target.room));
-  return original;
-});
-router.middleware(Gameplay.PHASE_SUBMIT, (req, next) => {
-  let original = next();
+}));
+router.middleware(Gameplay.PHASE_SUBMIT, waitNext(req => {
   const roomId = req.action.meta.target.room;
   const { room: { list } } = req.store.getState();
   const room = list[roomId];
@@ -45,20 +49,16 @@ router.middleware(Gameplay.PHASE_SUBMIT, (req, next) => {
       req.store.dispatch(Gameplay.draw(userId, cards, roomId));
     }
   }
-  return original;
-});
-router.middleware(Gameplay.PHASE_END, (req, next) => {
-  let original = next();
+}));
+router.middleware(Gameplay.PHASE_END, waitNext(req => {
   // Nothing to do here actually. Wait 4s and continue.
   setTimeout(() => {
     let card = getQuestion();
     const roomId = req.action.meta.target.room;
     req.store.dispatch(Gameplay.phaseSubmit(card, roomId));
   }, 4000);
-  return original;
-});
-router.middleware(Gameplay.SUBMIT, (req, next) => {
-  let original = next();
+}));
+router.middleware(Gameplay.SUBMIT, waitNext(req => {
   const roomId = req.action.meta.target.room;
   const { room: { list } } = req.store.getState();
   const room = list[roomId];
@@ -67,12 +67,9 @@ router.middleware(Gameplay.SUBMIT, (req, next) => {
     // Done! now let's emit phaseSelect action.
     req.store.dispatch(Gameplay.phaseSelect(answerCards, roomId));
   }
-  return original;
-});
-router.middleware(Gameplay.SELECT, (req, next) => {
-  let original = next();
+}));
+router.middleware(Gameplay.SELECT, waitNext(req => {
   req.store.dispatch(Gameplay.phaseEnd(req.action.meta.target.room));
-  return original;
-});
+}));
 
 export default router;
