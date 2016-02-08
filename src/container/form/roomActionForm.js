@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
-import RoomActionBar, { LeaveButton, JoinButton, SpectateButton }
+import RoomActionBar, { LeaveButton, JoinButton, SpectateButton, StartButton }
   from '../../component/roomActionBar';
 import ErrorInput from '../../component/ui/errorInput';
 
@@ -20,8 +20,8 @@ class RoomActionForm extends Component {
     });
   }
   render() {
-    const { fields: { password }, room, canJoin, canSpectate, joined,
-      handleSubmit, onLeave, onSpectate, invalid } = this.props;
+    const { fields: { password }, room, canJoin, canSpectate, canStart, joined,
+      handleSubmit, onLeave, onSpectate, onStart, invalid } = this.props;
     const onSubmit = handleSubmit(this.handleSubmit.bind(this));
     return (
       <form onSubmit={onSubmit}>
@@ -35,7 +35,12 @@ class RoomActionForm extends Component {
           </div>
           <RoomActionBar>
             { joined ? (
-              <LeaveButton onClick={onLeave} />
+              <span>
+                { canStart && (
+                  <StartButton onClick={onStart} button />
+                )}
+                <LeaveButton onClick={onLeave} />
+              </span>
             ) : (
               <span>
                 <JoinButton disabled={!canJoin || invalid} onClick={onSubmit}
@@ -60,12 +65,14 @@ RoomActionForm.propTypes = {
   joined: PropTypes.bool,
   canJoin: PropTypes.bool,
   canSpectate: PropTypes.bool,
+  canStart: PropTypes.bool,
   room: PropTypes.shape({
     lockType: PropTypes.oneOf(['public', 'password', 'invite'])
   }),
   onJoin: PropTypes.func,
   onLeave: PropTypes.func,
   onSpectate: PropTypes.func,
+  onStart: PropTypes.func,
   handleSubmit: PropTypes.func,
   fields: PropTypes.object,
   invalid: PropTypes.bool

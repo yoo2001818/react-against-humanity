@@ -20,3 +20,17 @@ for (let line of rawData) {
 }
 
 export default data;
+
+export function getQuestion() {
+  const deck = data['Q'];
+  return deck[deck.length * Math.random() | 0];
+}
+
+export function getAnswer(count) {
+  const deck = data['A'];
+  let output = [];
+  for (let i = 0; i < count; ++i) {
+    output.push(deck[deck.length * Math.random() | 0]);
+  }
+  return output;
+}

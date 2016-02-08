@@ -5,11 +5,17 @@ import connection from './connection';
 import transport from './transport';
 import chat from './chat';
 import room from './room';
+import gameplay from './gameplay';
 
 const router = new Router();
 
 router.use(blockNonAction);
 router.use(logger);
+router.use(connection);
+router.use(transport);
+router.use(chat);
+router.use(room);
+router.use(gameplay);
 router.middleware(null, req => {
   // Run action... This is placed on top to prevent broadcasting errored
   // actions.
@@ -26,11 +32,7 @@ router.middleware(null, req => {
     if (req.action.meta.target.connection === connection.id) continue;
     req.connector.dispatch(req.action, connection.id);
   }
-  return returned;
+  return Promise.resolve(returned);
 });
-router.use(connection);
-router.use(transport);
-router.use(chat);
-router.use(room);
 
 export default router;

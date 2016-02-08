@@ -19,7 +19,7 @@ export default function logger(req, next) {
   if (req.cause === 'poll') target = 'poll/' + req.connection;
   let targetColor = target === 'dispatch' ? 'magenta' : 'yellow';
   // Ignore dispatch actions.
-  if (target === 'dispatch') return next();
+  // if (target === 'dispatch') return next();
   if (typeof __SERVER__ === 'undefined' || __SERVER__) {
     const colors = require('colors/safe');
     console.log(colors[targetColor](target) + ' @ ' +

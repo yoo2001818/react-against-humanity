@@ -4,6 +4,7 @@ import * as ConnectionActions from '../../action/connection';
 import chatFilter from './chatFilter';
 import { getMap, addMap, updateOrRemoveMap } from './map';
 import { addList, removeListEntry } from './list';
+import gameplayReducer from './gameplay';
 
 const chatReducer = chatFilter('room', [
   RoomActions.JOIN,
@@ -57,7 +58,8 @@ export default function roomEntry(state = {
   let updateState = Object.assign({}, state, {
     // Not gonna need this
     // lastUpdated: meta.date,
-    chat: chatReducer(state.chat, action)
+    chat: chatReducer(state.chat, action),
+    gameplay: gameplayReducer(state, state.gameplay, action)
   });
   const connection = meta.target.connection;
   switch (type) {

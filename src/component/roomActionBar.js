@@ -55,6 +55,13 @@ export function SpectateButton(props) {
     </ActionButton>
   );
 }
+export function StartButton(props) {
+  return (
+    <ActionButton {...props} className='start'>
+      {__('RoomStartBtn')}
+    </ActionButton>
+  );
+}
 export function RoomCreateButton(props) {
   return (
     <ActionButton {...props} className='create'>

@@ -48,7 +48,7 @@ export default function gameplay(room, state, action) {
     return undefined;
   case GameplayActions.PHASE_SUBMIT:
     // Beginning of a turn, Nothing special really.
-    if (state.phase !== 'wait' || state.phase !== 'end') {
+    if (state.phase !== 'wait' && state.phase !== 'end') {
       throw new Error('Phase must be wait or end');
     }
     // TODO if users have connected after game start, we need to
@@ -85,9 +85,9 @@ export default function gameplay(room, state, action) {
   case GameplayActions.DRAW:
     // Give cards to specific user.
     return Object.assign({}, state, {
-      users: updateMap(room.users, payload.user,
-        Object.assign({}, room.users[payload.user], {
-          cards: room.users[payload.user].cards.concat(payload.cards)
+      users: updateMap(state.users, payload.user,
+        Object.assign({}, state.users[payload.user], {
+          cards: state.users[payload.user].cards.concat(payload.cards)
         })
       )
     });

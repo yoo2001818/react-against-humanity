@@ -8,6 +8,7 @@ import RoomActionForm from '../container/form/roomActionForm';
 
 import { routeActions as RouteActions } from 'redux-simple-router';
 import * as RoomActions from '../action/room';
+import * as GameplayActions from '../action/gameplay';
 
 export default class Room extends Component {
   handleJoin(data) {
@@ -20,6 +21,14 @@ export default class Room extends Component {
   handleLeave(e) {
     this.props.dispatch(RoomActions.leave())
     .then(() => this.props.dispatch(RouteActions.push('/')));
+    e.preventDefault();
+  }
+  handleStart(e) {
+    const { connection, room, dispatch } = this.props;
+    if (!connection || connection.id !== room.host) {
+      return Promise.resolve();
+    }
+    dispatch(GameplayActions.start());
     e.preventDefault();
   }
   handleFormEdit(values) {
@@ -50,6 +59,8 @@ export default class Room extends Component {
                 canJoin={connection && connection.level !== 'anonymous'}
                 onLeave={this.handleLeave.bind(this)}
                 onJoin={this.handleJoin.bind(this)}
+                onStart={this.handleStart.bind(this)}
+                canStart={room.host === (connection && connection.id)}
               />
             </div>
           </div>

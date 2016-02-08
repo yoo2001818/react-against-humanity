@@ -51,6 +51,7 @@
   "RoomTypePassword": "비밀번호",
   "RoomTypeInvite": "초대만",
   "FormResetBtn": "원래대로",
+  "RoomStartBtn": "시작",
   "ErrorValidationRequired": "필수로 입력해야 합니다",
   "ErrorValidationMinLength": "$1글자보다 길어야 합니다",
   "ErrorValidationMaxLength": "$1글자보다 짧아야 합니다",

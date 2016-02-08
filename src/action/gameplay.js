@@ -20,15 +20,35 @@ export const SUBMIT = 'gameplay/submit';
 // Czar selects the anwser card.
 export const SELECT = 'gameplay/select';
 
-export const start = createAction(START);
-export const stop = createAction(STOP);
+function classWrite() {
+  return { class: 'write' };
+}
+
+function noop() {
+}
+
+export const start = createAction(START, noop, classWrite);
+export const stop = createAction(STOP, noop, classWrite);
 
 export const phaseSubmit = createAction(PHASE_SUBMIT,
-  questionCard => questionCard);
+  questionCard => questionCard, (_, room) => ({
+    class: 'write',
+    target: { room }
+  }));
 export const phaseSelect = createAction(PHASE_SELECT,
-  answerCards => answerCards);
-export const phaseEnd = createAction(PHASE_END);
+  answerCards => answerCards, (_, room) => ({
+    class: 'write',
+    target: { room }
+  }));
+export const phaseEnd = createAction(PHASE_END, noop, room => ({
+  class: 'write',
+  target: { room }
+}));
 
-export const draw = createAction(DRAW, (user, cards) => ({user, cards}));
-export const submit = createAction(SUBMIT, cards => cards);
-export const select = createAction(SELECT, cards => cards);
+export const draw = createAction(DRAW, (user, cards) => ({user, cards}),
+  (_, _2, room) => ({
+    class: 'write',
+    target: { room }
+  }));
+export const submit = createAction(SUBMIT, cards => cards, classWrite);
+export const select = createAction(SELECT, cards => cards, classWrite);

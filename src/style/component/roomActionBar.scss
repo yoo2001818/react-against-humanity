@@ -3,6 +3,7 @@
   padding: 0 0.4em;
   padding-right: 0em;
   font-size: 0.9em;
+  vertical-align: middle;
   @media screen and (min-width: $mobile-size) {
     text-align: right;
     .action-container {
@@ -15,6 +16,7 @@
     padding-right: 0.4em;
     padding-top: 0.3em;
     box-sizing: border-box;
+    vertical-align: middle;
     a {
       text-decoration: none;
     }
@@ -46,6 +48,15 @@
       }
       &:before {
         content: $fa-var-search;
+      }
+    }
+    &.start .action {
+      background-color: $green-700;
+      &:hover {
+        background-color: $green-600;
+      }
+      &:before {
+        content: $fa-var-play;
       }
     }
     &.create .action {

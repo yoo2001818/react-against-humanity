@@ -3,19 +3,9 @@ import Router from '../../utils/router';
 import setConnection from '../middleware/setConnection';
 import passThrough from '../middleware/passThrough';
 import checkLogin from '../middleware/checkLogin';
+import checkRoomHost from '../middleware/checkRoomHost';
 
 const router = new Router();
-
-function checkRoomHost(req, next) {
-  const roomId = req.action.meta.target.room;
-  const { room: { list } } = req.store.getState();
-  const room = list[roomId];
-  if (room == null) throw new Error('Room is missing');
-  if (room.host !== req.action.meta.target.connection) {
-    throw new Error('You are not the host of the room');
-  }
-  return next();
-}
 
 router.poll(Room.CREATE, setConnection, checkLogin, (req, next) => {
   // Inject increment data to the action.
