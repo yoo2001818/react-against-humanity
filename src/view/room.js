@@ -6,6 +6,8 @@ import PlayerList from '../container/room/playerList';
 import RoomForm from '../container/form/roomForm';
 import RoomActionForm from '../container/form/roomActionForm';
 
+import Gameplay from './gameplay';
+
 import { routeActions as RouteActions } from 'redux-simple-router';
 import * as RoomActions from '../action/room';
 import * as GameplayActions from '../action/gameplay';
@@ -41,6 +43,11 @@ export default class Room extends Component {
         <AppContainer title='404'>
           <div>Such room doesn't exist.</div>
         </AppContainer>
+      );
+    }
+    if (room && room.gameplay) {
+      return (
+        <Gameplay room={room} connection={connection} />
       );
     }
     return (
