@@ -1,0 +1,14 @@
+.card-item-component {
+  display: block;
+  padding: 0.8em 0.6em;
+  margin: 0.4em 0.2em;
+  border: 1px solid $grey-400;
+  background-color: $grey-100;
+  color: $grey-800;
+  border-radius: 2px;
+  &.question {
+    border: 1px solid $grey-800;
+    background-color: $grey-700;
+    color: $grey-100;
+  }
+}

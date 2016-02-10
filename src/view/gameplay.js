@@ -1,23 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 
 import AppContainer from '../container/appContainer';
+import CardItem from '../component/gameplay/cardItem';
 
 export default class Gameplay extends Component {
   render() {
     const { room, connection } = this.props;
+    const { gameplay } = room;
+    const currentUser = gameplay.users[connection.id];
     return (
       <AppContainer title={room.name}>
-        <div>
-          The game has started! ... I think.
+        <div className='gameplay-view two-column-view'>
+          <div className='list-column'>
+            <CardItem card={gameplay.questionCard} />
+          </div>
+          <div className='details-column'>
+            <div className='details-dialog'>
+              {currentUser.cards.map((card, id) => (
+                <CardItem card={card} key={id} />
+              ))}
+            </div>
+          </div>
         </div>
-        <div>
-          {room.gameplay.questionCard && room.gameplay.questionCard.text}
-        </div>
-        <ul>
-          {room.gameplay.users[connection.id].cards.map(card => (
-            <li>{card.text}</li>
-          ))}
-        </ul>
       </AppContainer>
     );
   }
