@@ -53,6 +53,8 @@
   "FormResetBtn": "Reset",
   "RoomStartBtn": "Start",
   "SubmitBtn": "Submit",
+  "SubmitInfo": "Choose and submit the cards on the right.",
+  "SelectInfo": "Choose your favorite answer on the bottom.",
   "ErrorValidationRequired": "Required",
   "ErrorValidationMinLength": "Must be longer than $1 characters",
   "ErrorValidationMaxLength": "Must be shorter than $1 characters",

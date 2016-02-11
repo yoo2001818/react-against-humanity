@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import AppContainer from '../container/appContainer';
 import CardItem from '../component/gameplay/cardItem';
+import PlayerList from '../container/room/playerList';
 
 import * as GameplayActions from '../action/gameplay';
 
@@ -46,14 +47,23 @@ class Gameplay extends Component {
     const { cards: selectedCards } = this.state;
     const isCzar = connection.id === gameplay.czar;
     const canSelect = isCzar && gameplay.phase === 'select';
-    const canSubmit = !isCzar && gameplay.phase === 'submit';
+    const canSubmit = !isCzar && gameplay.phase === 'submit' &&
+      gameplay.submittedUsers.indexOf(connection.id) === -1;
     return (
-      <AppContainer title={room.name}>
+      <AppContainer title={room.name} sidebar={(
+        <PlayerList room={room} gameplay />
+      )}>
         <div className='gameplay-view two-column-view'>
           <div className='list-column'>
             <div className='question'>
               <CardItem card={gameplay.questionCard} />
             </div>
+            { canSelect && (
+              <p>{__('SelectInfo')}</p>
+            )}
+            { canSubmit && (
+              <p>{__('SubmitInfo')}</p>
+            )}
             <div className='answers'>
               {gameplay.answerCards && gameplay.answerCards.map(
                 (answer, deckId) =>
@@ -73,7 +83,7 @@ class Gameplay extends Component {
           </div>
           <div className='details-column'>
             <div className='card-list'>
-              {currentUser.cards.map((card, id) => (
+              {currentUser && currentUser.cards.map((card, id) => (
                 <CardItem card={card} key={id}
                   selected={canSubmit && selectedCards.indexOf(id) !== -1}
                   selectIndicator={selectedCards.indexOf(id) + 1}

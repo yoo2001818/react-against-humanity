@@ -53,6 +53,8 @@
   "FormResetBtn": "원래대로",
   "RoomStartBtn": "시작",
   "SubmitBtn": "보내기",
+  "SubmitInfo": "오른쪽 덱에서 카드를 골라 보내 주세요.",
+  "SelectInfo": "아래 목록에서 맘에 드는 정답을 골라주세요.",
   "ErrorValidationRequired": "필수로 입력해야 합니다",
   "ErrorValidationMinLength": "$1글자보다 길어야 합니다",
   "ErrorValidationMaxLength": "$1글자보다 짧아야 합니다",

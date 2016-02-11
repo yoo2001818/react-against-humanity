@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import PlayerItem from '../../component/room/playerItem';
 
@@ -20,17 +21,21 @@ class PlayerList extends Component {
     dispatch(RoomActions.transferHost(id, room.id));
   }
   render() {
-    const { users, host, self } = this.props;
+    const { users, host, self, gameplay, room } = this.props;
     return (
-      <ul className='player-list'>
+      <ul className={classNames('player-list', { gameplay })}>
         {users.map(user => (
           <li key={user.id}>
-            <PlayerItem user={user} isHost={host === user.id}
+            <PlayerItem user={user} isHost={gameplay ?
+              room.gameplay.czar === user.id : host === user.id}
               canModerate={host === self && self !== user.id}
               canLeave={self === user.id}
               onLeave={this.handleLeave.bind(this)}
               onKick={this.handleKick.bind(this, user.id)}
               onTransferHost={this.handleTransferHost.bind(this, user.id)}
+              showScore={gameplay}
+              score={gameplay && room.gameplay.users[user.id] &&
+                room.gameplay.users[user.id].points}
             />
           </li>
         ))}
@@ -44,6 +49,7 @@ PlayerList.propTypes = {
   self: PropTypes.number,
   users: PropTypes.array,
   room: PropTypes.object,
+  gameplay: PropTypes.bool,
   dispatch: PropTypes.func
 };
 

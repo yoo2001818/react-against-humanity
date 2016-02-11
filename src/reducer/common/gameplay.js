@@ -153,13 +153,18 @@ export default function gameplay(room, state, action) {
         throw new Error('Only card czar can do this.');
       }
       // The rest is simple. First, validate if specified cards exist.
-      if (state.answerCards[payload] == null) {
+      const answerCards = state.answerCards[payload];
+      if (answerCards == null) {
         throw new Error('Wrong card specified');
       }
       // Then, just inject the selected answer to the state. simple!
       // Of course, server router should emit phaseEnd action.
+      const selectedUser = state.users[answerCards.connectionId];
       return Object.assign({}, state, {
-        selectedAnswer: payload
+        selectedAnswer: payload,
+        users: updateMap(state.users, answerCards.connectionId,
+          Object.assign({}, selectedUser, { points: selectedUser.points + 1 })
+        )
       });
     }
     throw new Error('Payload must be specified');

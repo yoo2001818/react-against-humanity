@@ -4,7 +4,7 @@ export default class PlayerItem extends Component {
   render() {
     const { user, isHost, canModerate, canLeave,
       onTransferHost = () => {}, onKick = () => {},
-      onLeave = () => {} } = this.props;
+      onLeave = () => {}, showScore, score } = this.props;
     return (
       <div className='player-item-component'>
         <div className='name'>
@@ -14,6 +14,9 @@ export default class PlayerItem extends Component {
           )}
         </div>
         <div className='action-bar'>
+          {showScore && (
+            <span className='score'>{score}</span>
+          )}
           {canModerate && (
             <span>
               <button className='action transfer-host'
@@ -38,5 +41,7 @@ PlayerItem.propTypes = {
   canLeave: PropTypes.bool,
   onKick: PropTypes.func,
   onTransferHost: PropTypes.func,
-  onLeave: PropTypes.func
+  onLeave: PropTypes.func,
+  showScore: PropTypes.bool,
+  score: PropTypes.number
 };
