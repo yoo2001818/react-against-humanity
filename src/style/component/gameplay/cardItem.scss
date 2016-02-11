@@ -2,13 +2,35 @@
   display: block;
   padding: 0.8em 0.6em;
   margin: 0.4em 0.2em;
+  height: 2em;
   border: 1px solid $grey-400;
   background-color: $grey-100;
   color: $grey-800;
   border-radius: 2px;
+  // height: 3.2em;
   &.question {
     border: 1px solid $grey-800;
     background-color: $grey-700;
     color: $grey-100;
+  }
+  &.selected {
+    border: 1px solid $blue-600;
+    background-color: $grey-100;
+    color: $blue-800;
+  }
+  &.canSelect {
+    &:hover, &:focus {
+      border: 1px solid $blue-600;
+      outline: 0;
+      background-color: $blue-100;
+    }
+  }
+  & > .select-indicator {
+    float: right;
+    background-color: $blue-600;
+    color: $blue-100;
+    padding: 0.15em 0.4em;
+    margin: -0.4em -0.3em;
+    border-radius: 2px;
   }
 }

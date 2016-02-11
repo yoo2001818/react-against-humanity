@@ -1,0 +1,42 @@
+.gameplay-view {
+  & > .list-column {
+    .answer-deck {
+      display: flex;
+      .card-item-component {
+        flex: 1 0 auto;
+      }
+    }
+  }
+  & > .details-column {
+    & > .card-list {
+      background: none;
+      border: none;
+      padding: 1em 0.7em;
+      margin: 0;
+      & > .card-actions {
+        padding: 0.2em;
+        & > .submit {
+          display: block;
+          padding: 0.5em 0.6em;
+          background-color: $green-700;
+          border-radius: 2px;
+          border: none;
+          width: 100%;
+          box-sizing: border-box;
+          color: $grey-100;
+          cursor: default;
+          &:hover {
+            background-color: $green-600;
+          }
+          &:before {
+            @include fa-icon();
+            content: $fa-var-check;
+            font-size: 0.8em;
+            vertical-align: middle;
+            margin-right: 0.5em;
+          }
+        }
+      }
+    }
+  }
+}

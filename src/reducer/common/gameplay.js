@@ -61,7 +61,8 @@ export default function gameplay(room, state, action) {
       questionCard: payload,
       answerCards: [],
       answerCardCount: 0,
-      submittedUsers: []
+      submittedUsers: [],
+      selectedAnswer: null
     });
   case GameplayActions.PHASE_SELECT:
     // Server initiates this action after all players submit cards.
@@ -80,7 +81,9 @@ export default function gameplay(room, state, action) {
     }
     return Object.assign({}, state, {
       phase: 'end',
-      czar: (state.userList.indexOf(state.czar) + 1) % state.userList
+      czar: state.userList[
+        (state.userList.indexOf(state.czar) + 1) % state.userList.length
+      ]
     });
   case GameplayActions.DRAW:
     // Give cards to specific user.
@@ -95,7 +98,7 @@ export default function gameplay(room, state, action) {
     // User submits the card; we get list of card *INDEX*.
     // 'if' clause exists to create its own scope to prevent variable
     // confliction.
-    if (payload) {
+    if (payload != null) {
       if (state.phase !== 'submit') {
         throw new Error('Phase must be select');
       }
@@ -141,7 +144,7 @@ export default function gameplay(room, state, action) {
     throw new Error('Payload must be specified');
   case GameplayActions.SELECT:
     // Czar selects cards; we get index of answer cards.
-    if (payload) {
+    if (payload != null) {
       if (state.phase !== 'select') {
         throw new Error('Phase must be select');
       }
