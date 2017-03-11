@@ -40,7 +40,7 @@ function handleLeave(state, connection) {
   });
 }
 
-export default function roomEntry(state = {
+export function roomEntry(state = {
   // Some default schema goes here
   spectators: [],
   users: [],

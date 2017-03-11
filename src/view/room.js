@@ -12,7 +12,7 @@ import { routeActions as RouteActions } from 'redux-simple-router';
 import * as RoomActions from '../action/room';
 import * as GameplayActions from '../action/gameplay';
 
-export default class Room extends Component {
+class Room extends Component {
   handleJoin(data) {
     const { connection, room, dispatch } = this.props;
     if (!connection || connection.level === 'anonymous') {
